@@ -18,9 +18,9 @@ services:
       dockerfile: Dockerfile
     tty: true
     ports:
-      - "3001:3000"
+      - "3001:3001"
     volumes:
       - type: bind
         source: ./server
         target: /server
-    command: sh -c "npm i && npm run start:dev"
+    command: sh -c "npm run start:dev"

@@ -13,12 +13,12 @@ $ docker compose up (-d) (--build)
 
 ### パッケージインストール
 ```
-$ docker compose run -w /usr/src/app/front --rm node npm install package
+$ docker compose run -w /front --rm node npm install package
 $ docker compose run -w /server --rm server npm install package
 ```
 
 ### ビルド
 ```
-$ docker compose run -w /usr/src/app/front --rm node npm install
+$ docker compose run -w /front --rm node npm install
 $ docker compose run -w /server --rm server npm install
 ```

@@ -7,7 +7,7 @@ services:
     volumes:
       - type: bind
         source: ./front
-        target: /usr/src/app
+        target: /front
     command: sh -c "npm run dev"
     ports:
       - "3000:3000"

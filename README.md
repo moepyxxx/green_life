@@ -8,12 +8,17 @@
 
 ### 起動
 ```
-// どちらでもいける
-$ docker compose up (-d)
-$ make run
+$ docker compose up (-d) (--build)
 ```
 
 ### パッケージインストール
 ```
-$ make install PACKAGE=styled-components
+$ docker compose run -w /front --rm node npm install package
+$ docker compose run -w /server --rm server npm install package
+```
+
+### ビルド
+```
+$ docker compose run -w /front --rm node npm install
+$ docker compose run -w /server --rm server npm install
 ```

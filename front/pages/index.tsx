@@ -11,111 +11,114 @@ import Sample5 from '../img/sample_5.jpg'
 import Sample6 from '../img/sample_6.jpg'
 import Sample7 from '../img/sample_7.jpg'
 
+import DefaultTemplate from '../component/templates/Default';
 
 export default function Home() {
   return (
-    <>
-      <Layout>
-        <TitleLogo>
-          <Image src={Logo} alt="ロゴ" />
-        </TitleLogo>
-        <TitleImg>
-          <Image src={Sample1} alt="サンプル画像" height="600" width="600" objectFit="cover" />
-        </TitleImg>
-        <TitleText>
-          <TitleLarge>もっと、暮らしを、□ □ □ 。</TitleLarge>
-          <TitleSmall>green があれば、今日の生活はどうなるだろう？</TitleSmall>
-        </TitleText>
-      </Layout>
-      <Layout>
-        <Wrapper1>
-          <Wrapper1Content>
-            <Image src={Sample2} alt="サンプル画像" height="600" width="600" objectFit="cover" />
-          </Wrapper1Content>
-          <Wrapper1Content>
-            <Image src={Sample3} alt="サンプル画像" height="600" width="600" objectFit="cover" />
-          </Wrapper1Content>
-          <Wrapper1Content>
-            <Image src={Sample4} alt="サンプル画像" height="600" width="600" objectFit="cover" />
-          </Wrapper1Content>
-          <Wrapper1Content>
-            <Image src={Sample5} alt="サンプル画像" height="600" width="600" objectFit="cover" />
-          </Wrapper1Content>
-          <Wrapper1Content>
-            <Image src={Sample6} alt="サンプル画像" height="600" width="600" objectFit="cover" />
-          </Wrapper1Content>
-          <Wrapper1Content>
-            <Image src={Sample7} alt="サンプル画像" height="600" width="600" objectFit="cover" />
-          </Wrapper1Content>
-          <Wrapper1Content>
+    <DefaultTemplate>
+      <>
+        <Layout>
+          <TitleLogo>
+            <Image src={Logo} alt="ロゴ" />
+          </TitleLogo>
+          <TitleImg>
             <Image src={Sample1} alt="サンプル画像" height="600" width="600" objectFit="cover" />
-          </Wrapper1Content>
-          <Wrapper1Content>
-            <Image src={Sample2} alt="サンプル画像" height="600" width="600" objectFit="cover" />
-          </Wrapper1Content>
-          <Wrapper1Content>
-            <Image src={Sample3} alt="サンプル画像" height="600" width="600" objectFit="cover" />
-          </Wrapper1Content>
-        </Wrapper1>
-      </Layout>
-      <Layout>
-        <Wrapper2Main>
-          <Wrapper2MainImg>
-            <Image src={Sample4} alt="サンプル画像" height="600" width="600" objectFit="cover" />
-          </Wrapper2MainImg>
-          <Wrapper2MainText>ほらほらほら<br />こうやっておくと<br />超かわいい！</Wrapper2MainText>
-        </Wrapper2Main>
-        <Wrapper2Sub>
-          <Image src={Sample5} alt="サンプル画像" height="600" width="600" objectFit="cover" />
-        </Wrapper2Sub>
-        <Wrapper2Comment>なんだかすてきな Life になる気がしてきた</Wrapper2Comment>
-      </Layout>
-      <Layout>
-        <Wrapper3Img1>
-          <Image src={Sample6} alt="サンプル画像" height="600" width="600" objectFit="cover" />
-        </Wrapper3Img1>
-        <Wrapper3Img2>
-          <Image src={Sample7} alt="サンプル画像" height="600" width="600" objectFit="cover" />
-        </Wrapper3Img2>
-        <Wrapper3Img3>
-          <Image src={Sample1} alt="サンプル画像" height="600" width="600" objectFit="cover" />
-        </Wrapper3Img3>
-        <Wrapper3Img4>
-          <Image src={Sample2} alt="サンプル画像" height="600" width="600" objectFit="cover" />
-        </Wrapper3Img4>
-      </Layout>
-      <Layout>
-        <Wrapper1>
-          <Wrapper1Content>
-            <Image src={Sample2} alt="サンプル画像" height="600" width="600" objectFit="cover" />
-          </Wrapper1Content>
-          <Wrapper1Content>
-            <Image src={Sample3} alt="サンプル画像" height="600" width="600" objectFit="cover" />
-          </Wrapper1Content>
-          <Wrapper1Content>
-            <Image src={Sample4} alt="サンプル画像" height="600" width="600" objectFit="cover" />
-          </Wrapper1Content>
-          <Wrapper1Content>
+          </TitleImg>
+          <TitleText>
+            <TitleLarge>もっと、暮らしを、□ □ □ 。</TitleLarge>
+            <TitleSmall>green があれば、今日の生活はどうなるだろう？</TitleSmall>
+          </TitleText>
+        </Layout>
+        <Layout>
+          <Wrapper1>
+            <Wrapper1Content>
+              <Image src={Sample2} alt="サンプル画像" height="600" width="600" objectFit="cover" />
+            </Wrapper1Content>
+            <Wrapper1Content>
+              <Image src={Sample3} alt="サンプル画像" height="600" width="600" objectFit="cover" />
+            </Wrapper1Content>
+            <Wrapper1Content>
+              <Image src={Sample4} alt="サンプル画像" height="600" width="600" objectFit="cover" />
+            </Wrapper1Content>
+            <Wrapper1Content>
+              <Image src={Sample5} alt="サンプル画像" height="600" width="600" objectFit="cover" />
+            </Wrapper1Content>
+            <Wrapper1Content>
+              <Image src={Sample6} alt="サンプル画像" height="600" width="600" objectFit="cover" />
+            </Wrapper1Content>
+            <Wrapper1Content>
+              <Image src={Sample7} alt="サンプル画像" height="600" width="600" objectFit="cover" />
+            </Wrapper1Content>
+            <Wrapper1Content>
+              <Image src={Sample1} alt="サンプル画像" height="600" width="600" objectFit="cover" />
+            </Wrapper1Content>
+            <Wrapper1Content>
+              <Image src={Sample2} alt="サンプル画像" height="600" width="600" objectFit="cover" />
+            </Wrapper1Content>
+            <Wrapper1Content>
+              <Image src={Sample3} alt="サンプル画像" height="600" width="600" objectFit="cover" />
+            </Wrapper1Content>
+          </Wrapper1>
+        </Layout>
+        <Layout>
+          <Wrapper2Main>
+            <Wrapper2MainImg>
+              <Image src={Sample4} alt="サンプル画像" height="600" width="600" objectFit="cover" />
+            </Wrapper2MainImg>
+            <Wrapper2MainText>ほらほらほら<br />こうやっておくと<br />超かわいい！</Wrapper2MainText>
+          </Wrapper2Main>
+          <Wrapper2Sub>
             <Image src={Sample5} alt="サンプル画像" height="600" width="600" objectFit="cover" />
-          </Wrapper1Content>
-          <Wrapper1Content>
+          </Wrapper2Sub>
+          <Wrapper2Comment>なんだかすてきな Life になる気がしてきた</Wrapper2Comment>
+        </Layout>
+        <Layout>
+          <Wrapper3Img1>
             <Image src={Sample6} alt="サンプル画像" height="600" width="600" objectFit="cover" />
-          </Wrapper1Content>
-          <Wrapper1Content>
+          </Wrapper3Img1>
+          <Wrapper3Img2>
             <Image src={Sample7} alt="サンプル画像" height="600" width="600" objectFit="cover" />
-          </Wrapper1Content>
-          <Wrapper1Content>
+          </Wrapper3Img2>
+          <Wrapper3Img3>
             <Image src={Sample1} alt="サンプル画像" height="600" width="600" objectFit="cover" />
-          </Wrapper1Content>
-          <Wrapper1Content>
+          </Wrapper3Img3>
+          <Wrapper3Img4>
             <Image src={Sample2} alt="サンプル画像" height="600" width="600" objectFit="cover" />
-          </Wrapper1Content>
-          <Wrapper1Content>
-            <Image src={Sample3} alt="サンプル画像" height="600" width="600" objectFit="cover" />
-          </Wrapper1Content>
-        </Wrapper1>
-      </Layout>
-    </>
+          </Wrapper3Img4>
+        </Layout>
+        <Layout>
+          <Wrapper1>
+            <Wrapper1Content>
+              <Image src={Sample2} alt="サンプル画像" height="600" width="600" objectFit="cover" />
+            </Wrapper1Content>
+            <Wrapper1Content>
+              <Image src={Sample3} alt="サンプル画像" height="600" width="600" objectFit="cover" />
+            </Wrapper1Content>
+            <Wrapper1Content>
+              <Image src={Sample4} alt="サンプル画像" height="600" width="600" objectFit="cover" />
+            </Wrapper1Content>
+            <Wrapper1Content>
+              <Image src={Sample5} alt="サンプル画像" height="600" width="600" objectFit="cover" />
+            </Wrapper1Content>
+            <Wrapper1Content>
+              <Image src={Sample6} alt="サンプル画像" height="600" width="600" objectFit="cover" />
+            </Wrapper1Content>
+            <Wrapper1Content>
+              <Image src={Sample7} alt="サンプル画像" height="600" width="600" objectFit="cover" />
+            </Wrapper1Content>
+            <Wrapper1Content>
+              <Image src={Sample1} alt="サンプル画像" height="600" width="600" objectFit="cover" />
+            </Wrapper1Content>
+            <Wrapper1Content>
+              <Image src={Sample2} alt="サンプル画像" height="600" width="600" objectFit="cover" />
+            </Wrapper1Content>
+            <Wrapper1Content>
+              <Image src={Sample3} alt="サンプル画像" height="600" width="600" objectFit="cover" />
+            </Wrapper1Content>
+          </Wrapper1>
+        </Layout>
+      </>
+    </DefaultTemplate>
   )
 }
 

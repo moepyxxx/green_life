@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image'
 
-import Logo from '../img/logo.svg'
+import Logo from '../img/logo/default.svg'
 import Sample1 from '../img/sample_1.jpg'
 import Sample2 from '../img/sample_2.jpg'
 import Sample3 from '../img/sample_3.jpg'

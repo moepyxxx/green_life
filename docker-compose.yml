@@ -9,3 +9,16 @@ services:
     command: sh -c "cd front && npm run dev"
     ports:
       - "3000:3000"
+  
+  server:
+    build:
+      context: ./services/server/
+      dockerfile: Dockerfile
+    tty: true
+    ports:
+      - "3001:3000"
+    volumes:
+      - type: bind
+        source: ./server
+        target: /server
+    command: sh -c "npm i && npm run start:dev"

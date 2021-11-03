@@ -6,7 +6,7 @@ import { IPost } from 'src/interfaces/post';
 import { IFindSummaryAllRequest } from './posts.controller';
 
 export interface IfindSummaryAllResult {
-  current: number,
+  page: number,
   posts: IPost[]
 }
 
@@ -16,7 +16,11 @@ export class PostsService {
 
   async findSummaryAll(request: IFindSummaryAllRequest): Promise<IfindSummaryAllResult> {
 
-    const results = await this.postModel.find().limit(request.count);
+    const castParam = {
+      page: Number(request.page),
+      count: Number(request.count)
+    }
+    const results = await this.postModel.find().limit(castParam.count);
 
     const posts = results.map(result => {
       const { id, imagePath } = result;
@@ -24,7 +28,7 @@ export class PostsService {
     });
 
     return {
-      current: request.page,
+      page: castParam.page,
       posts
     }
   }

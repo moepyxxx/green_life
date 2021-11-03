@@ -1,9 +1,9 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { PostsService } from './posts.service';
 
 export interface IFindSummaryAllRequest {
-  page: number;
-  count: number;
+  page: string;
+  count: string;
 }
 
 @Controller('posts')
@@ -12,7 +12,12 @@ export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
   @Get()
-  async findSummaryAll(@Param() params: IFindSummaryAllRequest) {
+  async findSummaryAll(@Query() params: IFindSummaryAllRequest) {
+
+    if (!params.page) {
+      params.page = "1";
+      params.count = "10";
+    }
     return await this.postsService.findSummaryAll(params);
   }
   

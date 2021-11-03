@@ -1,7 +1,7 @@
 export interface IUserDetail {
   id: string; // hash
-  user_name: string; // 一意
-  display_name: string;
+  userName: string; // 一意
+  displayName: string;
   email: string;
   password: string;
 }

@@ -6,11 +6,11 @@ import { IUser } from "./user";
 export interface IPostDetail {
   id: string;
   user: IUser;
-  image_path: string; // hash
+  imagePath: string; // hash
   pins: IPin[];
   comment: string;
   like: IPostLike;
-  created_at: Date;
-  updated_at: Date;
+  createdAt: Date;
+  updatedAt: Date;
   tags: ITag[];
 }

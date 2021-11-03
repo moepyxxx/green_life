@@ -4,6 +4,8 @@ services:
     build:
       context: ./services/front/
       dockerfile: Dockerfile
+    networks:
+      - greenlife-network
     volumes:
       - type: bind
         source: ./front
@@ -19,8 +21,29 @@ services:
     tty: true
     ports:
       - "3001:3001"
+    depends_on:
+      - mongo
+    links:
+      - mongo
+    networks:
+      - greenlife-network
     volumes:
       - type: bind
         source: ./server
         target: /server
     command: sh -c "npm run start:dev"
+
+  mongo:
+    image: mongo
+    restart: always
+    networks:
+      - greenlife-network
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - 27017:27017
+
+networks:
+  greenlife-network:
+    external: true  

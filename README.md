@@ -22,3 +22,10 @@ $ docker compose run -w /server --rm server npm install package
 $ docker compose run -w /front --rm node npm install
 $ docker compose run -w /server --rm server npm install
 ```
+
+### DB接続
+```
+$ docker compose exec mongo bash
+// docker-compose.ymlのID・パスワードを入力
+# mongo admin -u root -p example
+```

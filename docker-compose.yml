@@ -23,8 +23,6 @@ services:
       - "3001:3001"
     depends_on:
       - mongo
-    links:
-      - mongo
     networks:
       - greenlife-network
     volumes:

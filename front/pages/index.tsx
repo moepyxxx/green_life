@@ -207,7 +207,7 @@ const Wrapper3Img4 = styled.div`
 export const getStaticProps: GetStaticProps = async () => {
 
   const query = new URLSearchParams({ page : '1', count: '25' });
-  const url = `http://server:3001/posts?${query}`;
+  const url = `${process.env.NEXT_PUBLIC_API_URL}posts?${query}`;
 
   const { page, posts } = await (await fetch(url)).json();
 

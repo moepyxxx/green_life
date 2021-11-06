@@ -6,6 +6,9 @@
 
 ## 適当な開発ステップ
 
+### はじめに
+1. `front`ファイル特化の`.env.sample`をコピーして`.env.local`という名前で保存
+
 ### 起動
 ```
 $ docker compose up (-d) (--build)

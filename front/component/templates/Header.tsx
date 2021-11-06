@@ -5,8 +5,6 @@ import styled from 'styled-components';
 import Logo from '../atoms/Logo';
 import Pattern1 from '../pattern/Pattern1';
 
-import SampleUserImg from '../../img/sample_user.png';
-
 const Header = () => {
   return (
     <HeaderWrap>
@@ -20,7 +18,7 @@ const Header = () => {
           <Pattern1 fill='primary' />
         </WrapPattern>
         <UserImg>
-          <Image src={SampleUserImg} alt="サンプルユーザーアイコン" objectFit="cover" />
+          <Image src={'/sample_user.png'} alt="サンプルユーザーアイコン" layout="fill" objectFit="cover" />
         </UserImg>
       </UserStatusBudge>
 

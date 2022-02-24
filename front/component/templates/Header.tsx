@@ -14,12 +14,7 @@ const Header = () => {
       </LogoSpace>
 
       <UserStatusBudge>
-        <WrapPattern>
-          <Pattern1 fill='primary' />
-        </WrapPattern>
-        <UserImg>
-          <Image src={'/sample_user.png'} alt="サンプルユーザーアイコン" layout="fill" objectFit="cover" />
-        </UserImg>
+        <Image src={'/sample_user.png'} alt="サンプルユーザーアイコン" layout="fill" objectFit="cover" />
       </UserStatusBudge>
 
     </HeaderWrap>
@@ -43,25 +38,11 @@ const LogoSpace = styled.div`
   width: 160px;
 `;
 const UserStatusBudge = styled.div`
-  width: 48px;
-  margin: 8px;
-  position: relative;
-  cursor: pointer;
-`;
-const WrapPattern = styled.div`
-  width: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
-const UserImg = styled.div`
-  width: 32px;
-  height: 32px;
-  position: absolute;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   overflow: hidden;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  margin: 16px;
+  position: relative;
+  cursor: pointer;
 `;

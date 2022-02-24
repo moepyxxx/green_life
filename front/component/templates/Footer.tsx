@@ -15,7 +15,7 @@ const Footer = () => {
           <Logo color='white' />
         </FooterLogo>
         <FooterCatch>もっと、暮らしを、□ □ □ 。</FooterCatch>
-        <FooterCopy>@ copyright Moeko Iwai All right Reserved.</FooterCopy>
+        <FooterCopy>@ copyright Moeko.I All right Reserved.</FooterCopy>
       </FooterText>
     </FooterWrap>
   );

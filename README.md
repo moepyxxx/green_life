@@ -14,6 +14,27 @@
 $ docker compose up (-d) (--build)
 ```
 
+### データベース初期化
+
+```
+// コンテナへ入る
+$ docker compose exec mongo bash
+
+// databaseフォルダがマウントされていることを確認する
+# cd database
+
+// インポート
+# mongoimport --db greenlife --collection <collection名(s)> --authenticationDatabase admin --username root --password example --drop --file <jsonファイル名> --jsonArray
+
+// あるいはsh実行
+# sh init.sh
+
+// 実際にDBに入ってデータがインポートされているか確認
+# mongo admin -u root -p example
+# use greenlife
+# db.<collection名>.find()
+```
+
 ### パッケージインストール
 ```
 $ docker compose run -w /front --rm node npm install package

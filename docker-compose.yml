@@ -41,7 +41,11 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
     ports:
       - 27017:27017
-
+    volumes:
+      - type: bind
+        source: ./database
+        target: /database
+        
 networks:
   greenlife-network:
     external: true  

@@ -1,19 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import getColor from '../../utility/getColor';
 
 type Props = {
-  action: () => void,
+  action: (isActive: boolean) => void,
   checked: boolean
 }
 
 const Switch: React.FC<Props> = ( { action, checked = false } ) => {
 
   const [isChecked, setIsCheked] = useState<boolean>(checked);
+
+  useEffect(() => {
+    action(isChecked);
+  }, [isChecked]);
   
   const change = () => {
-    setIsCheked(isChecked != isChecked);
-    action();
+    setIsCheked(!isChecked);
   }
 
   return (

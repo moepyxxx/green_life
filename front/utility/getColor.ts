@@ -4,15 +4,19 @@ const getColor = ( color: TColor ) => {
   
   switch ( color ) {
     case 'base':
-      return '#000';
+      return '#0C0C0C';
     case 'white':
       return '#fff';
     case 'primary':
       return '#93B69C';
     case 'secondary':
       return '#47885E';
+    case 'gray':
+      return '#D8E0DA';
+    case 'disable':
+      return '#F0F0F0';
     default :
-      return 'black';
+      return '#0C0C0C';
   }
 }
 

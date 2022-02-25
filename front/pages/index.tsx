@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Logo from '../component/atoms/Logo';
 
 import DefaultTemplate from '../component/templates/Default';
+import CatchCopy from '../component/molecules/CatchCopy';
 
 export default function Home({ page, posts }: InferGetStaticPropsType<typeof getStaticProps>) {
 
@@ -21,10 +22,9 @@ export default function Home({ page, posts }: InferGetStaticPropsType<typeof get
             <Image src={'/' + posts[0].imagePath} alt="サンプル画像" height="600" width="600" objectFit="cover" />
           </TitleImg>
 
-          <TitleText>
-            <TitleLarge>もっと、暮らしを、□ □ □ 。</TitleLarge>
-            <TitleSmall>green があれば、今日の生活はどうなるだろう？</TitleSmall>
-          </TitleText>
+          <Catch>
+            <CatchCopy />
+          </Catch>
 
         </Layout>
 
@@ -60,19 +60,11 @@ const TitleImg = styled.div`
   height: 90vw;
   object-fit: cover;
 `;
-const TitleText = styled.div`
+const Catch = styled.div`
   margin-top: 76px;
   text-align: center;
 `;
-const TitleLarge = styled.p`
-  font-size: 20px;
-  font-family: 'Noto Serif JP', serif;
-`;
-const TitleSmall = styled.p`
-  font-size: 14px;
-`;
 const Contents = styled.div`
-  padding: 0 16px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;

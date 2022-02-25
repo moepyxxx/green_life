@@ -36,14 +36,13 @@ const FooterLogo = styled.div`
   margin: 0 auto;
 `;
 const FooterCatch = styled.p`
-  font-size: 14px;
-  font-family: 'Noto Serif JP', serif;
+  font-size: 1.4rem;
   color: ${getColor('white')};
   margin-top: 4px;
 `;
 const FooterCopy = styled.p`
   margin-top: 60px;
-  font-size: 12px;
+  font-size: 1.2rem;
   color: ${getColor('white')};
   letter-spacing: 0.05rem;
 `;

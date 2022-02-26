@@ -2,12 +2,14 @@ import * as mongoose from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { IPin } from './interfaces/pin';
-import { ITag } from 'src/tags/interfaces/tag';
 
 export type PostDocument = Post & Document;
 
 @Schema()
 export class Post {
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId })
+  _id: mongoose.Schema.Types.ObjectId;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   userId: mongoose.Schema.Types.ObjectId;

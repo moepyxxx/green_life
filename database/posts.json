@@ -4,7 +4,7 @@
     "userId": {"$oid":"6216ddcd9e6c2a966a623694"},
     "imagePath": "sample_1.jpg",
     "comment": "ダミーコメント",
-    "tags": [
+    "tagIds": [
       {"$oid":"6216ddcd9e6c2a966a623701"},      
       {"$oid":"6216ddcd9e6c2a966a623702"},      
       {"$oid":"6216ddcd9e6c2a966a623703"}  
@@ -21,7 +21,7 @@
     "userId": {"$oid":"6216ddcd9e6c2a966a623695"},
     "imagePath": "sample_2.jpg",
     "comment": "ダミーコメント",
-    "tags": [
+    "tagIds": [
       {"$oid":"6216ddcd9e6c2a966a623704"}
     ],
     "pins": [{
@@ -36,7 +36,7 @@
     "userId": {"$oid":"6216ddcd9e6c2a966a623696"},
     "imagePath": "sample_3.jpg",
     "comment": "ダミーコメント",
-    "tags": [
+    "tagIds": [
       {"$oid":"6216ddcd9e6c2a966a623705"},      
       {"$oid":"6216ddcd9e6c2a966a623706"},      
       {"$oid":"6216ddcd9e6c2a966a623707"},      
@@ -51,10 +51,10 @@
   },
   {
     "_id": {"$oid":"6216ddcd9e6c2a966a623694"},
-    "userId": {"$oid":"6216ddcd9e6c2a966a653602"},
+    "userId": {"$oid":"6216ddcd9e6c2a966a623694"},
     "imagePath": "sample_4.jpg",
     "comment": "ダミーコメント",
-    "tags": [   
+    "tagIds": [   
       {"$oid":"6216ddcd9e6c2a966a623709"}  
     ],
     "pins": [{

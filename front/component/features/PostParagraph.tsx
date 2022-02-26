@@ -3,21 +3,23 @@ import styled from 'styled-components';
 import Typography from '../atoms/Typography';
 import HashTag from '../molecules/HashTag';
 
+export type TParagraph = {
+  name: string;
+  username: string;
+  date: string;
+  description: string;
+  tags: string[]
+}
+
 type Props = {
-  paragraph: {
-    name: string;
-    userid: string;
-    date: string;
-    description: string;
-    tags: string[]
-  }
+  paragraph: TParagraph
 }
 const PostParagraph: React.FC<Props> = ({ paragraph }) => {
   return (
     <>
       <User>
         <Typography size="medium" margin="0 8px 0 0">{paragraph.name}</Typography>
-        <Typography size="medium" family="Bitter">{`@${paragraph.userid}`}</Typography>
+        <Typography size="medium" family="Bitter">{`@${paragraph.username}`}</Typography>
       </User>
 
       <Typography size="small" family="Bitter">{paragraph.date}</Typography>

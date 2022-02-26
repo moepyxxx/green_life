@@ -1,0 +1,23 @@
+[
+  {
+    "_id": {"$oid":"6216ddcd9e6c2a966a623694"},
+    "userName": "tamachan",
+    "displayName": "たまちゃん",
+    "createdAt": {"$date":"2021-11-07T10:00:00.884Z"},
+    "updatedAt": {"$date":"2021-11-07T10:00:00.884Z"}
+  },
+  {
+    "_id": {"$oid":"6216ddcd9e6c2a966a623695"},
+    "userName": "unichan",
+    "displayName": "うにちゃん",
+    "createdAt": {"$date":"2021-11-07T10:00:00.884Z"},
+    "updatedAt": {"$date":"2021-11-07T10:00:00.884Z"}
+  },
+  {
+    "_id": {"$oid":"6216ddcd9e6c2a966a623696"},
+    "userName": "piyochan",
+    "displayName": "ぴよちゃん",
+    "createdAt": {"$date":"2021-11-07T10:00:00.884Z"},
+    "updatedAt": {"$date":"2021-11-07T10:00:00.884Z"}
+  }
+]

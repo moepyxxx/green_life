@@ -2,7 +2,7 @@ import { Model } from 'mongoose';
 import { Injectable, Param } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Post, PostDocument } from './post.schema';
-import { IPost } from 'src/interfaces/post';
+import { IPost } from 'src/posts/interfaces/post';
 import { IFindSummaryAllRequest } from './posts.controller';
 
 export interface IfindSummaryAllResult {

@@ -11,7 +11,7 @@
     ],
     "pins": [{
       "position": { "top": "35", "left": "20" },
-      "specieId": {"$oid":"6216ddcd9e6c2a966a623698"}
+      "greenId": {"$oid":"6216ddcd9e6c2a966a623711"}
     }],
     "createdAt": {"$date":"2021-11-07T10:00:00.884Z"},
     "updatedAt": {"$date":"2021-11-07T10:00:00.884Z"}
@@ -26,7 +26,7 @@
     ],
     "pins": [{
       "position": { "top": "65", "left": "75" },
-      "specieId": {"$oid":"6216ddcd9e6c2a966a623697"}
+      "greenId": {"$oid":"6216ddcd9e6c2a966a623712"}
     }],
     "createdAt": {"$date":"2021-11-07T10:00:00.884Z"},
     "updatedAt": {"$date":"2021-11-07T10:00:00.884Z"}
@@ -44,7 +44,7 @@
     ],
     "pins": [{
       "position": { "top": "35", "left": "20" },
-      "specieId": {"$oid":"6216ddcd9e6c2a966a623698"}
+      "greenId": {"$oid":"6216ddcd9e6c2a966a623713"}
     }],
     "createdAt": {"$date":"2021-11-07T10:00:00.884Z"},
     "updatedAt": {"$date":"2021-11-07T10:00:00.884Z"}
@@ -59,10 +59,10 @@
     ],
     "pins": [{
       "position": { "top": "15", "left": "52" },
-      "specieId": {"$oid":"6216ddcd9e6c2a966a623699"}
+      "greenId": {"$oid":"6216ddcd9e6c2a966a623714"}
     }, {
       "position": { "top": "85", "left": "85" },
-      "specieId": {"$oid":"6216ddcd9e6c2a966a623700"}
+      "greenId": {"$oid":"6216ddcd9e6c2a966a623700"}
     }],
     "createdAt": {"$date":"2021-11-07T10:00:00.884Z"},
     "updatedAt": {"$date":"2021-11-07T10:00:00.884Z"}

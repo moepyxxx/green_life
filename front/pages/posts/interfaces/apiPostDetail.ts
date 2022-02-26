@@ -11,7 +11,7 @@ export interface IApiPostDetail {
       left: string;
       top: string;
     },
-    specieId: string;
+    greenId: string;
   }[],
   tags: IApiTag[];
   createdAt: string;

@@ -26,11 +26,11 @@ export class PostDetailMaker implements IPostDetail {
   updatedAt: Date;
   tags: Tag[];
 
-  constructor(post: Post, tags: Tag[], user: User) {
+  constructor(post: Post, tags: Tag[], user: User, greenPins: IPin[]) {
     this._id = post._id;
     this.user = user;
     this.imagePath = post.imagePath;
-    this.pins = post.pins;
+    this.pins = greenPins;
     this.comment = post.comment;
     this.tags = tags;
     this.createdAt = post.createdAt;

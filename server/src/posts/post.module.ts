@@ -7,14 +7,17 @@ import { Tag, TagSchema } from 'src/tags/tag.schema';
 import { TagService } from 'src/tags/tag.service';
 import { User, UserSchema } from 'src/users/user.schema';
 import { UserService } from 'src/users/user.service';
+import { GreenService } from 'src/greens/green.service';
+import { Green, GreenSchema } from 'src/greens/green.schema';
 
 @Module({
   imports: [MongooseModule.forFeature([
     { name: Post.name, schema: PostSchema },
     { name: Tag.name, schema: TagSchema },
     { name: User.name, schema: UserSchema },
+    { name: Green.name, schema: GreenSchema }
   ])],
   controllers: [PostController],
-  providers: [PostService, TagService, UserService],
+  providers: [PostService, TagService, UserService, GreenService],
 })
 export class PostModule {}

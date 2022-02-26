@@ -1,3 +1,4 @@
+import { IApiGreen } from "./apiGreen";
 import { IApiTag } from "./apiTag";
 import { IApiUser } from "./apiUser";
 
@@ -11,7 +12,7 @@ export interface IApiPostDetail {
       left: string;
       top: string;
     },
-    greenId: string;
+    green: IApiGreen;
   }[],
   tags: IApiTag[];
   createdAt: string;

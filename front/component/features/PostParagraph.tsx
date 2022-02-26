@@ -27,7 +27,7 @@ const PostParagraph: React.FC<Props> = ({ paragraph }) => {
       
       <Tags>
         {paragraph.tags.map((tag, index) => {
-          <HashTag isLink={false} key={index}>{tag}</HashTag>
+          return (<HashTag isLink={false} key={index}>{tag}</HashTag>);
         })}
       </Tags>
     </>
@@ -40,7 +40,7 @@ const User = styled.div`
 
 const Tags = styled.ul`
   li {
-    margin: 0 20px 20px 0;
+    margin: 0 8px 4px 0;
   }
 `;
 

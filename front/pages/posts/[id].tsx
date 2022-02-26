@@ -30,7 +30,7 @@ const PostDetail: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (
     tags: post.tags.map(tag => tag.label)
   }
 
-  const greenpins: TGreenPin[] = post.pins.map(pin => {
+  const greenpins: TGreenPin[] = post.greenPins.map(pin => {
     const { name, description, imagePath } = pin.green;
     const { left, top } = pin.position;
     return {

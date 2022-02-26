@@ -9,7 +9,7 @@
       {"$oid":"6216ddcd9e6c2a966a623702"},      
       {"$oid":"6216ddcd9e6c2a966a623703"}  
     ],
-    "pins": [{
+    "greenPins": [{
       "position": { "top": "35", "left": "20" },
       "greenId": {"$oid":"6216ddcd9e6c2a966a623711"}
     }],
@@ -24,7 +24,7 @@
     "tagIds": [
       {"$oid":"6216ddcd9e6c2a966a623704"}
     ],
-    "pins": [{
+    "greenPins": [{
       "position": { "top": "65", "left": "75" },
       "greenId": {"$oid":"6216ddcd9e6c2a966a623712"}
     }],
@@ -42,7 +42,7 @@
       {"$oid":"6216ddcd9e6c2a966a623707"},      
       {"$oid":"6216ddcd9e6c2a966a623708"}  
     ],
-    "pins": [{
+    "greenPins": [{
       "position": { "top": "35", "left": "20" },
       "greenId": {"$oid":"6216ddcd9e6c2a966a623713"}
     }],
@@ -57,7 +57,7 @@
     "tagIds": [   
       {"$oid":"6216ddcd9e6c2a966a623709"}  
     ],
-    "pins": [{
+    "greenPins": [{
       "position": { "top": "15", "left": "52" },
       "greenId": {"$oid":"6216ddcd9e6c2a966a623714"}
     }, {

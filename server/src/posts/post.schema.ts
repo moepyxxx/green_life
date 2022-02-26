@@ -26,7 +26,7 @@ export class Post {
     },
     greenId: { type: mongoose.Schema.Types.ObjectId, ref: 'Green' }
   }]})
-  pins: {
+  greenPins: {
     position: {
       left: number,
       top: number,

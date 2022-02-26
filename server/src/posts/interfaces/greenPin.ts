@@ -1,7 +1,7 @@
 import { Green } from "src/greens/green.schema";
 import { IPosition } from "./position";
 
-export interface IPin {
+export interface IGreenPin {
   position: IPosition;
   green: Green;
 }

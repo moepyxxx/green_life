@@ -7,7 +7,7 @@ export interface IApiPostDetail {
   user: IApiUser;
   imagePath: string;
   comment: string;
-  pins: {
+  greenPins: {
     position: {
       left: string;
       top: string;

@@ -10,7 +10,7 @@ import { UserService } from 'src/users/user.service';
 import { GreenService } from 'src/greens/green.service';
 import { Tag } from 'src/tags/tag.schema';
 import { User } from 'src/users/user.schema';
-import { IPin } from './interfaces/pin';
+import { IGreenPin } from './interfaces/greenPin';
 import { Green } from 'src/greens/green.schema';
 
 export interface IfindSummaryAllResult {
@@ -49,7 +49,7 @@ export class PostService {
   async findOne(id: string): Promise<IPostDetail> {
     const post: Post = await this.postModel.findById(id).exec();
 
-    const greenpins: IPin[] = await Promise.all(post.pins.map(async post => {
+    const greenpins: IGreenPin[] = await Promise.all(post.greenPins.map(async post => {
       const green: Green = await this.greenService.fetchGreen(post.greenId.toString());
       return {
         position: post.position,

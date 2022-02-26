@@ -6,6 +6,7 @@ import Logo from '../component/atoms/Logo';
 
 import DefaultTemplate from '../component/templates/Default';
 import CatchCopy from '../component/molecules/CatchCopy';
+import PostThumbnailLink, { TSummaryThumbnail } from '../component/molecules/PostThumbnailLink';
 
 export default function Home({ page, posts }: InferGetStaticPropsType<typeof getStaticProps>) {
 
@@ -14,29 +15,28 @@ export default function Home({ page, posts }: InferGetStaticPropsType<typeof get
       <>
         <Layout>
 
-          <TitleLogo>
-            <Logo />
-          </TitleLogo>
-
-          <TitleImg>
-            <Image src={'/' + posts[0].imagePath} alt="サンプル画像" height="600" width="600" objectFit="cover" />
-          </TitleImg>
-
-          <Catch>
+          <Title>
+            <TitleLogo>
+              <Logo />
+            </TitleLogo>
             <CatchCopy />
-          </Catch>
+          </Title>
 
         </Layout>
 
         <Layout>
           <Contents>
-            {posts.map((post => {
+            {posts.map((post, index) => {
+              const summary: TSummaryThumbnail = {
+                imagePath: post.imagePath,
+                linkPath: '/posts/' + post._id,
+              }
               return(
-                <ContentImg>
-                  <Image src={'/' + post.imagePath} alt={post.comment} height="600" width="600" objectFit="cover" />
+                <ContentImg key={index}>
+                  <PostThumbnailLink post={summary} />
                 </ContentImg>
-              )
-            }))}
+              );
+            })}
           </Contents>
         </Layout>
       </>
@@ -49,21 +49,21 @@ const Layout = styled.section`
   margin-top: 100px;
 `;
 
-const TitleLogo = styled.div`
-  text-align: center;
-  width: 180px;
-  margin: 0 auto 76px;
-`;
-const TitleImg = styled.div`
-  margin: 0 auto;
-  width: 90vw;
-  height: 90vw;
-  object-fit: cover;
-`;
-const Catch = styled.div`
+
+const Title = styled.div`
   margin-top: 76px;
   text-align: center;
+
+  img {
+    width: 180px;
+  }
 `;
+
+const TitleLogo = styled.div`
+  width: 180px;
+  margin: 0 auto 20px;
+`;
+
 const Contents = styled.div`
   display: flex;
   flex-wrap: wrap;

@@ -4,62 +4,63 @@ import Image from 'next/image'
 import getColor from '../../utility/getColor';
 import Typography from '../atoms/Typography';
 
-type Props = {
-  isPlantVisualActive: boolean;
-}
-const SwitchingGreenImage: React.FC<Props> = ({ isPlantVisualActive = false }) => {
-
-  type TPlant = {
-    imagePath: string,
+export type TGreenPin = {
+  green: {
     name: string,
     description: string,
-    cordinate: {
-      top: number,
-      left: number
-    }
+    imagePath: string
+  },
+  position: {
+    left: number,
+    top: number
   }
+}
 
-  const damies: TPlant[] = [{
-    imagePath: 'sample_1.jpg',
-    name: 'リキュウソウ',
-    description: 'ここにちょっとした説明が入るここにちょっとした説明が入るここにちょっとした説明が入る',
-    cordinate: {
-      top: 40,
-      left: 40
-    }
-  }, {
-    imagePath: 'sample_2.jpg',
-    name: 'ホゲソウ',
-    description: 'ここにちょっとした説明が入る',
-    cordinate: {
-      top: 120,
-      left: 240
-    }
-  }];
+type Props = {
+  isPlantVisualActive: boolean;
+  greenPins: TGreenPin[];
+  imagePath: string;
+}
+const SwitchingGreenImage: React.FC<Props> = ({ isPlantVisualActive, greenPins, imagePath }) => {
 
-  const [modalText, setModalText] = useState<TPlant>(damies[0]);
+  const [modalText, setModalText] = useState<TGreenPin>(greenPins[0]);
   const [modalIsActive, setModalIsActive] = useState<boolean>(false);
 
+  console.log(modalText.green.imagePath);
+  
   const openPlantDescription = (index: number) => {
-    setModalText(damies[index]);
+    setModalText(greenPins[index]);
     setModalIsActive(true);
   }
 
   return (
     <MainImage>
-      <Image src="/sample_1.jpg" width="500" height="500" objectFit='cover' alt="グリーン画像" />
+      <Image src={`/${imagePath}`} width="500" height="500" objectFit='cover' alt="グリーン画像" />
       <PlantVisual isActive={isPlantVisualActive}>
         <Shadow />
 
-        {damies.map((damy, index) => {
-          return  <Pin top={damy.cordinate.top} left={damy.cordinate.top} onClick={() => openPlantDescription(index)} />
+        {greenPins.map((greepin, index) => {
+          return  (
+            <Pin
+              key={index}
+              top={greepin.position.top.toString()}
+              left={greepin.position.top.toString()}
+              onClick={() => openPlantDescription(index)}
+            />
+          );
         })}
 
         <PlantDescriptionModal isActive={modalIsActive}>
           <CloseIcon onClick={() => setModalIsActive(false)} />
-          <Image src={`/${modalText.imagePath}`} width="72" height="72" objectFit='cover' alt="グリーン画像" />
-          <Typography size="medium" color="secondary">{modalText.name}</Typography>
-          <Typography size="small">{modalText.description}</Typography>
+          <Image
+            src={`/${modalText.green.imagePath}`}
+            width="72"
+            height="72"
+            objectFit='cover'
+            alt="グリーン画像"
+          />
+          <Typography size="medium" color="secondary">{modalText.green.name}</Typography>
+          <Typography size="small">{modalText.green.description}</Typography>
         </PlantDescriptionModal>
 
       </PlantVisual>

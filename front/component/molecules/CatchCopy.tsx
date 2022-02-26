@@ -4,7 +4,7 @@ const CatchCopy = () => {
   return (
     <>
       <Large>もっと、暮らしを、□ □ □ 。</Large>
-      <Small>green があれば、今日の生活はどうなるだろう？</Small>
+      <Small>ここに良いかんじのキャッチコピーを</Small>
     </>
   );
 }

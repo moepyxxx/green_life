@@ -2,10 +2,10 @@ import * as mongoose from 'mongoose';
 import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-export type SpecieDocument = Specie & Document;
+export type GreenDocument = Green & Document;
 
 @Schema()
-export class Specie {
+export class Green {
 
   @Prop({ type: mongoose.Schema.Types.ObjectId })
   _id: mongoose.Schema.Types.ObjectId;
@@ -21,4 +21,4 @@ export class Specie {
 
 }
 
-export const SpecieSchema = SchemaFactory.createForClass(Specie);
+export const GreenSchema = SchemaFactory.createForClass(Green);

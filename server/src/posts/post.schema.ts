@@ -1,7 +1,6 @@
 import * as mongoose from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { IPin } from './interfaces/pin';
 
 export type PostDocument = Post & Document;
 
@@ -20,8 +19,20 @@ export class Post {
   @Prop({ required: true })
   comment: string;
 
-  @Prop()
-  pins: IPin[];
+  @Prop({ type: [{
+    position: {
+      left: { type: Number },
+      top: { type: Number },
+    },
+    greenId: { type: mongoose.Schema.Types.ObjectId, ref: 'Green' }
+  }]})
+  greenPins: {
+    position: {
+      left: number,
+      top: number,
+    },
+    greenId: mongoose.Schema.Types.ObjectId
+  }[];
 
   @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'Tag' })
   tagIds: mongoose.Schema.Types.ObjectId[];

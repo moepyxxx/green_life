@@ -1,9 +1,8 @@
-import * as mongoose from 'mongoose';
 import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Post, PostDocument } from './post.schema';
-import { IPost } from 'src/posts/interfaces/post';
+import { IPostSummary, PostSummaryMaker } from 'src/posts/interfaces/postSummery';
 import { IPostDetail, PostDetailMaker } from 'src/posts/interfaces/postDetail';
 import { IFindSummaryAllRequest } from './post.controller';
 import { TagService } from 'src/tags/tag.service';
@@ -13,7 +12,7 @@ import { User } from 'src/users/user.schema';
 
 export interface IfindSummaryAllResult {
   page: number,
-  posts: IPost[]
+  posts: IPostSummary[]
 }
 
 @Injectable()
@@ -32,9 +31,9 @@ export class PostService {
     }
     const results = await this.postModel.find().limit(param.count);
 
-    const posts: IPost[] = results.map(result => {
-      const { id, imagePath } = result;
-      return { id, imagePath };
+    const posts: IPostSummary[] = results.map(result => {
+      return new PostSummaryMaker(result);
+      ;
     });
 
     return {
@@ -46,10 +45,7 @@ export class PostService {
   async findOne(id: string): Promise<IPostDetail> {
     const post: Post = await this.postModel.findById(id).exec();
     const user: User = await this.userService.fetchUser(post.userId.toString());
-    console.log(post.tagIds);
     const tags: Tag[] = await Promise.all(post.tagIds.map(async tagId => {
-      console.log(tagId)
-      console.log(tagId.toString())
       return await this.tagService.fetchTag(tagId.toString());
     }))
     return new PostDetailMaker(post, tags, user);

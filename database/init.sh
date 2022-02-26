@@ -1,6 +1,6 @@
 #!/bin/sh
 
-for i in 'posts'
+for i in 'posts' 'users' 'species' 'tags'
 do
   mongoimport --db greenlife --collection ${i} --authenticationDatabase admin --username root --password example --drop --file ./${i}.json --jsonArray
 done

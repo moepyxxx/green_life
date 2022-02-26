@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { PostsModule } from './posts/posts.module';
+import { PostModule } from './posts/post.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
@@ -14,7 +14,7 @@ const url = `mongodb://root:example@mongo:27017/greenlife?authSource=admin`;
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'image'),
     }),
-    PostsModule
+    PostModule
   ],
   controllers: [AppController],
   providers: [AppService],

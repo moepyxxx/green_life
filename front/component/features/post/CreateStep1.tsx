@@ -4,23 +4,26 @@ import IconButton from '../../atoms/IconButton';
 import Modal from '../../atoms/Modal';
 import Shadow from '../../atoms/Shadow';
 import Typography from '../../atoms/Typography';
-import SquareButton from '../../molecules/SquareButton';
 import Image from 'next/image'
 import { IPost } from '../../../pages/posts/interfaces/post';
+import File from '../../atoms/form/File';
 
 
 type Props = {
   post: IPost
   setPost: (post: IPost) => void
+  setImageFile: (file: File) => void
 }
 
-const CreateStep1: React.FC<Props> = ({ post, setPost }) => {
+const CreateStep1: React.FC<Props> = ({ post, setPost, setImageFile }) => {
 
   const [isModalActive, setIsModalActive] = useState<boolean>(false);
+  const [isImageSelected, setIsImageSelected] = useState<boolean>(false);
   
   return (
     <>
-      <SquareButton click={() => console.log('hoge')}>ここへ選択してね</SquareButton>
+      <Typography color="secondary" size="regular" weight="bold">{isImageSelected ? '選択完了！' : '選択されていません' }</Typography>
+      <File setImageFile={setImageFile} setSelectFlag={() => setIsImageSelected(true)} />
       <Typography color="disable" size="small" margin="8px 0 16px">ドラッグ＆ドロップもしくはクリックで選択</Typography>
       <IconButton click={() => setIsModalActive(true)}><Typography color="white" weight="bold">?</Typography></IconButton>
 

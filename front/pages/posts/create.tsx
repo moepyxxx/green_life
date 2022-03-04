@@ -11,6 +11,7 @@ import CreateStep2 from '../../component/features/post/CreateStep2';
 import CreateStep3 from '../../component/features/post/CreateStep3';
 import CreateStep4 from '../../component/features/post/CreateStep4';
 import { IPost } from './interfaces/post';
+import axios from 'axios';
 
 export default function PostCreate() {
 
@@ -22,7 +23,19 @@ export default function PostCreate() {
   const [currentStep, setCurrentStep] = useState<number>(1);
 
   const [post, setPost] = useState<IPost>();
-  const [imagePath, setImagePath] = useState<string>();
+  const [imageFile, setImageFile] = useState<File>();
+
+  useEffect(() => {
+    if (currentStep !== 2) return;
+
+    // まだAPI実装されていないため一旦コメントアウト
+    // axios.post(process.env.NEXT_PUBLIC_API_URL + 'images', {
+    //   image: imageFile
+    // }).then(res => {
+    //   setPost({...post, imagePath: res.data.image });
+    // });
+
+  }, [currentStep])
 
   useEffect(() => {
     setStepPaginations(createStepPaginations());
@@ -85,7 +98,7 @@ export default function PostCreate() {
   const stepContentsComponent = () => {
     switch(currentStep) {
       case 1:
-        return <CreateStep1 post={post} setPost={setPost} />;
+        return <CreateStep1 setImageFile={setImageFile} post={post} setPost={setPost} />;
       case 2:
         return <CreateStep2 post={post} setPost={setPost} />;
       case 3:

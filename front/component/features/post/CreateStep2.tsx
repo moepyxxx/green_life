@@ -9,8 +9,14 @@ import Image from 'next/image'
 import TextBudge from '../../atoms/TextBudge';
 import GreenPin from '../../molecules/GreenPin';
 import getColor from '../../../utility/getColor';
+import { IPost } from '../../../pages/posts/interfaces/post';
 
-const CreateStep2: React.FC = () => {
+type Props = {
+  post: IPost
+  setPost: (post: IPost) => void
+}
+
+const CreateStep2: React.FC<Props> = ({ post, setPost }) => {
 
   const [isModalActive, setIsModalActive] = useState<boolean>(false);
  

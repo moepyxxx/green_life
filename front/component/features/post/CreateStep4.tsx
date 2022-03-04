@@ -1,10 +1,15 @@
 import React from 'react'
-import Select from 'react-select'
 import styled from 'styled-components';
+import { IPost } from '../../../pages/posts/interfaces/post';
 import TextArea from '../../atoms/form/TextArea';
 import SquareButton from '../../molecules/SquareButton';
 
-const CreateStep4: React.FC = () => {
+type Props = {
+  post: IPost
+  setPost: (post: IPost) => void
+}
+
+const CreateStep4: React.FC<Props> = ({ post, setPost }) => {
 
   return (
     <>

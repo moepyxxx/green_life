@@ -13,10 +13,10 @@ const StepCounter: React.FC<Props> = ( { allCount, currentCount } ) => {
       {Array.from(new Array(allCount)).map((_,i)=> i + 1).map(index => {
         return　index === currentCount
           ? (
-            <IconButton fill="secondary" color="white" click={null}><Inner weight="bold">{index}</Inner></IconButton>
+            <IconButton fill="secondary" color="white" click={null} key={index}><Inner weight="bold">{index}</Inner></IconButton>
           )
           : (
-            <IconButton fill="gray" color="white" click={null}><Inner weight="normal">{index}</Inner></IconButton>
+            <IconButton fill="gray" color="white" click={null} key={index}><Inner weight="normal">{index}</Inner></IconButton>
           )
       })}
       

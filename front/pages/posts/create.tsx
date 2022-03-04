@@ -10,6 +10,7 @@ import CreateStep1 from '../../component/features/post/CreateStep1';
 import CreateStep2 from '../../component/features/post/CreateStep2';
 import CreateStep3 from '../../component/features/post/CreateStep3';
 import CreateStep4 from '../../component/features/post/CreateStep4';
+import { IPost } from './interfaces/post';
 
 export default function PostCreate() {
 
@@ -19,6 +20,9 @@ export default function PostCreate() {
   }[]
   const [stepPaginations, setStepPaginations] = useState<TStepPagioations>([]);
   const [currentStep, setCurrentStep] = useState<number>(1);
+
+  const [post, setPost] = useState<IPost>();
+  const [imagePath, setImagePath] = useState<string>();
 
   useEffect(() => {
     setStepPaginations(createStepPaginations());
@@ -75,21 +79,19 @@ export default function PostCreate() {
       return accu;
     }, 0)
 
-    console.log(created);
-
     return created;
   }
 
   const stepContentsComponent = () => {
     switch(currentStep) {
       case 1:
-        return <CreateStep1 />;
+        return <CreateStep1 post={post} setPost={setPost} />;
       case 2:
-        return <CreateStep2 />;
+        return <CreateStep2 post={post} setPost={setPost} />;
       case 3:
-        return <CreateStep3 />;
+        return <CreateStep3 post={post} setPost={setPost} />;
       case 4:
-        return <CreateStep4 />;
+        return <CreateStep4 post={post} setPost={setPost} />;
     }
   }
 

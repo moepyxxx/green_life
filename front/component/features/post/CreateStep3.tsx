@@ -1,8 +1,14 @@
 import React from 'react'
 import Select from 'react-select'
 import styled from 'styled-components';
+import { IPost } from '../../../pages/posts/interfaces/post';
 
-const CreateStep3: React.FC = () => {
+type Props = {
+  post: IPost
+  setPost: (post: IPost) => void
+}
+
+const CreateStep3: React.FC<Props> = ({ post, setPost }) => {
  
   const options = [
     { value: 'g01', label: 'アイビー' },

@@ -6,8 +6,15 @@ import Shadow from '../../atoms/Shadow';
 import Typography from '../../atoms/Typography';
 import SquareButton from '../../molecules/SquareButton';
 import Image from 'next/image'
+import { IPost } from '../../../pages/posts/interfaces/post';
 
-const CreateStep1: React.FC = () => {
+
+type Props = {
+  post: IPost
+  setPost: (post: IPost) => void
+}
+
+const CreateStep1: React.FC<Props> = ({ post, setPost }) => {
 
   const [isModalActive, setIsModalActive] = useState<boolean>(false);
   

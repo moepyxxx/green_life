@@ -9,7 +9,7 @@ import SearchImg from '../../img/icon/search.svg';
 
 import Pattern1 from '../pattern/Pattern1';
 import IconButton from '../atoms/IconButton';
-import PostButton from '../features/PostButton';
+import PostButton from '../features/post/PostButton';
 
 const Menu = () => {
 
@@ -57,7 +57,7 @@ export default Menu
 
 const MenuOpenBtn = styled.button`
   position: fixed;
-  z-index: 100;
+  z-index: 3;
   bottom: 20px;
   right: 32px;
   width: 52px;
@@ -87,7 +87,7 @@ const WrapImg = styled.span`
 `;
 const MenuInner = styled.div`
   position: fixed;
-  z-index: 100;
+  z-index: 3;
   bottom: 20px;
   right: 0;
   display: flex;

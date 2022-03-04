@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
-import Typography from '../atoms/Typography';
-import HashTag from '../molecules/HashTag';
+import Typography from '../../atoms/Typography';
+import HashTag from '../../molecules/HashTag';
 
 export type TParagraph = {
   name: string;

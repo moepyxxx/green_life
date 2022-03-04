@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components';
 import Image from 'next/image'
-import Pattern2 from '../pattern/Pattern2';
-import AttentionImg from '../../img/icon/attention.svg';
-import getColor from '../../utility/getColor';
+import AttentionImg from '../../../img/icon/attention.svg';
+import getColor from '../../../utility/getColor';
+import Pattern2 from '../../pattern/Pattern2';
 
 const PostButton: React.FC = () => {
   return (

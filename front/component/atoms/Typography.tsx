@@ -10,13 +10,14 @@ type Props = {
   size?: TSize;
   children: ReactChild;
   margin?: string;
+  weight?: 'bold' | 'normal';
   family?: 'Noto Sans JP' | 'Bitter';
 }
 
-const Typography: React.FC<Props> = ({ color = 'base', size = 'medium', family = 'Noto Sans JP', margin = '0', children }) => {
+const Typography: React.FC<Props> = ({ color = 'base', size = 'medium', family = 'Noto Sans JP', margin = '0', weight = 'normal', children }) => {
 
   return(
-    <Text size={size} color={color} margin={margin} family={family}>{children}</Text>
+    <Text size={size} color={color} margin={margin} family={family} weight={weight}>{children}</Text>
   )
 }
 
@@ -25,6 +26,7 @@ const Text = styled.p`
   color: ${prop => getColor(prop.color)};
   font-family: "${prop => prop.family}", sans-serif;
   margin: ${prop => prop.margin};
+  font-weight: ${prop => prop.weight};
 `;
 
 export default Typography;

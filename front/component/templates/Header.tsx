@@ -24,7 +24,7 @@ export default Header
 
 const HeaderWrap = styled.header`
   position: fixed;
-  z-index: 100;
+  z-index: 3;
   top: 0;
   left: 0;
   width: 100%;

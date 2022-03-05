@@ -11,7 +11,7 @@ import CreateStep2 from '../../component/features/post/CreateStep2';
 import CreateStep3 from '../../component/features/post/CreateStep3';
 import CreateStep4 from '../../component/features/post/CreateStep4';
 import { IPost } from './interfaces/post';
-import axios from 'axios';
+import usePostImage from '../../utility/customhooks/usePostImage';
 
 export default function PostCreate() {
 
@@ -22,24 +22,29 @@ export default function PostCreate() {
   const [stepPaginations, setStepPaginations] = useState<TStepPagioations>([]);
   const [currentStep, setCurrentStep] = useState<number>(1);
 
-  const [post, setPost] = useState<IPost>();
+  const defaultPost: IPost = {
+    userId: '6216ddcd9e6c2a966a623694',
+    imagePath: '',
+    comment: '',
+    greenPins: [],
+    tagIds: []
+  }
+  const [post, setPost] = useState<IPost>(defaultPost);
   const [imageFile, setImageFile] = useState<File>();
 
   useEffect(() => {
     if (currentStep !== 2) return;
-
-    // まだAPI実装されていないため一旦コメントアウト
-    // axios.post(process.env.NEXT_PUBLIC_API_URL + 'images', {
-    //   image: imageFile
-    // }).then(res => {
-    //   setPost({...post, imagePath: res.data.image });
-    // });
-
+    saveImageUrl();
   }, [currentStep])
 
   useEffect(() => {
     setStepPaginations(createStepPaginations());
   }, []);
+
+  const saveImageUrl = async () => {
+    const imageUrl = await usePostImage(imageFile);
+    setPost({...post, imagePath: imageUrl });
+  }
 
   const stepTexts = [{
     main: '写真を選択',

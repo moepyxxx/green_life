@@ -24,14 +24,14 @@ const CreateStep2: React.FC<Props> = ({ post, setPost }) => {
     { value: 'g01', label: 'アイビー' },
     { value: 'g02', label: 'ヘチマ' },
     { value: 'g03', label: 'ガジュマル' }
-  ]
+  ];
 
   return (
     <>
       <IconButton click={() => setIsModalActive(true)}><Typography color="white" weight="bold">?</Typography></IconButton>
 
       <GreenImage>
-        <Image src="/sample_1.jpg" alt="サンプル" width="400" height="400" objectFit="cover" />
+        <Image unoptimized src={post.imagePath ? post.imagePath : '/now_loading.png'} alt="サンプル" width="400" height="400" objectFit="cover" />
         <GreenPin left={12} top={60} click={null} />
       </GreenImage>
 

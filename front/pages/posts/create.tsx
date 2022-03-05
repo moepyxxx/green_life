@@ -12,8 +12,11 @@ import CreateStep3 from '../../component/features/post/CreateStep3';
 import CreateStep4 from '../../component/features/post/CreateStep4';
 import { IPost } from './interfaces/post';
 import usePostImage from '../../utility/customhooks/usePostImage';
+import { useRouter } from 'next/router'
 
 export default function PostCreate() {
+
+  const router = useRouter()
 
   type TStepPagioations = {
     back: TStepPagination,
@@ -23,6 +26,7 @@ export default function PostCreate() {
   const [currentStep, setCurrentStep] = useState<number>(1);
 
   const defaultPost: IPost = {
+    // ダミー
     userId: '6216ddcd9e6c2a966a623694',
     imagePath: '',
     comment: '',
@@ -36,10 +40,6 @@ export default function PostCreate() {
     if (currentStep !== 2) return;
     saveImageUrl();
   }, [currentStep])
-
-  useEffect(() => {
-    console.log(post)
-  }, [post])
 
   useEffect(() => {
     setStepPaginations(createStepPaginations());
@@ -104,6 +104,19 @@ export default function PostCreate() {
     return created;
   }
 
+  const executePost = () => {
+
+    // ここでAPI処理
+
+    // 終わったらリダイレクト
+    router.push({
+      pathname: '/posts/thanks',
+      query: {
+        _id: 'damy'
+      }
+    })
+  }
+
   const stepContentsComponent = () => {
     switch(currentStep) {
       case 1:
@@ -113,7 +126,7 @@ export default function PostCreate() {
       case 3:
         return <CreateStep3 post={post} setPost={setPost} />;
       case 4:
-        return <CreateStep4 post={post} setPost={setPost} />;
+        return <CreateStep4 post={post} setPost={setPost} executePost={executePost} />;
     }
   }
 

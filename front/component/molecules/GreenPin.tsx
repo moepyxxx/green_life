@@ -1,18 +1,19 @@
 import React from 'react'
 import styled from 'styled-components';
+import getColor from '../../utility/getColor';
 import Tree from '../pattern/Tree';
 
 type Props = {
   top: number;
   left: number;
   click: () => void | null;
+  isActive?: boolean
 }
-const GreenPin: React.FC<Props> = ( { click, top, left } ) => {
-
+const GreenPin: React.FC<Props> = ( { click, top, left, isActive = false } ) => {
   return (
     click
-      ? <ButtonPin onClick={click} top={top.toString()} left={left.toString()}><Tree /></ButtonPin> 
-      : <SpanPin onClick={click} top={top.toString()} left={left.toString()}><Tree /></SpanPin> 
+      ? <ButtonPin onClick={click} top={top.toString()} left={left.toString()} isActive={isActive}><Tree /></ButtonPin> 
+      : <SpanPin onClick={click} top={top.toString()} left={left.toString()} isActive={isActive}><Tree /></SpanPin> 
   );
 }
 
@@ -25,10 +26,10 @@ const ButtonPin = styled.button`
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  top: ${(props) => props.top}px;
-  left: ${(props) => props.left}px;
+  top: calc(${(props) => props.top}% - 52px);
+  left: calc(${(props) => props.left}% - 52px);
   background-color: #fff;
-  border: none;
+  border: ${props => props.isActive ? `${getColor('gray')} solid 4px` : 'none'};
 
   svg {
     position: absolute;

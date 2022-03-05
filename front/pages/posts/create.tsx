@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useRouter } from 'next/router'
 
 import DefaultTemplate from '../../component/templates/Default';
 import StepCounter from '../../component/molecules/StepCounter';
@@ -11,9 +12,11 @@ import CreateStep2 from '../../component/features/post/CreateStep2';
 import CreateStep3 from '../../component/features/post/CreateStep3';
 import CreateStep4 from '../../component/features/post/CreateStep4';
 import { IPost } from './interfaces/post';
-import axios from 'axios';
+import usePostImage from '../../utility/customhooks/usePostImage';
 
 export default function PostCreate() {
+
+  const router = useRouter()
 
   type TStepPagioations = {
     back: TStepPagination,
@@ -22,24 +25,30 @@ export default function PostCreate() {
   const [stepPaginations, setStepPaginations] = useState<TStepPagioations>([]);
   const [currentStep, setCurrentStep] = useState<number>(1);
 
-  const [post, setPost] = useState<IPost>();
+  const defaultPost: IPost = {
+    // ダミー
+    userId: '6216ddcd9e6c2a966a623694',
+    imagePath: '',
+    comment: '',
+    greenPins: [],
+    tagIds: []
+  }
+  const [post, setPost] = useState<IPost>(defaultPost);
   const [imageFile, setImageFile] = useState<File>();
 
   useEffect(() => {
     if (currentStep !== 2) return;
-
-    // まだAPI実装されていないため一旦コメントアウト
-    // axios.post(process.env.NEXT_PUBLIC_API_URL + 'images', {
-    //   image: imageFile
-    // }).then(res => {
-    //   setPost({...post, imagePath: res.data.image });
-    // });
-
+    saveImageUrl();
   }, [currentStep])
 
   useEffect(() => {
     setStepPaginations(createStepPaginations());
   }, []);
+
+  const saveImageUrl = async () => {
+    const imageUrl = await usePostImage(imageFile);
+    setPost({...post, imagePath: imageUrl });
+  }
 
   const stepTexts = [{
     main: '写真を選択',
@@ -95,6 +104,19 @@ export default function PostCreate() {
     return created;
   }
 
+  const executePost = () => {
+
+    // ここでAPI処理
+
+    // 終わったらリダイレクト
+    router.push({
+      pathname: '/posts/thanks',
+      query: {
+        _id: 'damy'
+      }
+    })
+  }
+
   const stepContentsComponent = () => {
     switch(currentStep) {
       case 1:
@@ -104,7 +126,7 @@ export default function PostCreate() {
       case 3:
         return <CreateStep3 post={post} setPost={setPost} />;
       case 4:
-        return <CreateStep4 post={post} setPost={setPost} />;
+        return <CreateStep4 post={post} setPost={setPost} executePost={executePost} />;
     }
   }
 

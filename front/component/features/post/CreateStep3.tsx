@@ -1,5 +1,5 @@
 import React from 'react'
-import Select from 'react-select'
+import Select, { ActionMeta, MultiValue } from 'react-select'
 import styled from 'styled-components';
 import { IPost } from '../../../pages/posts/interfaces/post';
 
@@ -10,11 +10,26 @@ type Props = {
 
 const CreateStep3: React.FC<Props> = ({ post, setPost }) => {
  
+  const change = (newTags: MultiValue<{
+    value: string;
+    label: string;
+  }>, _: ActionMeta<{
+    value: string;
+    label: string;
+  }>) => {
+    const tagIds: string[] = newTags.map(tag => tag.value);
+    setPost({...post, tagIds});
+  }
+
   const options = [
     { value: 'g01', label: 'アイビー' },
     { value: 'g02', label: 'ヘチマ' },
     { value: 'g03', label: 'ガジュマル' }
   ]
+
+  const defaultTags = options.map((option) => {
+    return post.tagIds.includes(option.value) ? option : false;
+  })
 
   return (
     <>
@@ -23,8 +38,10 @@ const CreateStep3: React.FC<Props> = ({ post, setPost }) => {
 
        <Select
           isMulti
+          defaultValue={defaultTags}
           name="tags"
           options={options}
+          onChange={change}
         />
 
       </TagSelect>

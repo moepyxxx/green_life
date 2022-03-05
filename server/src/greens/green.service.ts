@@ -8,6 +8,10 @@ export class GreenService {
 
   constructor( @InjectModel(ModelGreen.name) private greenModel: Model<GreenDocument> ) {}
 
+  async fetchAll(): Promise<Green[]> {
+    return await this.greenModel.find().limit(50).exec();
+  }
+
   async fetchGreen(greenId: string): Promise<Green> {
     return await this.greenModel.findById(greenId).exec();
   }

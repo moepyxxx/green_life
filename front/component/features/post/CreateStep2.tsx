@@ -10,6 +10,9 @@ import TextBudge from '../../atoms/TextBudge';
 import GreenPin from '../../molecules/GreenPin';
 import getColor from '../../../utility/getColor';
 import { IGreenPin, IPost } from '../../../pages/posts/interfaces/post';
+import { ReactSelectOption } from './CreateStep3';
+import { IApiGreen } from '../../../pages/posts/interfaces/apiGreen';
+import useFetch from '../../../utility/customhooks/useFetch';
 
 type Props = {
   post: IPost
@@ -23,6 +26,11 @@ const CreateStep2: React.FC<Props> = ({ post, setPost }) => {
   const [greenPins, setGreenPins] = useState<IGreenPin[]>(post.greenPins);
   const [currentSelectIndex, setCurrentSelectIndex] = useState<number>(0);
 
+  const [selectOptions, setSelectOptions] = useState<ReactSelectOption[]>([])
+  useEffect(() => {
+    setSelectOption();
+  }, [])
+
   const [imageLoading, setImageLoading] = useState<boolean>(true);
   useEffect(() => {
     if (!post.imagePath) return;
@@ -33,11 +41,15 @@ const CreateStep2: React.FC<Props> = ({ post, setPost }) => {
     }, 1000);
   }, [post.imagePath])
 
-  const options = [
-    { value: 'g01', label: 'アイビー' },
-    { value: 'g02', label: 'ヘチマ' },
-    { value: 'g03', label: 'ガジュマル' }
-  ];
+  const setSelectOption = async () => {
+    const greens: IApiGreen[] = await useFetch<IApiGreen[]>('greens');
+    setSelectOptions(greens.map(green => {
+      return {
+        value: green._id,
+        label: green.name
+      }
+    }))
+  }
 
   const pinSelect = (col: number, row: number) => {
 
@@ -112,7 +124,7 @@ const CreateStep2: React.FC<Props> = ({ post, setPost }) => {
 
       <GreenSelect display={isPinSelected ? 'block' : 'none'}>
         <Typography size="regular">植物の名前を教えてね</Typography>
-        <Select options={options} onChange={selectGreen} />
+        <Select options={selectOptions} onChange={selectGreen} />
       </GreenSelect>
 
       <Shadow isActive={isModalActive} />

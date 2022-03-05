@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Select from 'react-select'
 import styled from 'styled-components';
 import IconButton from '../../atoms/IconButton';
@@ -22,6 +22,16 @@ const CreateStep2: React.FC<Props> = ({ post, setPost }) => {
   const [isPinSelected, setIsPinSelected] = useState<boolean>(false);
   const [greenPins, setGreenPins] = useState<IGreenPin[]>(post.greenPins);
   const [currentSelectIndex, setCurrentSelectIndex] = useState<number>(0);
+
+  const [imageLoading, setImageLoading] = useState<boolean>(true);
+  useEffect(() => {
+    if (!post.imagePath) return;
+    
+    // 時間が短すぎるとバケットが404を返してしまうため処理…
+    setTimeout(() => {
+      setImageLoading(false);
+    }, 1000);
+  }, [post.imagePath])
 
   const options = [
     { value: 'g01', label: 'アイビー' },
@@ -79,7 +89,7 @@ const CreateStep2: React.FC<Props> = ({ post, setPost }) => {
       <IconButton click={() => setIsModalActive(true)}><Typography color="white" weight="bold">?</Typography></IconButton>
 
       <GreenImage>
-        <Image unoptimized src={post.imagePath ? post.imagePath : '/now_loading.png'} alt="サンプル" width="400" height="400" objectFit="cover" />
+        <Image unoptimized src={imageLoading ? '/now_loading.png' : post.imagePath} alt="登録画像" width="400" height="400" objectFit="cover" />
         <TransParentGrid>
           {[...Array(36)].map((_, index) => {
             const col: number = Math.floor(index / 6 + 1);

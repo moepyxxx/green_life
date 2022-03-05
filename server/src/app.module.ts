@@ -7,6 +7,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { PostModule } from './posts/post.module';
 import { ImageModule } from './images/image.module';
+import { TagModule } from './tags/tag.module';
 
 const url = `mongodb://root:example@mongo:27017/greenlife?authSource=admin`;
 
@@ -21,6 +22,7 @@ const url = `mongodb://root:example@mongo:27017/greenlife?authSource=admin`;
     }),
     PostModule,
     ImageModule,
+    TagModule
   ],
   controllers: [AppController],
   providers: [AppService],

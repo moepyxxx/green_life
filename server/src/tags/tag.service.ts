@@ -8,6 +8,10 @@ export class TagService {
 
   constructor( @InjectModel(ModelTag.name) private tagModel: Model<TagDocument> ) {}
 
+  async fetchAll(): Promise<Tag[]> {
+    return await this.tagModel.find().limit(50).exec();
+  }
+
   async fetchTag(tagId: string): Promise<Tag> {
     return await this.tagModel.findById(tagId).exec();
   }

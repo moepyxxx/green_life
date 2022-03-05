@@ -3,11 +3,12 @@ import styled from 'styled-components';
 import getColor from '../../../utility/getColor';
 
 type Props = {
-
+  change: (e?: React.ChangeEvent<HTMLInputElement>) => void,
+  text: string
 }
 
-const TextArea: React.FC<Props> = ( {  } ) => {
-  return <FormParts placeholder="このグリーン、とっても素敵でしょう！" rows={5} />
+const TextArea: React.FC<Props> = ( { change, text } ) => {
+  return <FormParts onChange={change} placeholder="このグリーン、とっても素敵でしょう！" rows={5}>{text}</FormParts>
 }
 
 export default TextArea

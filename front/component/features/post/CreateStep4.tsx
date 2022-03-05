@@ -11,11 +11,16 @@ type Props = {
 
 const CreateStep4: React.FC<Props> = ({ post, setPost }) => {
 
+  const commentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const comment = e.target.value;
+    setPost({ ...post, comment });
+  }
+
   return (
     <>
 
       <AppealComment>
-        <TextArea />
+        <TextArea text={post.comment} change={commentChange} />
         <SquareButton margin="16px 0 0" click={() => console.log('hoge')}>この内容で投稿</SquareButton>        
       </AppealComment>
       

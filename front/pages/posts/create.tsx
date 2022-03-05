@@ -38,6 +38,10 @@ export default function PostCreate() {
   }, [currentStep])
 
   useEffect(() => {
+    console.log(post)
+  }, [post])
+
+  useEffect(() => {
     setStepPaginations(createStepPaginations());
   }, []);
 

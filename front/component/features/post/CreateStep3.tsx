@@ -1,15 +1,38 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Select, { ActionMeta, MultiValue } from 'react-select'
 import styled from 'styled-components';
+import { IApiTag } from '../../../pages/posts/interfaces/apiTag';
 import { IPost } from '../../../pages/posts/interfaces/post';
+import useFetch from '../../../utility/customhooks/useFetch';
 
 type Props = {
   post: IPost
   setPost: (post: IPost) => void
 }
 
+export type ReactSelectOption = {
+  value: string;
+  label: string;
+}
+
 const CreateStep3: React.FC<Props> = ({ post, setPost }) => {
  
+  const [selectOptions, setSelectOptions] = useState<ReactSelectOption[]>([])
+
+  useEffect(() => {
+    setSelectOption();
+  }, [])
+
+  const setSelectOption = async () => {
+    const tags: IApiTag[] = await useFetch<IApiTag[]>('tags');
+    setSelectOptions(tags.map(tag => {
+      return {
+        value: tag._id,
+        label: tag.label
+      }
+    }))
+  }
+
   const change = (newTags: MultiValue<{
     value: string;
     label: string;
@@ -21,13 +44,7 @@ const CreateStep3: React.FC<Props> = ({ post, setPost }) => {
     setPost({...post, tagIds});
   }
 
-  const options = [
-    { value: 'g01', label: 'アイビー' },
-    { value: 'g02', label: 'ヘチマ' },
-    { value: 'g03', label: 'ガジュマル' }
-  ]
-
-  const defaultTags = options.map((option) => {
+  const defaultTags = selectOptions.map((option) => {
     return post.tagIds.includes(option.value) ? option : false;
   })
 
@@ -40,7 +57,7 @@ const CreateStep3: React.FC<Props> = ({ post, setPost }) => {
           isMulti
           defaultValue={defaultTags}
           name="tags"
-          options={options}
+          options={selectOptions}
           onChange={change}
         />
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useRouter } from 'next/router'
 
 import DefaultTemplate from '../../component/templates/Default';
 import StepCounter from '../../component/molecules/StepCounter';
@@ -12,7 +13,6 @@ import CreateStep3 from '../../component/features/post/CreateStep3';
 import CreateStep4 from '../../component/features/post/CreateStep4';
 import { IPost } from './interfaces/post';
 import usePostImage from '../../utility/customhooks/usePostImage';
-import { useRouter } from 'next/router'
 
 export default function PostCreate() {
 

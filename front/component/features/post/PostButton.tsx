@@ -1,13 +1,16 @@
 import React from 'react'
 import styled from 'styled-components';
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import AttentionImg from '../../../img/icon/attention.svg';
 import getColor from '../../../utility/getColor';
 import Pattern2 from '../../pattern/Pattern2';
 
 const PostButton: React.FC = () => {
+  const router = useRouter()
+
   return (
-    <Button onClick={() => console.log('link to post page')}>
+    <Button onClick={() => router.push('/posts/create')}>
       <WrapPattern>
         <Pattern2 fill='secondary' />
       </WrapPattern>

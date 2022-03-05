@@ -20,7 +20,7 @@ const CreateStep2: React.FC<Props> = ({ post, setPost }) => {
 
   const [isModalActive, setIsModalActive] = useState<boolean>(false);
   const [isPinSelected, setIsPinSelected] = useState<boolean>(false);
-  const [greenPins, setGreenPins] = useState<IGreenPin[]>([]);
+  const [greenPins, setGreenPins] = useState<IGreenPin[]>(post.greenPins);
   const [currentSelectIndex, setCurrentSelectIndex] = useState<number>(0);
 
   const options = [

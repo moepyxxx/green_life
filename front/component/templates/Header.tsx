@@ -1,11 +1,33 @@
 import Image from 'next/image';
-import React from 'react'
+import Link from 'next/link';
+import React, { ReactNode, useEffect, useState } from 'react'
 import styled from 'styled-components';
-
+import useIsLogin from '../../utility/customhooks/useIsLogin';
+import getColor from '../../utility/getColor';
 import Logo from '../atoms/Logo';
-import Pattern1 from '../pattern/Pattern1';
 
 const Header = () => {
+  
+  const [statusNode, setStatusNode] = useState<ReactNode>();
+
+  useEffect(() => {
+    if (useIsLogin()) {
+      setStatusNode(
+        <LogginedBudge>
+          <Image src={'/sample_user.png'} alt="サンプルユーザーアイコン" layout="fill" objectFit="cover" />
+        </LogginedBudge>
+      )
+    } else {
+      setStatusNode(
+        <Link href="/signin" passHref>
+          <LogoutBudge>
+            Login
+          </LogoutBudge>
+        </Link>  
+      )    
+    }
+  }, [])
+
   return (
     <HeaderWrap>
 
@@ -13,9 +35,7 @@ const Header = () => {
         <Logo />
       </LogoSpace>
 
-      <UserStatusBudge>
-        <Image src={'/sample_user.png'} alt="サンプルユーザーアイコン" layout="fill" objectFit="cover" />
-      </UserStatusBudge>
+      {statusNode}
 
     </HeaderWrap>
   );
@@ -33,11 +53,13 @@ const HeaderWrap = styled.header`
   justify-content: space-between;
   align-items: center;
 `;
+
 const LogoSpace = styled.div`
   padding: 16px 16px 12px 16px;
   width: 160px;
 `;
-const UserStatusBudge = styled.div`
+
+const LogginedBudge = styled.div`
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -45,4 +67,19 @@ const UserStatusBudge = styled.div`
   margin: 16px;
   position: relative;
   cursor: pointer;
+`;
+
+const LogoutBudge = styled.a`
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  background-color: ${getColor("secondary")};
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 16px;
+  color: #fff;
+  font-family 'Bitter', sans-serif;
+  font-size: 1.2rem;
+  line-height: 40px;
+  padding: 0 0 0 4px;
 `;

@@ -13,45 +13,35 @@ export default function Home({ page, posts }: InferGetStaticPropsType<typeof get
   return (
     <DefaultTemplate>
       <>
-        <Layout>
 
-          <Title>
-            <TitleLogo>
-              <Logo />
-            </TitleLogo>
-            <CatchCopy />
-          </Title>
+        <Title>
+          <TitleLogo>
+            <Logo />
+          </TitleLogo>
+          <CatchCopy />
+        </Title>
 
-        </Layout>
-
-        <Layout>
-          <Contents>
-            {posts.map((post, index) => {
-              const summary: TSummaryThumbnail = {
-                imagePath: post.imagePath,
-                linkPath: '/posts/' + post._id,
-              }
-              return(
-                <ContentImg key={index}>
-                  <PostThumbnailLink post={summary} />
-                </ContentImg>
-              );
-            })}
-          </Contents>
-        </Layout>
+        <Contents>
+          {posts.map((post, index) => {
+            const summary: TSummaryThumbnail = {
+              imagePath: post.imagePath,
+              linkPath: '/posts/' + post._id,
+            }
+            return(
+              <ContentImg key={index}>
+                <PostThumbnailLink post={summary} />
+              </ContentImg>
+            );
+          })}
+        </Contents>
       </>
     </DefaultTemplate>
   )
 }
 
 
-const Layout = styled.section`
-  margin-top: 100px;
-`;
-
-
 const Title = styled.div`
-  margin-top: 76px;
+  margin: 200px 0 60px;
   text-align: center;
 
   img {

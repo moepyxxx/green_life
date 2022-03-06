@@ -36,7 +36,7 @@ const SwitchingGreenImage: React.FC<Props> = ({ isPlantVisualActive, greenPins, 
 
   return (
     <MainImage>
-      <Image src={`/${imagePath}`} width="500" height="500" objectFit='cover' alt="グリーン画像" />
+      <Image unoptimized src={imagePath} width="500" height="500" objectFit='cover' alt="グリーン画像" />
       <PlantVisual isActive={isPlantVisualActive}>
 
         {greenPins.map((greepin, index) => {

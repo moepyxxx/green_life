@@ -69,6 +69,12 @@ const Contents = styled.div`
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  position: relative;
+  &:after {
+    content: '';
+    display: block;
+    width: calc( calc(100% - 32px) / 3);
+  }
 `;
 const ContentImg = styled.div`
   width: calc( calc(100% - 32px) / 3);

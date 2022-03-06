@@ -2,7 +2,7 @@
   {
     "_id": {"$oid":"6216ddcd9e6c2a966a623690"},
     "userId": {"$oid":"6216ddcd9e6c2a966a623694"},
-    "imagePath": "sample_1.jpg",
+    "imagePath": "https://storage.googleapis.com/greenlife-midori.appspot.com/uploads/b26578df1f136340b7043d9fe188d5c5.png",
     "comment": "ダミーコメント",
     "tagIds": [
       {"$oid":"6216ddcd9e6c2a966a623701"},      
@@ -19,7 +19,7 @@
   {
     "_id": {"$oid":"6216ddcd9e6c2a966a623691"},
     "userId": {"$oid":"6216ddcd9e6c2a966a623695"},
-    "imagePath": "sample_2.jpg",
+    "imagePath": "https://storage.googleapis.com/greenlife-midori.appspot.com/uploads/b26578df1f136340b7043d9fe188d5c5.png",
     "comment": "ダミーコメント",
     "tagIds": [
       {"$oid":"6216ddcd9e6c2a966a623704"}
@@ -34,7 +34,7 @@
   {
     "_id": {"$oid":"6216ddcd9e6c2a966a623692"},
     "userId": {"$oid":"6216ddcd9e6c2a966a623696"},
-    "imagePath": "sample_3.jpg",
+    "imagePath": "https://storage.googleapis.com/greenlife-midori.appspot.com/uploads/b26578df1f136340b7043d9fe188d5c5.png",
     "comment": "ダミーコメント",
     "tagIds": [
       {"$oid":"6216ddcd9e6c2a966a623705"},      
@@ -52,7 +52,7 @@
   {
     "_id": {"$oid":"6216ddcd9e6c2a966a623693"},
     "userId": {"$oid":"6216ddcd9e6c2a966a623694"},
-    "imagePath": "sample_4.jpg",
+    "imagePath": "https://storage.googleapis.com/greenlife-midori.appspot.com/uploads/b26578df1f136340b7043d9fe188d5c5.png",
     "comment": "ダミーコメント",
     "tagIds": [   
       {"$oid":"6216ddcd9e6c2a966a623709"}  

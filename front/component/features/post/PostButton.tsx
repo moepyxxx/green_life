@@ -5,12 +5,21 @@ import { useRouter } from 'next/router'
 import AttentionImg from '../../../img/icon/attention.svg';
 import getColor from '../../../utility/getColor';
 import Pattern2 from '../../pattern/Pattern2';
+import useIsLogin from '../../../utility/customhooks/useIsLogin';
 
 const PostButton: React.FC = () => {
   const router = useRouter()
 
+  const link = () => {
+    if (useIsLogin()) {
+      router.push('/posts/create')
+    } else {
+      router.push('/signin?type=needLogin')
+    }
+  }
+
   return (
-    <Button onClick={() => router.push('/posts/create')}>
+    <Button onClick={link}>
       <WrapPattern>
         <Pattern2 fill='secondary' />
       </WrapPattern>

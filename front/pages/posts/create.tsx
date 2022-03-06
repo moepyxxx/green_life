@@ -13,6 +13,7 @@ import CreateStep3 from '../../component/features/post/CreateStep3';
 import CreateStep4 from '../../component/features/post/CreateStep4';
 import { IPost } from './interfaces/post';
 import usePostImage from '../../utility/customhooks/usePostImage';
+import usePost from '../../utility/customhooks/usePost';
 
 export default function PostCreate() {
 
@@ -104,15 +105,14 @@ export default function PostCreate() {
     return created;
   }
 
-  const executePost = () => {
+  const executePost = async () => {
 
-    // ここでAPI処理
+    const result = await usePost<IPost, any>('posts', post);
 
-    // 終わったらリダイレクト
     router.push({
       pathname: '/posts/thanks',
       query: {
-        _id: 'damy'
+        _id: result.data.post._id
       }
     })
   }

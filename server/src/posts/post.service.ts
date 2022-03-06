@@ -1,5 +1,5 @@
-import { Model } from 'mongoose';
-import { Injectable } from '@nestjs/common';
+import { Model, Types } from 'mongoose';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Post, PostDocument } from './post.schema';
 import { IPostSummary, PostSummaryMaker } from 'src/posts/interfaces/postSummery';
@@ -12,10 +12,15 @@ import { Tag } from 'src/tags/tag.schema';
 import { User } from 'src/users/user.schema';
 import { IGreenPin } from './interfaces/greenPin';
 import { Green } from 'src/greens/green.schema';
+import { ICreate } from './interfaces/create';
 
 export interface IfindSummaryAllResult {
   page: number,
   posts: IPostSummary[]
+}
+
+export type TResult = {
+  post: Post
 }
 
 @Injectable()
@@ -63,6 +68,20 @@ export class PostService {
     }))
 
     return new PostDetailMaker(post, tags, user, greenpins);
+  }
+
+  async create(post: ICreate): Promise<TResult> {
+    try {
+      const _id = new Types.ObjectId;
+      const createPost = await new this.postModel({ ...post, _id });
+      await createPost.save();
+
+      return {
+        post: createPost
+      }
+    } catch(error) {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+    }
   }
 
 }

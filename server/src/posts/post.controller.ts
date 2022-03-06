@@ -1,5 +1,6 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
-import { PostService } from './post.service';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { ICreate } from './interfaces/create';
+import { PostService, TResult } from './post.service';
 
 export interface IFindSummaryAllRequest {
   page: string;
@@ -24,6 +25,11 @@ export class PostController {
   @Get(':id')
   async findOne(@Param('id') id : string) {
     return await this.postService.findOne(id);
+  }
+
+  @Post()
+  async create(@Body() post: ICreate) : Promise<TResult> {
+    return await this.postService.create(post);
   }
   
 }

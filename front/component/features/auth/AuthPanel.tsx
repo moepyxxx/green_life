@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components';
 import { IAuth } from '../../../pages/interface/auth';
 import Input from '../../atoms/form/Input';
 import Label from '../../atoms/form/Label';
 import Typography from '../../atoms/Typography';
 import SquareButton from '../../molecules/SquareButton';
-import UnderLineTextLink from '../../molecules/UnderlineTextLink';
+import UnderLineTextLink from '../../molecules/UnderLineTextLink';
 import Tree from '../../pattern/Tree';
 
 

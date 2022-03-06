@@ -1,4 +1,5 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, Headers, HttpException, HttpStatus } from '@nestjs/common';
+import { AuthService } from 'src/auth/auth.service';
 import { ICreate } from './interfaces/create';
 import { PostService, TResult } from './post.service';
 
@@ -10,10 +11,19 @@ export interface IFindSummaryAllRequest {
 @Controller('posts')
 export class PostController {
   
-  constructor(private readonly postService: PostService) {}
+  constructor(
+    private readonly postService: PostService,
+    private readonly authService: AuthService
+  ) {}
 
   @Get()
-  async findSummaryAll(@Query() params: IFindSummaryAllRequest) {
+  async findSummaryAll(@Headers("Authorization") authorization: string, @Query() params: IFindSummaryAllRequest) {
+
+    // なんかないのかな…あると思うけど…
+    const isAuthed: boolean = await this.authService.verifyIdToken(authorization.replace('Bearer ', ''));
+    if (!isAuthed) {
+      throw new HttpException("this accoun is not authed", HttpStatus.UNAUTHORIZED);
+    }
 
     if (!params.page) {
       params.page = "1";

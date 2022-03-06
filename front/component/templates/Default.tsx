@@ -1,5 +1,6 @@
 import React, { ReactChild } from 'react'
 import styled from 'styled-components';
+import Toaster from '../features/Toaster';
 
 import Footer from './Footer';
 import Header from './Header'
@@ -13,6 +14,7 @@ const Default: React.FC<Props> = ({ children }) => {
   return (
     <>
       <Header />
+        <Toaster />
         <Layout>
           {children}
         </Layout>

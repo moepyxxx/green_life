@@ -108,7 +108,7 @@ const CreateStep2: React.FC<Props> = ({ post, setPost }) => {
           {[...Array(36)].map((_, index) => {
             const col: number = Math.floor(index / 6 + 1);
             const row: number = index % 6 + 1;
-            return <Grid onClick={() => pinSelect(col, row)} />
+            return <Grid key={index} onClick={() => pinSelect(col, row)} />
           })}
         </TransParentGrid>
         {greenPins.map((greenpin: IGreenPin, index: number) => {

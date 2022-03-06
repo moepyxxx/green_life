@@ -14,7 +14,7 @@ const PostThumbnailLink: React.FC<Props> = ( { post } ) => {
 
   return (
     <Link href={post.linkPath} passHref>
-      <Image src={'/' + post.imagePath} alt='green画像' height="600" width="600" objectFit="cover" />
+      <Image unoptimized src={post.imagePath} alt='green画像' height="600" width="600" objectFit="cover" />
     </Link>
   )
 }

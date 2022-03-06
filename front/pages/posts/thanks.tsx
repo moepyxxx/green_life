@@ -16,12 +16,11 @@ export default function PostThanks() {
         <Typography size="large" color="secondary" weight="bold" margin="0 0 28px" family="Bitter">Thank you for your Post!</Typography>
         <Typography size="regular">ありがとうございます！</Typography>
         <Typography size="regular" margin="0 0 28px">あなたのグリーンが投稿されました。</Typography>
-        <SquareButton click={() => router.push(`posts/${_id}`)}>投稿を見てみる</SquareButton>
+        <SquareButton click={() => router.push(`/posts/${_id}`)}>投稿を見てみる</SquareButton>
       </Thanks>
     </DefaultTemplate>
   )
 }
-
 
 const Thanks = styled.div`
   margin: 150px auto 200px;

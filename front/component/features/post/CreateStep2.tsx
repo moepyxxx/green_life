@@ -41,6 +41,11 @@ const CreateStep2: React.FC<Props> = ({ post, setPost }) => {
     }, 1000);
   }, [post.imagePath])
 
+  useEffect(() => {
+    setPost({...post, greenPins});
+    setIsPinSelected(true);
+  }, [greenPins]);
+
   const setSelectOption = async () => {
     const greens: IApiGreen[] = await useFetch<IApiGreen[]>('greens');
     setSelectOptions(greens.map(green => {
@@ -71,9 +76,6 @@ const CreateStep2: React.FC<Props> = ({ post, setPost }) => {
       },
       greenId: ''
     }])
-
-    setPost({...post, greenPins});
-    setIsPinSelected(true);
   }
 
   const selectGreen = (e: {

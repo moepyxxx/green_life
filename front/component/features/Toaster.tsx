@@ -7,6 +7,7 @@ import Tree from '../pattern/Tree';
 
 const Toaster: React.FC = () => {
   const router = useRouter();
+  const query = router.query;
 
   const [toaster, setToaster] = useState<{
     isActive: boolean;
@@ -17,6 +18,8 @@ const Toaster: React.FC = () => {
   });
 
   useEffect(() => {
+    if(!router.isReady) return;
+    
     const { type } = router.query;
     if (!type) return;
 
@@ -34,10 +37,11 @@ const Toaster: React.FC = () => {
     }
     activeToaster(text);
 
-  }, []);
+  }, [query, router]);
 
 
   const activeToaster = (text) => {
+    console.log('activeToaster')
     setToaster({
       isActive: true,
       text

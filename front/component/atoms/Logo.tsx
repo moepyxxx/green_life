@@ -15,7 +15,6 @@ const Logo: React.FC<Props> = ( { color = 'default' } ) => {
     <Link href="/" passHref>
       <Image src={ color === 'default' ? LogoDefault : LogoWhite} alt="ロゴ" />
     </Link>
-  );;
-
+  );
 }
 export default Logo

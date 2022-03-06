@@ -70,7 +70,7 @@ const AuthPanel: React.FC<Props> = ({ authType }) => {
 
     useLogin(result.data.idToken);
     if (useIsLogin()) {
-      router.push('posts/create');
+      router.push(`/?type=${authType}`);
     }
   }
 

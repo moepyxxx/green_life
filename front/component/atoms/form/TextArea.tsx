@@ -8,7 +8,7 @@ type Props = {
 }
 
 const TextArea: React.FC<Props> = ( { change, text } ) => {
-  return <FormParts onChange={change} placeholder="このグリーン、とっても素敵でしょう！" rows={5}>{text}</FormParts>
+  return <FormParts onChange={change} placeholder="このグリーン、とっても素敵でしょう！" rows={5} value={text} />
 }
 
 export default TextArea

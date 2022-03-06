@@ -22,7 +22,7 @@ const PostParagraph: React.FC<Props> = ({ paragraph }) => {
         <Typography size="medium" family="Bitter">{`@${paragraph.username}`}</Typography>
       </User>
 
-      <Typography size="small" family="Bitter">{paragraph.date}</Typography>
+      <Typography size="small" family="Bitter"><span suppressHydrationWarning>{paragraph.date}</span></Typography>
       <Typography margin="16px 0">{paragraph.description}</Typography>
       
       <Tags>

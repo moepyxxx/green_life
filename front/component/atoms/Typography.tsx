@@ -7,6 +7,7 @@ import TSize from "../types/size";
 
 type Props = {
   color?: TColor;
+  tag?: "span" | "p";
   size?: TSize;
   children: ReactNode;
   margin?: string;
@@ -22,12 +23,37 @@ const Typography: React.FC<Props> = ({
   margin = '0',
   weight = 'normal',
   underline = false,
+  tag = "p",
   children
 }) => {
 
-  return(
-    <Text size={size} color={color} margin={margin} family={family} weight={weight} underline={underline}>{children}</Text>
-  )
+  if (tag === "span") {
+    return (
+      <SpanText
+        size={size}
+        color={color}
+        margin={margin}
+        family={family}
+        weight={weight}
+        underline={underline}
+      >
+        {children}
+      </SpanText>
+    )
+  } else {
+    return(
+      <Text
+        size={size}
+        color={color}
+        margin={margin}
+        family={family}
+        weight={weight}
+        underline={underline}
+      >
+        {children}
+      </Text>
+    )
+  }
 }
 
 const Text = styled.p`
@@ -41,5 +67,7 @@ const Text = styled.p`
     display: inline;
   `}
 `;
+
+const SpanText = Text.withComponent('span');
 
 export default Typography;

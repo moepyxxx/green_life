@@ -1,5 +1,5 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import admin from 'firebase-admin';
 import { DecodedIdToken } from 'firebase-admin/lib/auth/token-verifier';
 import { AxiosResponse } from 'axios';
@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { IAuth } from './interface/auth';
 import { ISigninResult } from './interface/signinResult';
 import { ISignupResult } from './interface/signupResult';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable()
 export class AuthService {
@@ -20,14 +21,26 @@ export class AuthService {
     return this.httpService.post(
       this.signupUrl,
       { ...request, returnSecureToken: true }
+    ).pipe(
+      map(response => response.data),
+      catchError(e => {
+        throw new HttpException(e.response.data, e.response.status);
+      })
     );
   }
 
   signin(request: IAuth): Observable<AxiosResponse<ISigninResult>> {
+
     return this.httpService.post(
-      this.signupUrl,
+      this.signinUrl,
       { ...request, returnSecureToken: true }
+    ).pipe(
+      map(response => response.data),
+      catchError(e => {
+        throw new HttpException(e.response.data, e.response.status);
+      })
     );
+
   }
 
   async verifyIdToken(idToken: string): Promise<boolean> {

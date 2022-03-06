@@ -15,6 +15,8 @@ const getColor = ( color: TColor ) => {
       return '#D8E0DA';
     case 'disable':
       return '#F0F0F0';
+    case 'danger':
+      return '#C53F14';
     default :
       return '#0C0C0C';
   }

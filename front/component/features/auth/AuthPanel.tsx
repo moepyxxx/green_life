@@ -1,11 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import { AxiosResponse } from 'axios';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react'
 import styled from 'styled-components';
 import { IAuth } from '../../../pages/interface/auth';
+import useIsLogin from '../../../utility/customhooks/useIsLogin';
+import useLogin from '../../../utility/customhooks/useLogin';
+import usePost from '../../../utility/customhooks/usePost';
 import Input from '../../atoms/form/Input';
 import Label from '../../atoms/form/Label';
 import Typography from '../../atoms/Typography';
 import SquareButton from '../../molecules/SquareButton';
-import UnderLineTextLink from '../../molecules/UnderlineTextLink';
+import UnderLineTextLink from '../../molecules/UnderLineTextLink';
 import Tree from '../../pattern/Tree';
 
 
@@ -14,10 +19,12 @@ type Props = {
 }
 const AuthPanel: React.FC<Props> = ({ authType }) => {
 
+  const router = useRouter()
   const [auth, setAuth] = useState<IAuth>({
     email: '',
     password: ''
   });
+  const [isFailure, setIsFailure] = useState<boolean>(false)
 
   const authText = authType === 'signin' ? 'サインイン' : 'サインアップ';
   const changeLinkText = authType === 'signin' ? {
@@ -46,12 +53,25 @@ const AuthPanel: React.FC<Props> = ({ authType }) => {
     })
   }
 
-  const authenticate = () => {
-    // ここでログイン処理
-    // const request: IAuth &{
-    //   returnSecureToken : boolean
-    // } = { ...auth, returnSecureToken: true };
-    // const authApiPath = authType === 'signin' ? 'auth/signin' : 'auth/signup'
+  const authenticate = async () => {
+
+    const authApiPath = authType === 'signin' ? 'auth/signin' : 'auth/signup';
+
+    const result: AxiosResponse | boolean = await usePost<IAuth, AxiosResponse>(authApiPath, auth);
+
+    if (!result) {
+      setIsFailure(true);
+      setAuth({
+        email: '',
+        password: ''
+      })
+      return;
+    }
+
+    useLogin(result.data.idToken);
+    if (useIsLogin()) {
+      router.push('posts/create');
+    }
   }
 
   return (
@@ -66,6 +86,9 @@ const AuthPanel: React.FC<Props> = ({ authType }) => {
       </FormControl>
 
       <FormSubmit>
+        <AuthFailed display={isFailure ? 'block' : 'none'}>
+          <Typography color="danger" size="regular">ログインIDまたはパスワードが無効です</Typography>
+        </AuthFailed>
         <SquareButton margin="0 0 8px" click={authenticate}>{authText}</SquareButton>
         <Typography size="regular">
           {changeLinkText.user}は
@@ -92,7 +115,12 @@ const FormControl = styled.div`
 const FormSubmit = styled.div`
   text-align: center;
   width: 100%;
-  margin-top: 60px;
+  margin-top: 40px;
+`;
+
+const AuthFailed = styled.div`
+  display: ${props => props.display};
+  margin-bottom: 8px;
 `;
 
 const Descriptoin = styled.div`

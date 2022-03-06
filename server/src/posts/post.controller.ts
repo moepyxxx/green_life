@@ -17,13 +17,7 @@ export class PostController {
   ) {}
 
   @Get()
-  async findSummaryAll(@Headers("Authorization") authorization: string, @Query() params: IFindSummaryAllRequest) {
-
-    // なんかないのかな…あると思うけど…
-    const isAuthed: boolean = await this.authService.verifyIdToken(authorization.replace('Bearer ', ''));
-    if (!isAuthed) {
-      throw new HttpException("this accoun is not authed", HttpStatus.UNAUTHORIZED);
-    }
+  async findSummaryAll(@Query() params: IFindSummaryAllRequest) {
 
     if (!params.page) {
       params.page = "1";
@@ -38,7 +32,14 @@ export class PostController {
   }
 
   @Post()
-  async create(@Body() post: ICreate) : Promise<TResult> {
+  async create(@Headers("Authorization") authorization: string, @Body() post: ICreate) : Promise<TResult> {
+
+    // なんかないのかな…あると思うけど…
+    const isAuthed: boolean = await this.authService.verifyIdToken(authorization.replace('Bearer ', ''));
+    if (!isAuthed) {
+      throw new HttpException("this accoun is not authed", HttpStatus.UNAUTHORIZED);
+    }
+
     return await this.postService.create(post);
   }
   

@@ -14,7 +14,7 @@ const UnderLineTextLink: React.FC<Props> = ( { size, linkPath, children } ) => {
   return (
     <Link href={linkPath} passHref>
       <>
-        <Typography size={size} color="secondary" underline={true}>{children}</Typography>
+        <Typography tag="span" size={size} color="secondary" underline={true}>{children}</Typography>
       </>
     </Link>
   )

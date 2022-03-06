@@ -9,7 +9,7 @@ import { PostModule } from './posts/post.module';
 import { ImageModule } from './images/image.module';
 import { TagModule } from './tags/tag.module';
 import { GreenModule } from './greens/green.module';
-import { HttpModule } from '@nestjs/axios';
+import { AuthModule } from './auth/auth.module';
 
 const url = `mongodb://root:example@mongo:27017/greenlife?authSource=admin`;
 
@@ -22,11 +22,11 @@ const url = `mongodb://root:example@mongo:27017/greenlife?authSource=admin`;
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'image'),
     }),
-    HttpModule,
     PostModule,
     ImageModule,
     TagModule,
-    GreenModule 
+    GreenModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],

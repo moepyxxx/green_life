@@ -55,7 +55,7 @@ const AuthPanel: React.FC<Props> = ({ authType }) => {
 
   const authenticate = async () => {
 
-    const authApiPath = authType === 'signin' ? 'auth/signin' : 'auth/signup';
+    const authApiPath = authType === 'signin' ? 'users/signin' : 'users/signup';
 
     const result: AxiosResponse | boolean = await usePost<IAuth, AxiosResponse>(authApiPath, auth);
 

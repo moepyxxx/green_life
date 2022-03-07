@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post, Query, Headers, HttpException, HttpStatus } from '@nestjs/common';
-import { AuthService } from 'src/auth/auth.service';
+import { UserService } from 'src/users/user.service';
 import { ICreate } from './interfaces/create';
 import { PostService, TResult } from './post.service';
 
@@ -13,7 +13,7 @@ export class PostController {
   
   constructor(
     private readonly postService: PostService,
-    private readonly authService: AuthService
+    private readonly userService: UserService
   ) {}
 
   @Get()
@@ -35,7 +35,7 @@ export class PostController {
   async create(@Headers("Authorization") authorization: string, @Body() post: ICreate) : Promise<TResult> {
 
     // なんかないのかな…あると思うけど…
-    const isAuthed: boolean = await this.authService.verifyIdToken(authorization.replace('Bearer ', ''));
+    const isAuthed: boolean = await this.userService.verifyIdToken(authorization.replace('Bearer ', ''));
     if (!isAuthed) {
       throw new HttpException("this accoun is not authed", HttpStatus.UNAUTHORIZED);
     }

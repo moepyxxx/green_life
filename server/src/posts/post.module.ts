@@ -6,10 +6,9 @@ import { PostService } from './post.service';
 import { Tag, TagSchema } from 'src/tags/tag.schema';
 import { TagService } from 'src/tags/tag.service';
 import { User, UserSchema } from 'src/users/user.schema';
-import { UserService } from 'src/users/user.service';
 import { GreenService } from 'src/greens/green.service';
 import { Green, GreenSchema } from 'src/greens/green.schema';
-import { AuthService } from 'src/auth/auth.service';
+import { UserService } from 'src/users/user.service';
 import { HttpModule } from '@nestjs/axios';
 
 @Module({
@@ -23,6 +22,6 @@ import { HttpModule } from '@nestjs/axios';
     HttpModule
   ],
   controllers: [PostController],
-  providers: [PostService, TagService, UserService, GreenService, AuthService],
+  providers: [PostService, TagService, UserService, GreenService, UserService],
 })
 export class PostModule {}

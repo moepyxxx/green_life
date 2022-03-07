@@ -40,7 +40,7 @@ export class PostController {
       throw new HttpException("this accoun is not authed", HttpStatus.UNAUTHORIZED);
     }
 
-    return await this.postService.create(post);
+    return await this.postService.create(post, isAuthed);
   }
   
 }

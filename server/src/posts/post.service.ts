@@ -70,10 +70,17 @@ export class PostService {
     return new PostDetailMaker(post, tags, user, greenpins);
   }
 
-  async create(post: ICreate): Promise<TResult> {
+  async create(post: ICreate, uId: string): Promise<TResult> {
+
+    const user = await this.userService.fetchUserFromFirebaseUId(uId);
+
     try {
       const _id = new Types.ObjectId;
-      const createPost = await new this.postModel({ ...post, _id });
+      const createPost = await new this.postModel({
+        ...post,
+        _id,
+        userId: user._id
+      });
       await createPost.save();
 
       return {

@@ -59,7 +59,7 @@ const SignupPanel: React.FC = () => {
       })
       return;
     } else {
-      router.push(`/signin/?type=signin`);
+      router.push(`/signin/?type=signup`);
     }
   }
 

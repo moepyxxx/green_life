@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Headers, HttpException, HttpStatus, Param, Post } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { Observable, Subscription } from 'rxjs';
 import { UserService } from './user.service';
@@ -28,4 +28,16 @@ export class UserController {
   signin(@Body() request: IAuth): Observable<AxiosResponse<ISigninResult>> {
     return this.userService.signin(request);
   }
+
+  @Get('thumbnail')
+  async findThumbnail(@Headers("Authorization") authorization: string) {
+
+    // なんかないのかな…あると思うけど…
+    const isAuthed: string | false = await this.userService.verifyIdToken(authorization.replace('Bearer ', ''));
+    if (!isAuthed) {
+      throw new HttpException("this accoun is not authed", HttpStatus.UNAUTHORIZED);
+    }
+    return await this.userService.findThumbnail(isAuthed);
+  }
+
 }

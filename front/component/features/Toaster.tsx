@@ -32,8 +32,8 @@ const Toaster: React.FC = () => {
         text = 'サインインしました。さっそくgreenをポストしてみましょう！';
         break;
       case  'signup':
-        text = 'greenLifeへようこそ！チームのgreenを見たり、自分のgreenをポストしてね！';
-        break;      
+        text = 'greenLifeへようこそ！サインインして早速利用してみましょう！';
+        break;
     }
     activeToaster(text);
 
@@ -41,7 +41,6 @@ const Toaster: React.FC = () => {
 
 
   const activeToaster = (text) => {
-    console.log('activeToaster')
     setToaster({
       isActive: true,
       text

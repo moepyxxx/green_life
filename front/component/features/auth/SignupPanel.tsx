@@ -48,7 +48,7 @@ const SignupPanel: React.FC = () => {
 
   const authenticate = async () => {
 
-    const result: AxiosResponse | boolean = await usePost<ISignup, AxiosResponse>('users/signin', signupUser);
+    const result: AxiosResponse | boolean = await usePost<ISignup, AxiosResponse>('users/signup', signupUser);
 
     if (!result) {
       setIsFailure(true);
@@ -58,11 +58,8 @@ const SignupPanel: React.FC = () => {
         displayName: ''
       })
       return;
-    }
-
-    useLogin(result.data.idToken);
-    if (useIsLogin()) {
-      router.push(`/?type=signup`);
+    } else {
+      router.push(`/signin/?type=signin`);
     }
   }
 
@@ -70,7 +67,7 @@ const SignupPanel: React.FC = () => {
     <>
       <FormControl>
         <Label>お名前（ニックネームでもOK）</Label>
-        <Input value={signupUser.email} change={changeEmail} placeholder="グリーンちゃん" />
+        <Input value={signupUser.displayName} change={changeDisplayName} placeholder="グリーンちゃん" />
       </FormControl>
 
       <FormControl>

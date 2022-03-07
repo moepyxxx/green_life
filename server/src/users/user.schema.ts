@@ -11,10 +11,22 @@ export class User {
   _id: mongoose.Schema.Types.ObjectId;
 
   @Prop({ required: true })
+  firebaseUid: string;
+
+  @Prop({ required: true, default: 'https://storage.googleapis.com/greenlife-midori.appspot.com/defaults/green-chan.png' })
+  thumbnailUrl: string;
+
+  @Prop({ required: true })
   userName: string;
 
   @Prop({ required: true })
   displayName: string;
+
+  @Prop({ required: true, default: '' })
+  profile: string;
+
+  @Prop({ required: true })
+  email: string;
   
   @Prop({ required: true, default: new Date() })
   createdAt: Date;

@@ -1,5 +1,4 @@
 export interface IPost {
-  userId: string;
   imagePath: string;
   comment: string;
   greenPins: IGreenPin[],

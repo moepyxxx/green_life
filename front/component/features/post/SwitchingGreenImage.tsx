@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import Image from 'next/image'
 import getColor from '../../../utility/getColor';
@@ -34,10 +34,16 @@ const SwitchingGreenImage: React.FC<Props> = ({ isPlantVisualActive, greenPins, 
     setModalIsActive(true);
   }
 
+  useEffect(() => {
+    console.log(modalIsActive)
+  }, [modalIsActive])
+
   return (
     <MainImage>
       <Image unoptimized src={imagePath} width="500" height="500" objectFit='cover' alt="グリーン画像" />
       <PlantVisual isActive={isPlantVisualActive}>
+
+        <Shadow isActive={isPlantVisualActive} position="absolute" />
 
         {greenPins.map((greepin, index) => {
           return  (
@@ -50,8 +56,6 @@ const SwitchingGreenImage: React.FC<Props> = ({ isPlantVisualActive, greenPins, 
           );
         })}
         
-        <Shadow isActive={modalIsActive} position="absolute" />
-
         <Modal isActive={modalIsActive} closeAction={() => setModalIsActive(false)} position="absolute">
           <ModalInner>
             <Image

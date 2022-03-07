@@ -1,4 +1,4 @@
-export interface IAuth {
+export interface ISignin {
   email: string;
   password: string;
 }

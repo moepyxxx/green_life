@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import Logo from '../component/atoms/Logo';
 import DefaultTemplate from '../component/templates/Default';
-import AuthPanel from '../component/features/auth/AuthPanel';
+import SigninPanel from '../component/features/auth/SigninPanel';
+import GreenLifeDescription from '../component/features/auth/GreenLifeDescription';
 
 export default function Signin() {
 
@@ -13,7 +14,9 @@ export default function Signin() {
           <Logo />
         </ItemLogo>
 
-        <AuthPanel authType="signin" />
+        <SigninPanel />
+
+        <GreenLifeDescription />
       </>
     </DefaultTemplate>
   )

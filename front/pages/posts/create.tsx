@@ -27,8 +27,6 @@ export default function PostCreate() {
   const [currentStep, setCurrentStep] = useState<number>(1);
 
   const defaultPost: IPost = {
-    // ダミー
-    userId: '6216ddcd9e6c2a966a623694',
     imagePath: '',
     comment: '',
     greenPins: [],
@@ -107,7 +105,7 @@ export default function PostCreate() {
 
   const executePost = async () => {
 
-    const result = await usePost<IPost, any>('posts', post);
+    const result = await usePost<IPost, any>('posts', post, true);
 
     router.push({
       pathname: '/posts/thanks',

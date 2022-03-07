@@ -2,7 +2,8 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Logo from '../component/atoms/Logo';
-import AuthPanel from '../component/features/auth/AuthPanel';
+import GreenLifeDescription from '../component/features/auth/GreenLifeDescription';
+import SignupPanel from '../component/features/auth/SignupPanel';
 
 import DefaultTemplate from '../component/templates/Default';
 
@@ -17,7 +18,8 @@ export default function SignUp() {
           <Logo />
         </ItemLogo>
 
-        <AuthPanel authType="signup" />
+        <SignupPanel />
+        <GreenLifeDescription />
       </>
     </DefaultTemplate>
   )

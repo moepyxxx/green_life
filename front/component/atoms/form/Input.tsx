@@ -6,10 +6,11 @@ type Props = {
   change: (e?: React.ChangeEvent<HTMLInputElement>) => void,
   value: string
   type?: string
+  placeholder?: string
 }
 
-const Input: React.FC<Props> = ( { change, value, type = 'text' } ) => {
-  return <FormParts type={type} onChange={change} placeholder="" value={value} />
+const Input: React.FC<Props> = ( { change, value, type = 'text', placeholder = '' } ) => {
+  return <FormParts type={type} onChange={change} placeholder={placeholder} value={value} />
 }
 
 export default Input

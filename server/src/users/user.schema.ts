@@ -22,9 +22,6 @@ export class User {
   @Prop({ required: true })
   displayName: string;
 
-  @Prop({ required: true, default: '' })
-  profile: string;
-
   @Prop({ required: true })
   email: string;
   

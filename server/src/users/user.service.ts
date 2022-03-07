@@ -24,18 +24,20 @@ export class UserService {
     @InjectModel(ModelUser.name) private userModel: Model<UserDocument>
   ) {}
 
-  signup(authRequest: IAuth, firstUserInfo: IFirstUserInfo): Observable<{ user: ModelUser }> {
+  async signup(authRequest: IAuth, firstUserInfo: IFirstUserInfo): Promise<{ user: User }> {
     return this.httpService.post(
       this.signupUrl,
       { ...authRequest, returnSecureToken: true }
     ).pipe(
-      map(response => {
-        return this.createUser(response.data.email, response.data.localId, firstUserInfo)
-      }),
+      map(response => response.data),
       catchError(e => {
         throw new HttpException(e.response.data, e.response.status);
       }),
-    );
+    )
+    .toPromise()
+    .then(async data => {
+      return await this.createUser(data.email, data.localId, firstUserInfo);
+    })
   }
 
   signin(request: IAuth): Observable<AxiosResponse<ISigninResult>> {
@@ -57,7 +59,7 @@ export class UserService {
     return decorded.uid ? true : false;
   }
 
-  createUser(email: string, localId: string, firstUserInfo: IFirstUserInfo): { user: User } {
+  async createUser(email: string, localId: string, firstUserInfo: IFirstUserInfo): Promise<{ user: User }> {
     try {
       const _id = new Types.ObjectId;
       const user: ICreateUser = {
@@ -66,8 +68,8 @@ export class UserService {
         displayName: firstUserInfo.displayName,
         email
       }
-      const createUser = new this.userModel({ ...user, _id });
-      createUser.save();
+      const createUser = await new this.userModel({ ...user, _id });
+      await createUser.save();
 
       return {
         user: createUser

@@ -6,7 +6,6 @@
     "email": "tama@example.com",
     "userName": "tamachan",
     "displayName": "たまちゃん",
-    "profile": "ぼく、たまちゃん！",
     "createdAt": {"$date":"2021-11-07T10:00:00.884Z"},
     "updatedAt": {"$date":"2021-11-07T10:00:00.884Z"}
   },
@@ -17,7 +16,6 @@
     "email": "uni@example.com",
     "userName": "unichan",
     "displayName": "うにちゃん",
-    "profile": "わたし、うにちゃん！",
     "createdAt": {"$date":"2021-11-07T10:00:00.884Z"},
     "updatedAt": {"$date":"2021-11-07T10:00:00.884Z"}
   },
@@ -28,7 +26,6 @@
     "email": "piyo@example.com",
     "userName": "piyochan",
     "displayName": "ぴよちゃん",
-    "profile": "わし、ぴよちゃん！",
     "createdAt": {"$date":"2021-11-07T10:00:00.884Z"},
     "updatedAt": {"$date":"2021-11-07T10:00:00.884Z"}
   }

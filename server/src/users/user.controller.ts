@@ -12,7 +12,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post('signup')
-  signup(@Body() request: IAuth & IFirstUserInfo): Observable<{ user: User }> {
+  signup(@Body() request: IAuth & IFirstUserInfo): Promise<{ user: User }> {
     const auth: IAuth = {
       email: request.email,
       password: request.password

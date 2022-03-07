@@ -24,6 +24,6 @@ const ShadowContents = styled.div`
   height: 100%;
   top: 0;
   left: 0;
-  z-index: 5;
+  z-index: 4;
   background-color: rgba(31, 71, 45, .36);
 `;

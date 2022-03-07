@@ -54,9 +54,9 @@ export class UserService {
 
   }
 
-  async verifyIdToken(idToken: string): Promise<boolean> {
+  async verifyIdToken(idToken: string): Promise<string | false> {
     const decorded:DecodedIdToken = await admin.auth().verifyIdToken(idToken);
-    return decorded.uid ? true : false;
+    return decorded.uid ? decorded.uid : false;
   }
 
   async createUser(email: string, localId: string, firstUserInfo: IFirstUserInfo): Promise<{ user: User }> {
@@ -79,7 +79,22 @@ export class UserService {
     }
   }
 
+  async fetchUserFromObjectId(userId: string): Promise<User> {
+    return await this.userModel.findById(userId).exec();
+  }
+
   async fetchUser(userId: string): Promise<User> {
     return await this.userModel.findById(userId).exec();
+  }
+  
+  async fetchUserFromFirebaseUId(uId: string): Promise<User> {
+    return await this.userModel.findOne({ firebaseUid: uId }).exec();
+  }
+
+  async findThumbnail(uId: string): Promise<{ thumbnailUrl: string }> {
+    const user = await this.fetchUserFromFirebaseUId(uId);
+    return {
+      thumbnailUrl: user.thumbnailUrl
+    }
   }
 }

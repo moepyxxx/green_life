@@ -32,12 +32,15 @@ export class UserController {
   @Get('thumbnail')
   async findThumbnail(@Headers("Authorization") authorization: string) {
 
-    // なんかないのかな…あると思うけど…
-    const isAuthed: string | false = await this.userService.verifyIdToken(authorization.replace('Bearer ', ''));
-    if (!isAuthed) {
+    try {
+      // なんかないのかな…あると思うけど…
+      const isAuthed: string | false = await this.userService.verifyIdToken(authorization.replace('Bearer ', ''));
+      if (isAuthed) {
+        return await this.userService.findThumbnail(isAuthed);
+      }
+    }catch(e) {
       throw new HttpException("this accoun is not authed", HttpStatus.UNAUTHORIZED);
     }
-    return await this.userService.findThumbnail(isAuthed);
   }
 
 }

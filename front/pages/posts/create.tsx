@@ -19,6 +19,8 @@ import CreateStep5 from '../../component/features/post/CreateStep5';
 export default function PostCreate() {
 
   const router = useRouter()
+  const apiPostImage = usePostImage()
+  const apiPost = usePost();
 
   type TStepPagioations = {
     back: TStepPagination,
@@ -48,7 +50,7 @@ export default function PostCreate() {
   }, []);
 
   const saveImageUrl = async () => {
-    const imageUrl = await usePostImage(imageFile);
+    const imageUrl = await apiPostImage(imageFile);
     setPost({...post, imagePath: imageUrl });
   }
 
@@ -110,8 +112,8 @@ export default function PostCreate() {
   }
 
   const executePost = async () => {
-    const result = await usePost<IPost, any>('posts', post, true);
-
+    const result = await apiPost<IPost, any>('posts', post, true);
+    if (!result) return;
     router.push({
       pathname: '/posts/thanks',
       query: {

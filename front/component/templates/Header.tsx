@@ -3,12 +3,18 @@ import Link from 'next/link';
 import React, { ReactNode, useEffect, useState } from 'react'
 import styled from 'styled-components';
 import useFetch from '../../utility/customhooks/useFetch';
-import useIsLogin from '../../utility/customhooks/useIsLogin';
+import useIsLogin from '../../utility/isLogin';
+import useLogout from '../../utility/customhooks/useLogout';
 import getColor from '../../utility/getColor';
 import Logo from '../atoms/Logo';
 
+type TThumbnail = {
+  thumbnailUrl: string;
+}
+
 const Header = () => {
   
+  const apiFetch = useFetch();
   const [statusNode, setStatusNode] = useState<ReactNode>();
   const [thumbnail, setThumbnail] = useState<string>('https://storage.googleapis.com/greenlife-midori.appspot.com/users/green-chan.png');
 
@@ -36,8 +42,9 @@ const Header = () => {
   }, [thumbnail])
 
   const initializeThumbnail = async () => {
-    const { thumbnailUrl } = await useFetch(`users/thumbnail`, true);
-    setThumbnail(thumbnailUrl);
+    const result = await apiFetch<TThumbnail>(`users/thumbnail`, true);
+    if (!result) return;
+    setThumbnail(result.thumbnailUrl);
   }
 
   return (

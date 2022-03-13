@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import AttentionImg from '../../../img/icon/attention.svg';
 import getColor from '../../../utility/getColor';
 import Pattern2 from '../../pattern/Pattern2';
-import useIsLogin from '../../../utility/customhooks/useIsLogin';
+import useIsLogin from '../../../utility/isLogin';
 
 const PostButton: React.FC = () => {
   const router = useRouter()

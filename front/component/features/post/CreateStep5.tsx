@@ -28,14 +28,14 @@ const CreateStep5: React.FC<Props> = ({ post, setPost, executePost }) => {
     setPost({ ...post, oyuzuriComment });
   }
 
-  const checkOyuzuriFlugStyle = (activeOyuzuriFlug: boolean, type: "bgColor" | "color" | "borderColor"): TColor => {
+  const checkOyuzuriFlagStyle = (activeOyuzuriFlag: boolean, type: "bgColor" | "color" | "borderColor"): TColor => {
     switch(type) {
       case 'bgColor':
-        return activeOyuzuriFlug === post.oyuzuriFlag ? "primary" : "white";
+        return activeOyuzuriFlag === post.oyuzuriFlag ? "primary" : "white";
       case 'borderColor':
-        return activeOyuzuriFlug === post.oyuzuriFlag ? "primary": "disable";
+        return activeOyuzuriFlag === post.oyuzuriFlag ? "primary": "disable";
       case 'color':
-        return activeOyuzuriFlug === post.oyuzuriFlag ? "white": "disable";
+        return activeOyuzuriFlag === post.oyuzuriFlag ? "white": "disable";
     }
   }
 
@@ -47,18 +47,18 @@ const CreateStep5: React.FC<Props> = ({ post, setPost, executePost }) => {
           click={() => setPost({...post, oyuzuriFlag: true })}
           margin="0 8px 0"
           column={2}
-          color={checkOyuzuriFlugStyle(true, "color")}
-          borderColor={checkOyuzuriFlugStyle(true, "borderColor")}
-          bgColor={checkOyuzuriFlugStyle(true, "bgColor")}
+          color={checkOyuzuriFlagStyle(true, "color")}
+          borderColor={checkOyuzuriFlagStyle(true, "borderColor")}
+          bgColor={checkOyuzuriFlagStyle(true, "bgColor")}
         >オンにする
         </RadiusButton>
         <RadiusButton
           click={() => setPost({...post, oyuzuriFlag: false })}
           margin="0 8px 0"
           column={2}
-          color={checkOyuzuriFlugStyle(false, "color")}
-          borderColor={checkOyuzuriFlugStyle(false, "borderColor")}
-          bgColor={checkOyuzuriFlugStyle(false, "bgColor")}
+          color={checkOyuzuriFlagStyle(false, "color")}
+          borderColor={checkOyuzuriFlagStyle(false, "borderColor")}
+          bgColor={checkOyuzuriFlagStyle(false, "bgColor")}
         >オフにする
         </RadiusButton>
       </Select>

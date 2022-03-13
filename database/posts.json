@@ -13,6 +13,7 @@
       "position": { "top": "35", "left": "20" },
       "greenId": {"$oid":"6216ddcd9e6c2a966a623711"}
     }],
+    "oyuzuriFlag": false,
     "createdAt": {"$date":"2021-11-07T10:00:00.884Z"},
     "updatedAt": {"$date":"2021-11-07T10:00:00.884Z"}
   },
@@ -28,6 +29,8 @@
       "position": { "top": "65", "left": "75" },
       "greenId": {"$oid":"6216ddcd9e6c2a966a623712"}
     }],
+    "oyuzuriFlag": true,
+    "oyuzuriComment": "ここにお譲りコメントが入ります",
     "createdAt": {"$date":"2021-11-07T10:00:00.884Z"},
     "updatedAt": {"$date":"2021-11-07T10:00:00.884Z"}
   },
@@ -46,6 +49,8 @@
       "position": { "top": "35", "left": "20" },
       "greenId": {"$oid":"6216ddcd9e6c2a966a623713"}
     }],
+    "oyuzuriFlag": true,
+    "oyuzuriComment": "ここにお譲りコメントが入ります！！！！おゆずりしたい！！！",
     "createdAt": {"$date":"2021-11-07T10:00:00.884Z"},
     "updatedAt": {"$date":"2021-11-07T10:00:00.884Z"}
   },
@@ -64,6 +69,7 @@
       "position": { "top": "85", "left": "85" },
       "greenId": {"$oid":"6216ddcd9e6c2a966a623711"}
     }],
+    "oyuzuriFlag": false,
     "createdAt": {"$date":"2021-11-07T10:00:00.884Z"},
     "updatedAt": {"$date":"2021-11-07T10:00:00.884Z"}
   }

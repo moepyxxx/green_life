@@ -21,10 +21,12 @@ const TextBudge: React.FC<Props> = ( { color = "white", children, bgColor = "pri
 
 export default TextBudge
 
-const Budge = styled.div`
-  color: ${props => props.color};
-  background-color: ${props => props.bgColor};
+const Budge = styled.span`
+  color: ${props => getColor(props.color)};
+  background-color: ${props => getColor(props.bgColor)};
   font-size: 1.2rem;
-  border-radius: 8px;
-  padding: 2px 8px;
+  font-family: 'Bitter', sans-serif;
+  line-height: 1;
+  border-radius: 12px;
+  padding: 4px 12px;
 `;

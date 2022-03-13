@@ -6,4 +6,6 @@ export interface ICreate {
   greenPins: IGreenPin[];
   comment: string;
   tags: Tag[];
+  oyuzuriFlag: boolean;
+  oyuzuriComment: string;
 }

@@ -23,7 +23,7 @@ export default ReadTitle;
 
 const Wrapper = styled.div`
   text-align: center;
-  padding: 0 40px;
+  padding: 0 16px;
 `;
 
 const MainTitle = styled.div`

@@ -40,7 +40,7 @@ export class Post {
   @Prop({ required: true })
   oyuzuriFlag: boolean;
 
-  @Prop({ required: true, default: '' })
+  @Prop({ type: String, default: '' })
   oyuzuriComment: string;
 
   @Prop({ required: true, default: new Date() })

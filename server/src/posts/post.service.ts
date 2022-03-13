@@ -71,7 +71,6 @@ export class PostService {
   }
 
   async create(post: ICreate, uId: string): Promise<TResult> {
-
     const user = await this.userService.fetchUserFromFirebaseUId(uId);
 
     try {

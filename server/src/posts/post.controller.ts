@@ -27,8 +27,15 @@ export class PostController {
   }
   
   @Get(':id')
-  async findOne(@Param('id') id : string) {
-    return await this.postService.findOne(id);
+  async findOne(@Headers("Authorization") authorization: string, @Param('id') id : string) {
+    try {
+      const isAuthed: string | false = await this.userService.verifyIdToken(authorization.replace('Bearer ', ''));
+      if (isAuthed) {
+        return await this.postService.findOne(id, isAuthed);
+      }
+    } catch(_) {
+      return await this.postService.findOne(id, false);
+    }
   }
 
   @Post()

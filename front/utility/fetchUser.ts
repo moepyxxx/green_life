@@ -1,5 +1,5 @@
 
-const useFetchUser = () : {
+const fetchUser = () : {
   token: string
 } => {
   const jwt = localStorage.getItem('jwt');
@@ -10,4 +10,4 @@ const useFetchUser = () : {
     token: jwt
   }
 }
-export default useFetchUser;
+export default fetchUser;

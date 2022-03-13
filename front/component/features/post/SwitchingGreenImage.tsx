@@ -34,10 +34,6 @@ const SwitchingGreenImage: React.FC<Props> = ({ isPlantVisualActive, greenPins, 
     setModalIsActive(true);
   }
 
-  useEffect(() => {
-    console.log(modalIsActive)
-  }, [modalIsActive])
-
   return (
     <MainImage>
       <Image unoptimized src={imagePath} width="500" height="500" objectFit='cover' alt="グリーン画像" />

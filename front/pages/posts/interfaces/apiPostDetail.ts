@@ -17,4 +17,16 @@ export interface IApiPostDetail {
   tags: IApiTag[];
   createdAt: string;
   updatedAt: string;
+  oyuzuriFlag: boolean;
+  oyuzuriComment: string;
+  isPostMyself: boolean;
+  oyuzuriRequestUsers: IApiOyuzuriRequestUser[] | null;
+  oyuzuriRequest: boolean | null;
+  oyuzuriId: string | null;
+}
+
+export interface IApiOyuzuriRequestUser {
+  _id: string;
+  imageUrl: string;
+  userName: string;
 }

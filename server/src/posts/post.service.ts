@@ -51,7 +51,7 @@ export class PostService {
     }
   }
 
-  async findOne(id: string): Promise<IPostDetail> {
+  async findOne(id: string, authToken: string | false): Promise<IPostDetail> {
     const post: Post = await this.postModel.findById(id).exec();
 
     const greenpins: IGreenPin[] = await Promise.all(post.greenPins.map(async post => {
@@ -66,8 +66,8 @@ export class PostService {
     const tags: Tag[] = await Promise.all(post.tagIds.map(async tagId => {
       return await this.tagService.fetchTag(tagId.toString());
     }))
-
-    return new PostDetailMaker(post, tags, user, greenpins);
+    
+    return new PostDetailMaker(post, tags, user, greenpins, authToken);
   }
 
   async create(post: ICreate, uId: string): Promise<TResult> {

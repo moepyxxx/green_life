@@ -1,4 +1,4 @@
-import { ReactChild, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import styled from 'styled-components';
 import getColor from '../../utility/getColor';
 import getSize from '../../utility/getSize';
@@ -57,6 +57,7 @@ const Typography: React.FC<Props> = ({
 }
 
 const Text = styled.p`
+  white-space: pre-wrap;
   font-size: ${prop => getSize(prop.size)}rem;
   color: ${prop => getColor(prop.color)};
   font-family: "${prop => prop.family}", sans-serif;

@@ -34,13 +34,15 @@ export class PostController {
   @Post()
   async create(@Headers("Authorization") authorization: string, @Body() post: ICreate) : Promise<TResult> {
 
-    // なんかないのかな…あると思うけど…
-    const isAuthed: string | false = await this.userService.verifyIdToken(authorization.replace('Bearer ', ''));
-    if (!isAuthed) {
+    try {
+      // なんかないのかな…あると思うけど…
+      const isAuthed: string | false = await this.userService.verifyIdToken(authorization.replace('Bearer ', ''));
+      if (isAuthed) {
+        return await this.postService.create(post, isAuthed);
+      }
+    }catch(e) {
       throw new HttpException("this accoun is not authed", HttpStatus.UNAUTHORIZED);
     }
-
-    return await this.postService.create(post, isAuthed);
   }
   
 }

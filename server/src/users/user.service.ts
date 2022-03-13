@@ -91,7 +91,7 @@ export class UserService {
     return await this.userModel.findOne({ firebaseUid: uId }).exec();
   }
 
-  async findThumbnail(uId: string): Promise<{ thumbnailUrl: string }> {
+  async findThumbnail(uId: string): Promise<{ thumbnailUrl: string }> | never {
     const user = await this.fetchUserFromFirebaseUId(uId);
     return {
       thumbnailUrl: user.thumbnailUrl

@@ -14,6 +14,7 @@ import CreateStep4 from '../../component/features/post/CreateStep4';
 import { IPost } from './interfaces/post';
 import usePostImage from '../../utility/customhooks/usePostImage';
 import usePost from '../../utility/customhooks/usePost';
+import CreateStep5 from '../../component/features/post/CreateStep5';
 
 export default function PostCreate() {
 
@@ -30,7 +31,9 @@ export default function PostCreate() {
     imagePath: '',
     comment: '',
     greenPins: [],
-    tagIds: []
+    tagIds: [],
+    oyuzuriFlag: false,
+    oyuzuriComment: ''
   }
   const [post, setPost] = useState<IPost>(defaultPost);
   const [imageFile, setImageFile] = useState<File>();
@@ -61,6 +64,9 @@ export default function PostCreate() {
   }, {
     main: 'コメントの編集',
     sub: '最後の仕上げです！グリーンへの愛を込めてあなたからのメッセージをどうぞ'
+  }, {
+    main: 'おゆずり機能のオン',
+    sub: 'もしあなたがお引越しなどの場合や自分のグリーンを誰かに大切に育てて欲しい場合はオンにします'
   }]; 
 
   const createStepPaginations = () : TStepPagioations => { 
@@ -104,7 +110,6 @@ export default function PostCreate() {
   }
 
   const executePost = async () => {
-
     const result = await usePost<IPost, any>('posts', post, true);
 
     router.push({
@@ -124,7 +129,9 @@ export default function PostCreate() {
       case 3:
         return <CreateStep3 post={post} setPost={setPost} />;
       case 4:
-        return <CreateStep4 post={post} setPost={setPost} executePost={executePost} />;
+        return <CreateStep4 post={post} setPost={setPost} />;
+      case 5:
+        return <CreateStep5 post={post} setPost={setPost} executePost={executePost} />;
     }
   }
 

@@ -3,6 +3,8 @@ export interface IPost {
   comment: string;
   greenPins: IGreenPin[],
   tagIds: string[];
+  oyuzuriFlag: boolean;
+  oyuzuriComment: string;
 }
 
 export interface IGreenPin {

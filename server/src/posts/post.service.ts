@@ -1,4 +1,4 @@
-import { Model, Types } from 'mongoose';
+import { Model, ObjectId, Types } from 'mongoose';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Post, PostDocument } from './post.schema';
@@ -13,6 +13,9 @@ import { User } from 'src/users/user.schema';
 import { IGreenPin } from './interfaces/greenPin';
 import { Green } from 'src/greens/green.schema';
 import { ICreate } from './interfaces/create';
+import { ICreate as IOyuzuriCreate } from '../oyuzuris/interfaces/create';
+import { OyuzuriService } from 'src/oyuzuris/oyuzuri.service';
+import { Oyuzuri } from 'src/oyuzuris/oyuzuri.schema';
 
 export interface IfindSummaryAllResult {
   page: number,
@@ -29,7 +32,8 @@ export class PostService {
     @InjectModel(Post.name) private postModel: Model<PostDocument>,
     private readonly tagService: TagService,
     private readonly userService: UserService,
-    private readonly greenService: GreenService
+    private readonly greenService: GreenService,
+    private readonly oyuzuriService: OyuzuriService
   ) {}
 
   async findSummaryAll(request: IFindSummaryAllRequest): Promise<IfindSummaryAllResult> {
@@ -82,6 +86,13 @@ export class PostService {
       });
       await createPost.save();
 
+      if (post.oyuzuriFlag) {
+        const postId = _id.toString();
+        const oyuzuriUserId = user._id.toString();
+
+        await this.createOyuzuri(postId, oyuzuriUserId);
+      }
+
       return {
         post: createPost
       }
@@ -89,5 +100,15 @@ export class PostService {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
   }
+
+  async createOyuzuri(postId: string, oyuzuriUserId: string): Promise<{oyuzuri: Oyuzuri}> {
+
+    const oyuzuri: IOyuzuriCreate = {
+      postId,
+      oyuzuriUserId
+    }
+
+    return await this.oyuzuriService.create(oyuzuri)
+  } 
 
 }

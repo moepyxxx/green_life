@@ -113,7 +113,7 @@ export default function PostCreate() {
 
   const executePost = async () => {
     const result = await apiPost<IPost, any>('posts', post, true);
-
+    if (!result) return;
     router.push({
       pathname: '/posts/thanks',
       query: {

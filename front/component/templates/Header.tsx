@@ -3,8 +3,7 @@ import Link from 'next/link';
 import React, { ReactNode, useEffect, useState } from 'react'
 import styled from 'styled-components';
 import useFetch from '../../utility/customhooks/useFetch';
-import useIsLogin from '../../utility/isLogin';
-import useLogout from '../../utility/customhooks/useLogout';
+import isLogin from '../../utility/isLogin';
 import getColor from '../../utility/getColor';
 import Logo from '../atoms/Logo';
 
@@ -19,12 +18,12 @@ const Header = () => {
   const [thumbnail, setThumbnail] = useState<string>('https://storage.googleapis.com/greenlife-midori.appspot.com/users/green-chan.png');
 
   useEffect(() => {
-    if (!useIsLogin()) return;
+    if (!isLogin()) return;
     initializeThumbnail();
   }, []);
 
   useEffect(() => {
-    if (useIsLogin()) {
+    if (isLogin()) {
       setStatusNode(
         <LogginedBudge>
           <Image unoptimized src={thumbnail} alt="ユーザーアイコン" layout="fill" objectFit="cover" />

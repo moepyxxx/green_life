@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 import styled from 'styled-components';
 import { ISignin } from '../../../pages/interface/signin';
-import useIsLogin from '../../../utility/customhooks/useIsLogin';
+import useIsLogin from '../../../utility/isLogin';
 import useLogin from '../../../utility/customhooks/useLogin';
 import usePost from '../../../utility/customhooks/usePost';
 import Input from '../../atoms/form/Input';
@@ -15,6 +15,7 @@ import UnderLineTextLink from '../../molecules/UnderLineTextLink';
 const SigninPanel: React.FC = () => {
 
   const router = useRouter()
+  const apiPost = usePost()
   const [signinUser, setSigninUser] = useState<ISignin>({
     email: '',
     password: ''
@@ -39,7 +40,7 @@ const SigninPanel: React.FC = () => {
 
   const authenticate = async () => {
 
-    const result: AxiosResponse | boolean = await usePost<ISignin, AxiosResponse>('users/signin', signinUser);
+    const result: AxiosResponse | boolean = await apiPost<ISignin, AxiosResponse>('users/signin', signinUser);
 
     if (!result) {
       setIsFailure(true);

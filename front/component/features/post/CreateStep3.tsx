@@ -18,13 +18,14 @@ export type ReactSelectOption = {
 const CreateStep3: React.FC<Props> = ({ post, setPost }) => {
  
   const [selectOptions, setSelectOptions] = useState<ReactSelectOption[]>([])
+  const apiFetch = useFetch()
 
   useEffect(() => {
     setSelectOption();
   }, [])
 
   const setSelectOption = async () => {
-    const tags: IApiTag[] = await useFetch<IApiTag[]>('tags');
+    const tags: IApiTag[] = await apiFetch<IApiTag[]>('tags');
     setSelectOptions(tags.map(tag => {
       return {
         value: tag._id,

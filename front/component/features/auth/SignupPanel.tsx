@@ -3,18 +3,20 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 import styled from 'styled-components';
 import { ISignup } from '../../../pages/interface/signup';
-import useIsLogin from '../../../utility/customhooks/useIsLogin';
+import useIsLogin from '../../../utility/isLogin';
 import useLogin from '../../../utility/customhooks/useLogin';
-import usePost from '../../../utility/customhooks/usePost';
 import Input from '../../atoms/form/Input';
 import Label from '../../atoms/form/Label';
 import Typography from '../../atoms/Typography';
 import SquareButton from '../../molecules/SquareButton';
 import UnderLineTextLink from '../../molecules/UnderLineTextLink';
+import usePost from '../../../utility/customhooks/usePost';
 
 const SignupPanel: React.FC = () => {
 
   const router = useRouter()
+  const apiPost = usePost()
+  
   const [signupUser, setSignupUser] = useState<ISignup>({
     email: '',
     password: '',
@@ -48,7 +50,7 @@ const SignupPanel: React.FC = () => {
 
   const authenticate = async () => {
 
-    const result: AxiosResponse | boolean = await usePost<ISignup, AxiosResponse>('users/signup', signupUser);
+    const result: AxiosResponse | boolean = await apiPost<ISignup, AxiosResponse>('users/signup', signupUser);
 
     if (!result) {
       setIsFailure(true);

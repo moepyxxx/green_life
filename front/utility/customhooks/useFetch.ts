@@ -1,5 +1,5 @@
 import axios from "axios";
-import useFetchUser from "./usefetchUser";
+import fetchUser from "../fetchUser";
 import useLogout from "./useLogout";
 
 const useFetch = () => {
@@ -10,7 +10,7 @@ const useFetch = () => {
     try {
       if (isRequiredAuthorization) {
         return await (await axios.get(process.env.NEXT_PUBLIC_API_LOCAL_URL + apiPath, {
-          headers: { Authorization: `Bearer ${useFetchUser().token}`}
+          headers: { Authorization: `Bearer ${fetchUser().token}`}
         })).data;
     
       } else {

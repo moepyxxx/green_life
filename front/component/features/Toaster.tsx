@@ -34,6 +34,9 @@ const Toaster: React.FC = () => {
       case  'signup':
         text = 'greenLifeへようこそ！サインインして早速利用してみましょう！';
         break;
+      case  'timeout':
+        text = 'タイムアウトしました、再度ログインをし直してください。';
+        break;
     }
     activeToaster(text);
 

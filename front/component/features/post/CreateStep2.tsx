@@ -21,6 +21,7 @@ type Props = {
 
 const CreateStep2: React.FC<Props> = ({ post, setPost }) => {
 
+  const apiFetch = useFetch()
   const [isModalActive, setIsModalActive] = useState<boolean>(false);
   const [isPinSelected, setIsPinSelected] = useState<boolean>(false);
   const [greenPins, setGreenPins] = useState<IGreenPin[]>(post.greenPins);
@@ -47,7 +48,7 @@ const CreateStep2: React.FC<Props> = ({ post, setPost }) => {
   }, [greenPins]);
 
   const setSelectOption = async () => {
-    const greens: IApiGreen[] = await useFetch<IApiGreen[]>('greens');
+    const greens: IApiGreen[] = await apiFetch<IApiGreen[]>('greens');
     setSelectOptions(greens.map(green => {
       return {
         value: green._id,

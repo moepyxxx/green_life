@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 import styled from 'styled-components';
 import { ISignin } from '../../../pages/interface/signin';
-import useIsLogin from '../../../utility/isLogin';
+import isLogin from '../../../utility/isLogin';
 import useLogin from '../../../utility/customhooks/useLogin';
 import usePost from '../../../utility/customhooks/usePost';
 import Input from '../../atoms/form/Input';
@@ -53,7 +53,7 @@ const SigninPanel: React.FC = () => {
     }
 
     login(result.data.idToken);
-    if (useIsLogin()) {
+    if (isLogin()) {
       router.push(`/?type=signin`);
     }
   }

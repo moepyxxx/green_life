@@ -16,6 +16,7 @@ const SigninPanel: React.FC = () => {
 
   const router = useRouter()
   const apiPost = usePost()
+  const login = useLogin()
   const [signinUser, setSigninUser] = useState<ISignin>({
     email: '',
     password: ''
@@ -51,7 +52,7 @@ const SigninPanel: React.FC = () => {
       return;
     }
 
-    useLogin(result.data.idToken);
+    login(result.data.idToken);
     if (useIsLogin()) {
       router.push(`/?type=signin`);
     }

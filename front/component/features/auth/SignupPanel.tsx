@@ -3,8 +3,6 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 import styled from 'styled-components';
 import { ISignup } from '../../../pages/interface/signup';
-import useIsLogin from '../../../utility/isLogin';
-import useLogin from '../../../utility/customhooks/useLogin';
 import Input from '../../atoms/form/Input';
 import Label from '../../atoms/form/Label';
 import Typography from '../../atoms/Typography';
@@ -16,7 +14,7 @@ const SignupPanel: React.FC = () => {
 
   const router = useRouter()
   const apiPost = usePost()
-  
+
   const [signupUser, setSignupUser] = useState<ISignup>({
     email: '',
     password: '',

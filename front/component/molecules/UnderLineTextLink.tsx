@@ -5,11 +5,11 @@ import Typography from '../atoms/Typography';
 import TSize from '../types/size';
 
 type Props = {
-  size: TSize
+  size?: TSize
   linkPath: string
   children: ReactChild
 }
-const UnderLineTextLink: React.FC<Props> = ( { size, linkPath, children } ) => {
+const UnderLineTextLink: React.FC<Props> = ( { size = 'regular', linkPath, children } ) => {
   return (
     <Link href={linkPath} passHref>
       <LinkInner>

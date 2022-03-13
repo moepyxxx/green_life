@@ -6,11 +6,12 @@ import ArrowTextLink from '../../component/molecules/ArrowTextLink';
 import Switch from '../../component/atoms/Switch';
 import SukiButton from '../../component/molecules/SukiButton';
 import SwitchingGreenImage, { TGreenPin } from '../../component/features/post/SwitchingGreenImage';
-import PostParagraph, { TParagraph } from '../../component/features/post/PostParagraph';
+import PostParagraph, { TPostParagraph } from '../../component/features/post/PostParagraph';
 import { IApiPostDetail } from './interfaces/apiPostDetail';
 import dayjs from 'dayjs';
 import useFetch from '../../utility/customhooks/useFetch';
 import { useRouter } from 'next/router';
+import OyuzuriParagraph, { TOyuzuriParagraph } from '../../component/features/post/OyuzuriParagraph';
 
 const PostDetail = () => {
 
@@ -19,8 +20,9 @@ const PostDetail = () => {
 
   const [post, setPost] = useState<IApiPostDetail>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [paragraph, setParagraph] = useState<TParagraph>();
+  const [postParagraph, setPostParagraph] = useState<TPostParagraph>();
   const [greenPins, setGreenPins] = useState<TGreenPin[]>([]);
+  const [oyuzuriParagraph, setOyuzuriParagraph] = useState<TOyuzuriParagraph>();
 
   const [isPlantVisualActive, setIsPlantVisualActive] = useState<boolean>(false);
 
@@ -33,7 +35,7 @@ const PostDetail = () => {
   useEffect(() => {
     if (!post) return;
 
-    setParagraph({
+    setPostParagraph({
       date: dayjs(post.createdAt).format('YYYY-MM-DD HH:mm:ss ddd'),
       name: post.user.displayName,
       username: post.user.userName,
@@ -57,12 +59,21 @@ const PostDetail = () => {
       }
     }))
 
+    setOyuzuriParagraph({
+      oyuzuriFlag: post.oyuzuriFlag,
+      comment: post.oyuzuriComment,
+      isPostMyself: post.isPostMyself,
+      oyuzuriRequestUsers: post.oyuzuriRequestUsers,
+      oyuzuriRequest: post.oyuzuriRequest,
+      oyuzuriId: post.oyuzuriId
+    })
+
   }, [post])
 
   useEffect(() => {
-    if (!paragraph || !greenPins) return;
+    if (!postParagraph || !greenPins || !oyuzuriParagraph) return;
     setLoading(false)
-  }, [paragraph, greenPins])
+  }, [postParagraph, greenPins, oyuzuriParagraph])
 
   const initialize = async () => {
     const apiPost = await apiFetch<IApiPostDetail>(`posts/${router.query.id}`, true);
@@ -111,7 +122,11 @@ const PostDetail = () => {
           </Reaction>
   
           <PostParagraph
-            paragraph={paragraph}
+            paragraph={postParagraph}
+          />
+
+          <OyuzuriParagraph
+            paragraph={oyuzuriParagraph}
           />
   
         </>
@@ -134,30 +149,3 @@ const MainImage = styled.div`
 const Reaction = styled.div`
   text-align: right;
 `;
-
-// export const getStaticPaths: GetStaticPaths = async () => {
-//   const { posts } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}posts`).then(res => res.data );
-
-//   const paths = posts.map(post => ({
-//     params: { id: post._id }
-//   }));
-
-//   return { paths, fallback: false }
-// }
-
-// export const getInitialProps: GetStaticProps = async (
-//   context: GetStaticPropsContext<{ id: string }>
-// ) => {
-
-//   const post: IApiPostDetail = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}posts/${context.params.id}`, {
-//     headers: { Authorization: `Bearer ${fetchUser().token}`}
-//   })
-//     .then(res => res.data );
-
-//   return {
-//     props: {
-//       post
-//     },
-//     revalidate: 60
-//   }
-// }

@@ -50,9 +50,9 @@ export class PostDetailMaker implements IPostDetail {
     this.updatedAt = post.updatedAt;
     this.isPostMyself = this.checkIsPostMySelf(user.firebaseUid, requestUid);
 
-    this.oyuzuriComment = post.oyuzuriComment;
-    this.oyuzuriFlag = post.oyuzuriFlag;
+    this.oyuzuriFlag = oyuzuri !== null;
     this.oyuzuriId = oyuzuri ? oyuzuri._id : null;
+    this.oyuzuriComment = oyuzuri ? oyuzuri.oyuzuriComment : null;
 
     // 以下モック
     if (this.isPostMyself) {

@@ -1,8 +1,9 @@
 import { IGreenPin } from "./greenPin";
 import { Tag } from "src/tags/tag.schema";
 import { Post } from "../post.schema";
-import { ObjectId } from "mongoose";
+import { ObjectId, Schema } from "mongoose";
 import { User } from "src/users/user.schema";
+import { Oyuzuri } from "src/oyuzuris/oyuzuri.schema";
 
 export interface IPostDetail {
   _id: ObjectId;
@@ -17,11 +18,7 @@ export interface IPostDetail {
   isPostMyself: boolean;
   oyuzuriComment: string | null;
   oyuzuriId: ObjectId | null;
-  oyuzuriRequestUsers: {
-    _id: string;
-    imageUrl: string;
-    userName: string;
-  }[] | null;
+  oyuzuriRequestUsers: Schema.Types.ObjectId[] | null;
   oyuzuriRequest: boolean | null;
 }
 
@@ -39,14 +36,10 @@ export class PostDetailMaker implements IPostDetail {
   isPostMyself: boolean;
   oyuzuriComment: string | null;
   oyuzuriId: ObjectId | null;
-  oyuzuriRequestUsers: {
-    _id: string;
-    imageUrl: string;
-    userName: string;
-  }[] | null;
+  oyuzuriRequestUsers: Schema.Types.ObjectId[] | null;
   oyuzuriRequest: boolean | null;
 
-  constructor(post: Post, tags: Tag[], user: User, greenPins: IGreenPin[], requestUid: string | false) {
+  constructor(post: Post, tags: Tag[], user: User, greenPins: IGreenPin[], oyuzuri: Oyuzuri | null, accessUser: User | null, requestUid: string | false) {
     this._id = post._id;
     this.user = user;
     this.imagePath = post.imagePath;
@@ -55,26 +48,26 @@ export class PostDetailMaker implements IPostDetail {
     this.tags = tags;
     this.createdAt = post.createdAt;
     this.updatedAt = post.updatedAt;
+    this.isPostMyself = this.checkIsPostMySelf(user.firebaseUid, requestUid);
+
     this.oyuzuriComment = post.oyuzuriComment;
     this.oyuzuriFlag = post.oyuzuriFlag;
-    this.isPostMyself = this.checkIsPostMySelf(user.firebaseUid, requestUid);
+    this.oyuzuriId = oyuzuri ? oyuzuri._id : null;
 
     // 以下モック
     if (this.isPostMyself) {
       // 返却
-      this.oyuzuriId = post._id;
-      this.oyuzuriRequestUsers = [];
+      this.oyuzuriRequestUsers = oyuzuri ? oyuzuri.requestUsers : null;
 
       // 自分の投稿ではないので返却しない
       this.oyuzuriRequest = null;
     } else {
 
       // 自分の投稿ではないので返却しない
-      this.oyuzuriId = null;
       this.oyuzuriRequestUsers = null;
 
       // 返却
-      this.oyuzuriRequest = false;
+      this.oyuzuriRequest = oyuzuri.requestUsers.includes(accessUser._id);
     }
   }
 

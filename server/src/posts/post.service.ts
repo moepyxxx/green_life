@@ -70,8 +70,15 @@ export class PostService {
     const tags: Tag[] = await Promise.all(post.tagIds.map(async tagId => {
       return await this.tagService.fetchTag(tagId.toString());
     }))
+
+    const oyuzuri: Oyuzuri = await this.oyuzuriService.findByPostId(post._id);
     
-    return new PostDetailMaker(post, tags, user, greenpins, authToken);
+    let accessUser: User | null = null
+    if (oyuzuri && authToken) {
+      accessUser = await this.userService.fetchUserFromFirebaseUId(authToken)
+    }
+
+    return new PostDetailMaker(post, tags, user, greenpins, oyuzuri, accessUser, authToken);
   }
 
   async create(post: ICreate, uId: string): Promise<TResult> {

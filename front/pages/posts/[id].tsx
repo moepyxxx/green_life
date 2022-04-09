@@ -12,10 +12,12 @@ import dayjs from 'dayjs';
 import useFetch from '../../utility/customhooks/useFetch';
 import { useRouter } from 'next/router';
 import OyuzuriParagraph, { TOyuzuriParagraph } from '../../component/features/post/OyuzuriParagraph';
+import usePost from '../../utility/customhooks/usePost';
 
 const PostDetail = () => {
 
   const apiFetch = useFetch()
+  const apiPost = usePost()
   const router = useRouter()
 
   const [post, setPost] = useState<IApiPostDetail>(null);
@@ -84,6 +86,13 @@ const PostDetail = () => {
     isActive ? setIsPlantVisualActive(true) : setIsPlantVisualActive(false);
   }
 
+  const oyuzuriRequest = async () => {
+    const result = await apiPost<Object, boolean>(`oyuzuris/${post.oyuzuriId}/request`, {}, true)
+    if (result === true) {
+      console.log('ボタンをおして、おゆずりリクエストが完了しました！')
+    }
+  }
+
   if (loading) {
     // [memo]: なんとかしたいローディング（笑）
     return <></>;
@@ -127,6 +136,7 @@ const PostDetail = () => {
 
           <OyuzuriParagraph
             paragraph={oyuzuriParagraph}
+            oyuzuriRequest={oyuzuriRequest}
           />
   
         </>

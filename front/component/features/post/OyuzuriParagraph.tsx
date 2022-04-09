@@ -22,9 +22,10 @@ export type TOyuzuriParagraph = {
 }
 
 type Props = {
-  paragraph: TOyuzuriParagraph
+  paragraph: TOyuzuriParagraph,
+  oyuzuriRequest: () => void
 }
-const OyuzuriParagraph: React.FC<Props> = ({ paragraph }) => {
+const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriRequest }) => {
 
   const [isModalActive, setIsModalActive] = useState<boolean>(false);
 
@@ -82,7 +83,7 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph }) => {
       </Gray>
 
       <Request display={paragraph.isPostMyself ? 'none' : 'display'}>
-        <SquareButton click={() => console.log('育てたいボタン押下')}>育てたい</SquareButton>
+        <SquareButton isDisable={paragraph.oyuzuriRequest === true} click={oyuzuriRequest}>育てたい</SquareButton>
         <Typography size="small" margin="8px 0 0">OKが出たら、やりとりすることができます</Typography>
       </Request>
 

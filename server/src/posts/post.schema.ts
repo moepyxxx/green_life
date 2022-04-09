@@ -37,12 +37,6 @@ export class Post {
   @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'Tag' })
   tagIds: mongoose.Schema.Types.ObjectId[];
 
-  @Prop({ required: true })
-  oyuzuriFlag: boolean;
-
-  @Prop({ type: String, default: '' })
-  oyuzuriComment: string;
-
   @Prop({ required: true, default: new Date() })
   createdAt: Date;
 

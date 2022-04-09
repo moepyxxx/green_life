@@ -18,7 +18,7 @@ const useFetch = () => {
       }
       
     } catch(_) {
-      logout();
+      // logout();
     }
   }
 

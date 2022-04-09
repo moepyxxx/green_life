@@ -19,6 +19,9 @@ export class Oyuzuri {
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null })
   oyuzuriTargetUserId: mongoose.Schema.Types.ObjectId | null;
+  
+  @Prop({ type: String, default: '' })
+  oyuzuriComment: string;
 
   @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'User', default: [] })
   requestUsers: mongoose.Schema.Types.ObjectId[];

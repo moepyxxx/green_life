@@ -87,7 +87,10 @@ export class PostService {
     try {
       const _id = new Types.ObjectId;
       const createPost = await new this.postModel({
-        ...post,
+        imagePath: post.imagePath,
+        greenPins: post.greenPins,
+        comment: post.comment,
+        tags: post.tags,
         _id,
         userId: user._id
       });
@@ -97,7 +100,7 @@ export class PostService {
         const postId = _id.toString();
         const oyuzuriUserId = user._id.toString();
 
-        await this.createOyuzuri(postId, oyuzuriUserId);
+        await this.createOyuzuri(postId, oyuzuriUserId, post.oyuzuriComment);
       }
 
       return {
@@ -108,11 +111,12 @@ export class PostService {
     }
   }
 
-  async createOyuzuri(postId: string, oyuzuriUserId: string): Promise<{oyuzuri: Oyuzuri}> {
+  async createOyuzuri(postId: string, oyuzuriUserId: string, oyuzuriComment: string): Promise<{oyuzuri: Oyuzuri}> {
 
     const oyuzuri: IOyuzuriCreate = {
       postId,
-      oyuzuriUserId
+      oyuzuriUserId,
+      oyuzuriComment
     }
 
     return await this.oyuzuriService.create(oyuzuri)

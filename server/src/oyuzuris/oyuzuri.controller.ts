@@ -1,4 +1,4 @@
-import { Controller, Param, Post, Headers, HttpException, HttpStatus, Get } from '@nestjs/common';
+import { Controller, Param, Post, Headers, HttpException, HttpStatus, Get, Body } from '@nestjs/common';
 import { UserService } from 'src/users/user.service';
 import { OyuzuriService } from './oyuzuri.service';
 
@@ -11,13 +11,18 @@ export class OyuzuriController {
   ) {}
 
   @Post(':id/request')
-  async create(@Headers("Authorization") authorization: string, @Param('id') id : string) : Promise<void> {
-
+  async create(
+    @Headers("Authorization") authorization: string,
+    @Param('id') id : string,
+    @Body() request: {
+      message: string
+    }
+  ) : Promise<void> {
     try {
       // なんかないのかな…あると思うけど…
       const isAuthed: string | false = await this.userService.verifyIdToken(authorization.replace('Bearer ', ''));
       if (isAuthed) {
-        return await this.oyuzuriService.request(id, isAuthed);
+        return await this.oyuzuriService.request(id, isAuthed, request);
       }
     }catch(e) {
       throw new HttpException("this accoun is not authed", HttpStatus.UNAUTHORIZED);

@@ -1,7 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Schema, Types } from 'mongoose';
-import { MessageDocument, Message } from 'src/messages/message.schema';
 import { MessageService } from 'src/messages/message.service';
 import { ICreate as ICreateMessage } from 'src/messages/interfaces/create';
 import { UserService } from 'src/users/user.service';
@@ -40,14 +39,14 @@ export class OyuzuriService {
 
 
   /**
-   * 
-   * @param id おゆずりオーナーID
-   * @param uId リクエストユーザーのuId
+   * おゆずりをリクエストする
+   * @param oyuzuriOwnerId おゆずりオーナーID
+   * @param requestUId リクエストユーザーのuId
    * @param message メッセージ
    */
   async request(oyuzuriOwnerId: string, requestUId: string, request: {
     message: string
-  }) {
+  }): Promise<boolean> {
     // リクエストユーザーを特定
     const requestUser = await this.userService.fetchUserFromFirebaseUId(requestUId);
 
@@ -70,9 +69,38 @@ export class OyuzuriService {
         }
       });
     } catch(e) {
-      console.log(e)
+      console.error(e)
+      return false
     }
+    return true
+  }
 
+  /**
+   * おゆずりをキャンセルする
+   * @param oyuzuriOwnerId おゆずりオーナーID
+   * @param requestUId リクエストユーザーのuId
+   */
+  async cancel(oyuzuriOwnerId: string, requestUId: string): Promise<boolean> {
+    // リクエストユーザーを特定
+    const requestUser = await this.userService.fetchUserFromFirebaseUId(requestUId);
+
+    try {
+      // おゆずりリクエストメッセージを削除
+      await this.messageSerivce.delete(requestUser._id, oyuzuriOwnerId, 'request')
+
+      // おゆずりスキーマを更新
+      await this.oyuzuriModel.updateOne(
+        { _id: oyuzuriOwnerId }, 
+        {
+        $pull: {
+          requestUsers: requestUser._id
+        }
+      });
+    } catch(e) {
+      console.error(e)
+      return false
+    }
+    return true
   }
 
 }

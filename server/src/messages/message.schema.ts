@@ -31,7 +31,10 @@ export class Message {
   createdAt: Date;
 
   @Prop({ default: null })
-  endedAt: Date | null;
+  updatedAt: Date | null;
+
+  @Prop({ default: null })
+  deletedAt: Date | null;
 }
 
 export const MessageSchema = SchemaFactory.createForClass(Message);

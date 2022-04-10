@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Schema, Types } from 'mongoose';
 import { ICreate } from './interfaces/create';
-import { Message, MessageDocument } from './message.schema';
+import { Message, MessageDocument, MessageType } from './message.schema';
 
 @Injectable()
 export class MessageService {
@@ -32,6 +32,19 @@ export class MessageService {
     } catch(error) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
+  }
+
+  // string型をSchema.Types.ObjectId型にキャストできないため、APIからのstringデータを受け取ると死ぬなんとかしたい
+  async delete(fromUserId: Schema.Types.ObjectId, toUserId: any, messageType: MessageType) {
+    console.log(fromUserId)
+    console.log(toUserId)
+    await this.messageModel.updateOne({
+      fromUserId,
+      toUserId,
+      messageType
+    }, {
+      deletedAt: new Date()
+    })
   }
 
 }

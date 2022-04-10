@@ -79,6 +79,15 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
     }
   }
 
+  const oyuzuriCancel = async () => {
+    const result = await apiPost<{}, boolean>(`oyuzuris/${oyuzuriId}/cancel`, {}, true)
+
+    if (result) {
+      setIsCancelModalActive(false)
+      console.log('リクエストをキャンセルしました！')
+    }
+  }
+
   if (!paragraph.oyuzuriFlag) {
     return <></>;
   }
@@ -171,7 +180,7 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
           <Typography size="regular" margin="0 0 20px">おゆずりリクエストをキャンセルしますがよろしいですか？ 相手へ送ったメッセージも取り消されます。</Typography>
           <Center>
             <RadiusButton margin="16px 0 8px" borderColor="secondary" bgColor="white" color="secondary" click={() => setIsCancelModalActive(false)}>やっぱりやめる</RadiusButton>
-            <RadiusButton click={() => console.log('おゆずりキャンセル')}>キャンセル</RadiusButton>
+            <RadiusButton click={oyuzuriCancel}>キャンセル</RadiusButton>
           </Center>
         </>
       </Modal>

@@ -2,12 +2,15 @@ import Image from 'next/image';
 import React, { useState } from 'react'
 import styled from 'styled-components';
 import { IApiOyuzuriRequestUser } from '../../../pages/posts/interfaces/apiPostDetail';
+import usePost from '../../../utility/customhooks/usePost';
 import getColor from '../../../utility/getColor';
+import TextArea from '../../atoms/form/TextArea';
 import IconButton from '../../atoms/IconButton';
 import Modal from '../../atoms/Modal';
 import Shadow from '../../atoms/Shadow';
 import TextBudge from '../../atoms/TextBudge';
 import Typography from '../../atoms/Typography';
+import RadiusButton from '../../molecules/RadiusButton';
 import SquareButton from '../../molecules/SquareButton';
 import UnderLineTextButton from '../../molecules/UnderLineTextButton';
 import Caution from '../../pattern/Caution';
@@ -23,11 +26,21 @@ export type TOyuzuriParagraph = {
 
 type Props = {
   paragraph: TOyuzuriParagraph,
-  oyuzuriRequest: () => void
+  oyuzuriId: string
 }
-const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriRequest }) => {
+const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
 
-  const [isModalActive, setIsModalActive] = useState<boolean>(false);
+  const apiPost = usePost()
+
+  const [isDescriptionModalActive, setIsDescriptionModalActive] = useState<boolean>(false);
+  const [isRequestModalActive, setIsRequestModalActive] = useState<boolean>(false);
+  const [isCancelModalActive, setIsCancelModalActive] = useState<boolean>(false);
+  const [requestMessage, setRequestMessage] = useState<string>('')
+
+  const requestMessageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const comment = e.target.value;
+    setRequestMessage(comment)
+  }
 
   const oyuzuriRequestUsersComment = () => {
 
@@ -53,6 +66,19 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriRequest }) => {
     }
   }
 
+  const oyuzuriRequest = async () => {
+    const result = await apiPost<{
+      message: string
+    }, boolean>(`oyuzuris/${oyuzuriId}/request`, {
+      message: requestMessage
+    }, true)
+
+    if (result) {
+      setIsRequestModalActive(false)
+      console.log('リクエスト送れました！')
+    }
+  }
+
   if (!paragraph.oyuzuriFlag) {
     return <></>;
   }
@@ -64,7 +90,7 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriRequest }) => {
           <FlexJustify>
             <Typography size="medium" weight="bold">おゆずりします！</Typography>
             <IconButton
-              click={() => setIsModalActive(true)}
+              click={() => setIsDescriptionModalActive(true)}
             >
               <Typography color="white" weight="bold">?</Typography>
             </IconButton>
@@ -83,14 +109,21 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriRequest }) => {
       </Gray>
 
       <Request display={paragraph.isPostMyself ? 'none' : 'display'}>
-        <SquareButton isDisable={paragraph.oyuzuriRequest === true} click={oyuzuriRequest}>育てたい</SquareButton>
+        <SquareButton
+          click={paragraph.oyuzuriRequest === true ? () => setIsCancelModalActive(true) : () => setIsRequestModalActive(true)}
+          bgColor={paragraph.oyuzuriRequest === true ? 'white' : 'secondary'}
+          color={paragraph.oyuzuriRequest === true ? 'secondary' : 'white'}
+          borderColor={paragraph.oyuzuriRequest === true ? 'secondary' : 'secondary'}
+        >
+          {paragraph.oyuzuriRequest === true ? 'キャンセル' : 'おゆずりリクエスト'}
+        </SquareButton>
         <Typography size="small" margin="8px 0 0">OKが出たら、やりとりすることができます</Typography>
       </Request>
 
 
-      <Shadow isActive={isModalActive} />
+      <Shadow isActive={isDescriptionModalActive || isCancelModalActive || isRequestModalActive} />
 
-      <Modal isActive={isModalActive} closeAction={() => setIsModalActive(false)}>
+      <Modal isActive={isDescriptionModalActive} closeAction={() => setIsDescriptionModalActive(false)}>
         <>
           <Typography color="secondary" weight="bold">おゆずり機能について</Typography>
           <Typography size="regular">ダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミー</Typography>
@@ -116,6 +149,30 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriRequest }) => {
               <Image src="/sample_1.jpg" alt="サンプル" width="300" height="300" objectFit="cover" />
             </FlexWrap>
           </Flex>
+        </>
+      </Modal>
+
+      <Modal isActive={isRequestModalActive} closeAction={() => setIsRequestModalActive(false)}>
+        <>
+          <Typography color="secondary" weight="bold">おゆずりリクエストを送る</Typography>
+          <Typography size="regular" margin="0 0 20px">おゆずりリクエストを送りましょう！</Typography>
+          <TextArea text={requestMessage} placeHolder="おゆずりのお願いやアピールをしましょう" change={requestMessageChange} />
+          <Center>
+            <RadiusButton margin="16px 0 8px" borderColor="secondary" bgColor="white" color="secondary" click={() => setIsRequestModalActive(false)}>やっぱりやめる</RadiusButton>
+            <RadiusButton click={oyuzuriRequest}>おゆずりリクエスト</RadiusButton>
+          </Center>
+        </>
+      </Modal>
+      
+      <Modal isActive={isCancelModalActive} closeAction={() => setIsCancelModalActive(false)}>
+        <>
+
+        <Typography color="secondary" weight="bold">おゆずりリクエストをキャンセル</Typography>
+          <Typography size="regular" margin="0 0 20px">おゆずりリクエストをキャンセルしますがよろしいですか？ 相手へ送ったメッセージも取り消されます。</Typography>
+          <Center>
+            <RadiusButton margin="16px 0 8px" borderColor="secondary" bgColor="white" color="secondary" click={() => setIsCancelModalActive(false)}>やっぱりやめる</RadiusButton>
+            <RadiusButton click={() => console.log('おゆずりキャンセル')}>キャンセル</RadiusButton>
+          </Center>
         </>
       </Modal>
     </>
@@ -181,6 +238,10 @@ const FlexJustify = styled.div`
   align-items: center;
   width: 100%;
   justify-content: space-between;
+`;
+
+const Center = styled.div`
+  text-align: center;
 `;
 
 export default OyuzuriParagraph

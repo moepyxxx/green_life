@@ -8,21 +8,22 @@ type Props = {
   children: ReactChild
   color?: TColor
   bgColor?: TColor
+  borderColor?: TColor
   margin?: string
   isDisable?: boolean
   click: () => void
 }
-const SquareButton: React.FC<Props> = ( { bgColor = 'secondary', color = "white", margin = "0", isDisable = false, children, click } ) => {
+const SquareButton: React.FC<Props> = ( { bgColor = 'secondary', color = "white", borderColor = "secondary", margin = "0", isDisable = false, children, click } ) => {
 
   if (isDisable) {
     return(
-      <DisabledButton bgColor={bgColor} margin={margin}>
+      <DisabledButton bgColor={bgColor} margin={margin} borderColor={borderColor}>
         <Typography size="regular" weight='bold' color={color}>{children}</Typography>
       </DisabledButton>
     )
   } else {
   return (
-      <Button onClick={click} bgColor={bgColor} margin={margin}>
+      <Button onClick={click} bgColor={bgColor} margin={margin} borderColor={borderColor}>
         <Typography size="regular" weight='bold' color={color}>{children}</Typography>
       </Button>
     );
@@ -36,7 +37,7 @@ const Button = styled.button`
   min-width: 180px;
   border-radius: 4px;
   padding: 8px;
-  border: none;
+  border: 1px solid ${prop => getColor(prop.borderColor)};
   margin: ${prop => prop.margin};
   background-color: ${prop => getColor(prop.bgColor)};
   ${prop => prop.isDisable }

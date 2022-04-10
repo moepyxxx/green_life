@@ -30,7 +30,7 @@ const InnerModal = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   width: 80%;
-  height: 80%;
+  max-height: 80%;
   background-color: #fff;
   padding: 32px;
   border-radius: 8px;

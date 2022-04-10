@@ -13,7 +13,7 @@ export class MessageService {
     message: ICreate,
     fromUserId: Schema.Types.ObjectId,
     toUserId: Schema.Types.ObjectId,
-    oyuzuriId: Schema.Types.ObjectId
+    oyuzuriId: Schema.Types.ObjectId | string
   ): Promise<{ message: Message }> {
 
     try {

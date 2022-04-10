@@ -12,6 +12,8 @@ import { UserService } from 'src/users/user.service';
 import { HttpModule } from '@nestjs/axios';
 import { Oyuzuri, OyuzuriSchema } from 'src/oyuzuris/oyuzuri.schema';
 import { OyuzuriService } from 'src/oyuzuris/oyuzuri.service';
+import { Message, MessageSchema } from 'src/messages/message.schema';
+import { MessageService } from 'src/messages/message.service';
 
 @Module({
   imports: [
@@ -20,11 +22,12 @@ import { OyuzuriService } from 'src/oyuzuris/oyuzuri.service';
       { name: Tag.name, schema: TagSchema },
       { name: User.name, schema: UserSchema },
       { name: Green.name, schema: GreenSchema },
-      { name: Oyuzuri.name, schema: OyuzuriSchema }
+      { name: Oyuzuri.name, schema: OyuzuriSchema },
+      { name: Message.name, schema: MessageSchema },
     ]),
     HttpModule
   ],
   controllers: [PostController],
-  providers: [PostService, TagService, UserService, GreenService, UserService, OyuzuriService],
+  providers: [PostService, TagService, UserService, GreenService, UserService, OyuzuriService, MessageService],
 })
 export class PostModule {}

@@ -5,10 +5,11 @@ import getColor from '../../../utility/getColor';
 type Props = {
   change: (e?: React.ChangeEvent<HTMLInputElement>) => void,
   text: string
+  placeHolder?: string
 }
 
-const TextArea: React.FC<Props> = ( { change, text } ) => {
-  return <FormParts onChange={change} placeholder="このグリーン、とっても素敵でしょう！" rows={5} value={text} />
+const TextArea: React.FC<Props> = ( { change, text, placeHolder = '' } ) => {
+  return <FormParts onChange={change} placeholder={placeHolder} rows={5} value={text} />
 }
 
 export default TextArea

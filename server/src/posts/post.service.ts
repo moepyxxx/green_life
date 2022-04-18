@@ -16,6 +16,8 @@ import { ICreate } from './interfaces/create';
 import { ICreate as IOyuzuriCreate } from '../oyuzuris/interfaces/create';
 import { OyuzuriService } from 'src/oyuzuris/oyuzuri.service';
 import { Oyuzuri } from 'src/oyuzuris/oyuzuri.schema';
+import { IOyuzuriRequestUser } from './interfaces/oyuzuriRequestUser';
+import { MessageService } from 'src/messages/message.service';
 
 export interface IfindSummaryAllResult {
   page: number,
@@ -33,7 +35,8 @@ export class PostService {
     private readonly tagService: TagService,
     private readonly userService: UserService,
     private readonly greenService: GreenService,
-    private readonly oyuzuriService: OyuzuriService
+    private readonly oyuzuriService: OyuzuriService,
+    private readonly messageService: MessageService
   ) {}
 
   async findSummaryAll(request: IFindSummaryAllRequest): Promise<IfindSummaryAllResult> {
@@ -74,11 +77,24 @@ export class PostService {
     const oyuzuri: Oyuzuri = await this.oyuzuriService.findByPostId(post._id);
     
     let accessUser: User | null = null
+    let oyuzuriRequestUsers: IOyuzuriRequestUser[] | null = []
     if (oyuzuri && authToken) {
       accessUser = await this.userService.fetchUserFromFirebaseUId(authToken)
+      oyuzuriRequestUsers = await Promise.all(oyuzuri.requestUsers.map(async userId => {
+        const requestUser = await this.userService.fetchUserFromObjectId(userId.toString())
+        const userMessage = await this.messageService.searchMessageByType(requestUser._id, oyuzuri._id, "request")
+        return {
+          userId: requestUser._id,
+          displayName: requestUser.displayName,
+          thumbnailUrl: requestUser.thumbnailUrl,
+          userName: requestUser.userName,
+          message: userMessage.message,
+          createdAt: userMessage.createdAt
+        }
+      }))
     }
 
-    return new PostDetailMaker(post, tags, user, greenpins, oyuzuri, accessUser, authToken);
+    return new PostDetailMaker(post, tags, user, greenpins, oyuzuri, accessUser, oyuzuriRequestUsers, authToken);
   }
 
   async create(post: ICreate, uId: string): Promise<TResult> {

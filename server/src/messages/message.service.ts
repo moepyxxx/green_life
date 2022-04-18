@@ -36,8 +36,6 @@ export class MessageService {
 
   // string型をSchema.Types.ObjectId型にキャストできないため、APIからのstringデータを受け取ると死ぬなんとかしたい
   async delete(fromUserId: Schema.Types.ObjectId, toUserId: any, messageType: MessageType) {
-    console.log(fromUserId)
-    console.log(toUserId)
     await this.messageModel.updateOne({
       fromUserId,
       toUserId,
@@ -45,6 +43,18 @@ export class MessageService {
     }, {
       deletedAt: new Date()
     })
+  }
+
+  async searchMessageByType(
+    fromUserId: Schema.Types.ObjectId,
+    oyuzuriId: Schema.Types.ObjectId,
+    messageType: MessageType
+  ) {
+    return await this.messageModel.findOne({
+      fromUserId,
+      oyuzuriId,
+      messageType
+    }).exec()
   }
 
 }

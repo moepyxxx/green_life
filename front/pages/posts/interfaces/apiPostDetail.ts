@@ -26,7 +26,10 @@ export interface IApiPostDetail {
 }
 
 export interface IApiOyuzuriRequestUser {
-  _id: string;
-  imageUrl: string;
+  userId: string;
+  thumbnailUrl: string;
   userName: string;
+  displayName: string;
+  message: string;
+  createdAt: string;
 }

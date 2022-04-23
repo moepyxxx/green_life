@@ -47,7 +47,7 @@ export class PostDetailMaker implements IPostDetail {
     greenPins: IGreenPin[],
     oyuzuri: Oyuzuri | null,
     accessUser: User | null,
-    requestUsers: IOyuzuriRequestUser[],
+    requestUsers: IOyuzuriRequestUser[] | null,
     requestUid: string | false
   ) {
     this._id = post._id;
@@ -77,7 +77,7 @@ export class PostDetailMaker implements IPostDetail {
       this.oyuzuriRequestUsers = null;
 
       // 返却
-      this.oyuzuriRequest = oyuzuri.requestUsers.includes(accessUser._id);
+      this.oyuzuriRequest =　oyuzuri ? oyuzuri.requestUsers.includes(accessUser._id) : null;
     }
   }
 

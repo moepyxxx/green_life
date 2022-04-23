@@ -1,15 +1,18 @@
 import Image from 'next/image';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { IApiOyuzuriRequestUser } from '../../../pages/posts/interfaces/apiPostDetail';
+import useFetch from '../../../utility/customhooks/useFetch';
 import usePost from '../../../utility/customhooks/usePost';
 import getColor from '../../../utility/getColor';
 import TextArea from '../../atoms/form/TextArea';
 import IconButton from '../../atoms/IconButton';
 import Modal from '../../atoms/Modal';
 import Shadow from '../../atoms/Shadow';
+import SimpleBox from '../../atoms/SimpleBox';
 import TextBudge from '../../atoms/TextBudge';
 import Typography from '../../atoms/Typography';
+import ProfileCard from '../../molecules/ProfileCard';
 import RadiusButton from '../../molecules/RadiusButton';
 import SquareButton from '../../molecules/SquareButton';
 import UnderLineTextButton from '../../molecules/UnderLineTextButton';
@@ -36,10 +39,17 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
   const [isRequestModalActive, setIsRequestModalActive] = useState<boolean>(false);
   const [isCancelModalActive, setIsCancelModalActive] = useState<boolean>(false);
   const [requestMessage, setRequestMessage] = useState<string>('')
+  const [isModalActive, setIsModalActive] = useState<boolean>(false);
+  const [currentRequestUser, setCurrentRequestUser] = useState<IApiOyuzuriRequestUser | null>(null)
 
   const requestMessageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const comment = e.target.value;
     setRequestMessage(comment)
+  }
+
+  const showRequestUserMessage = (user: IApiOyuzuriRequestUser) => {
+    setIsModalActive(true)
+    setCurrentRequestUser(user)
   }
 
   const oyuzuriRequestUsersComment = () => {
@@ -52,16 +62,43 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
       );
     } else {
       return (
-        <FlexLeft>
-          {paragraph.oyuzuriRequestUsers.map(user => {
-            return (
-              <UserButton key={user._id} onClick={() => console.log('hoge')}>
-                <Image unoptimized src={user.imageUrl} width="400" height="400" objectFit="cover" />
-                <Typography size="small" color="primary" family="Bitter">{user.userName.slice(0, 6) + '…'}</Typography>
-              </UserButton>
-            )
-          })}
-        </FlexLeft>
+        <>
+          <FlexLeft>
+            {paragraph.oyuzuriRequestUsers.map(oyuzuriUser => {
+              return (
+                <UserButton key={oyuzuriUser.userId} onClick={() => showRequestUserMessage(oyuzuriUser)}>
+                  <Image unoptimized src={oyuzuriUser.thumbnailUrl} width="400" height="400" objectFit="cover" />
+                  <Typography size="small" color="primary" family="Bitter">{oyuzuriUser.userName.slice(0, 6) + '…'}</Typography>
+                </UserButton>
+              )
+            })}
+          </FlexLeft>
+          <Shadow isActive={isModalActive} />
+          <Modal isActive={isModalActive} closeAction={() => setIsModalActive(false)}>
+            <>
+              {currentRequestUser === null
+                ? (<p>無効なリクエストです</p>)
+                : (
+                  <>
+                    <ProfileCard
+                      userName={currentRequestUser.userName}
+                      displayName={currentRequestUser.displayName}
+                      imageUrl={currentRequestUser.thumbnailUrl}
+                    />
+                    <Margin>
+                      <SimpleBox>
+                        <Typography size="regular">{currentRequestUser.message}</Typography>
+                      </SimpleBox>
+                    </Margin>
+                    <Center>
+                      <RadiusButton click={() => console.log('link to user profile')} margin="0 0 8px 0" bgColor="white" color="primary" borderColor="primary">プロフィールを見る</RadiusButton>
+                      <RadiusButton click={() => console.log('oyuzuri!')} bgColor="primary">おゆずりする</RadiusButton>
+                    </Center>
+                  </>
+              )}
+            </>
+          </Modal>
+        </>
       )
     }
   }
@@ -251,6 +288,10 @@ const FlexJustify = styled.div`
 
 const Center = styled.div`
   text-align: center;
+`;
+
+const Margin = styled.div`
+  margin: 16px 0;
 `;
 
 export default OyuzuriParagraph

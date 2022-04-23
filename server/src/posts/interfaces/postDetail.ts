@@ -4,6 +4,7 @@ import { Post } from "../post.schema";
 import { ObjectId, Schema } from "mongoose";
 import { User } from "src/users/user.schema";
 import { Oyuzuri } from "src/oyuzuris/oyuzuri.schema";
+import { IOyuzuriRequestUser } from "./oyuzuriRequestUser";
 
 export interface IPostDetail {
   _id: ObjectId;
@@ -18,7 +19,7 @@ export interface IPostDetail {
   isPostMyself: boolean;
   oyuzuriComment: string | null;
   oyuzuriId: ObjectId | null;
-  oyuzuriRequestUsers: Schema.Types.ObjectId[] | null;
+  oyuzuriRequestUsers: IOyuzuriRequestUser[] | null;
   oyuzuriRequest: boolean | null;
 }
 
@@ -36,10 +37,19 @@ export class PostDetailMaker implements IPostDetail {
   isPostMyself: boolean;
   oyuzuriComment: string | null;
   oyuzuriId: ObjectId | null;
-  oyuzuriRequestUsers: Schema.Types.ObjectId[] | null;
+  oyuzuriRequestUsers: IOyuzuriRequestUser[] | null;
   oyuzuriRequest: boolean | null;
 
-  constructor(post: Post, tags: Tag[], user: User, greenPins: IGreenPin[], oyuzuri: Oyuzuri | null, accessUser: User | null, requestUid: string | false) {
+  constructor(
+    post: Post,
+    tags: Tag[],
+    user: User,
+    greenPins: IGreenPin[],
+    oyuzuri: Oyuzuri | null,
+    accessUser: User | null,
+    requestUsers: IOyuzuriRequestUser[] | null,
+    requestUid: string | false
+  ) {
     this._id = post._id;
     this.user = user;
     this.imagePath = post.imagePath;
@@ -57,7 +67,7 @@ export class PostDetailMaker implements IPostDetail {
     // 以下モック
     if (this.isPostMyself) {
       // 返却
-      this.oyuzuriRequestUsers = oyuzuri ? oyuzuri.requestUsers : null;
+      this.oyuzuriRequestUsers = oyuzuri ? requestUsers : null;
 
       // 自分の投稿ではないので返却しない
       this.oyuzuriRequest = null;
@@ -67,7 +77,7 @@ export class PostDetailMaker implements IPostDetail {
       this.oyuzuriRequestUsers = null;
 
       // 返却
-      this.oyuzuriRequest = oyuzuri.requestUsers.includes(accessUser._id);
+      this.oyuzuriRequest =　oyuzuri ? oyuzuri.requestUsers.includes(accessUser._id) : null;
     }
   }
 

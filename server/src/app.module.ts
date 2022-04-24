@@ -28,7 +28,7 @@ const url = `mongodb://root:example@mongo:27017/greenlife?authSource=admin`;
     TagModule,
     GreenModule,
     UserModule,
-    OyuzuriModule
+    OyuzuriModule,
   ],
   controllers: [AppController],
   providers: [AppService],

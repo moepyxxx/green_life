@@ -1,45 +1,39 @@
-import React, { ReactChild } from 'react'
-import styled from 'styled-components';
-import getColor from '../../utility/getColor';
-import Pattern1 from '../pattern/Pattern1'
-import TColor from '../types/color'
+import React, { ReactChild } from "react";
+import styled from "styled-components";
+import getColor from "../../utility/getColor";
+import Pattern1 from "../pattern/Pattern1";
+import TColor from "../types/color";
 
 type Props = {
-  fill?: TColor
-  color?: TColor
-  children: ReactChild
-  click: () => void | null
-}
+  fill?: TColor;
+  color?: TColor;
+  children: ReactChild;
+  click: () => void | null;
+};
 
-const IconButton: React.FC<Props> = ( { fill = 'primary', color='font', children , click } ) => {
-
+const IconButton: React.FC<Props> = ({
+  fill = "primary",
+  color = "font",
+  children,
+  click,
+}) => {
   const wrapper = (
     <>
       <WrapPattern>
-        <Pattern1 fill={fill} />        
+        <Pattern1 fill={fill} />
       </WrapPattern>
-      <WrapIcon color={color}>
-        {children}
-      </WrapIcon>
+      <WrapIcon color={color}>{children}</WrapIcon>
     </>
   );
 
   if (click === null) {
-    return (
-      <Span>
-        {wrapper}
-      </Span>
-    )
+    return <Span>{wrapper}</Span>;
   } else {
-    return (
-      <Button onClick={click}>
-        {wrapper}
-      </Button>
-    )
+    return <Button onClick={click}>{wrapper}</Button>;
   }
-}
+};
 
-export default IconButton
+export default IconButton;
 
 const Button = styled.button`
   width: 52px;
@@ -70,8 +64,9 @@ const WrapIcon = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  img, svg {
+  img,
+  svg {
     vertical-align: middle;
   }
-  color: ${prop => getColor(prop.color)};
+  color: ${(prop) => getColor(prop.color)};
 `;

@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Headers, HttpException, HttpStatus, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Headers,
+  HttpException,
+  HttpStatus,
+  Param,
+  Post,
+} from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { Observable, Subscription } from 'rxjs';
 import { UserService } from './user.service';
@@ -15,12 +24,12 @@ export class UserController {
   signup(@Body() request: IAuth & IFirstUserInfo): Promise<{ user: User }> {
     const auth: IAuth = {
       email: request.email,
-      password: request.password
-    }
+      password: request.password,
+    };
     const first: IFirstUserInfo = {
-      displayName: request.displayName
-    }
-    
+      displayName: request.displayName,
+    };
+
     return this.userService.signup(auth, first);
   }
 
@@ -30,17 +39,20 @@ export class UserController {
   }
 
   @Get('thumbnail')
-  async findThumbnail(@Headers("Authorization") authorization: string) {
-
+  async findThumbnail(@Headers('Authorization') authorization: string) {
     try {
       // なんかないのかな…あると思うけど…
-      const isAuthed: string | false = await this.userService.verifyIdToken(authorization.replace('Bearer ', ''));
+      const isAuthed: string | false = await this.userService.verifyIdToken(
+        authorization.replace('Bearer ', ''),
+      );
       if (isAuthed) {
         return await this.userService.findThumbnail(isAuthed);
       }
-    }catch(e) {
-      throw new HttpException("this accoun is not authed", HttpStatus.UNAUTHORIZED);
+    } catch (e) {
+      throw new HttpException(
+        'this accoun is not authed',
+        HttpStatus.UNAUTHORIZED,
+      );
     }
   }
-
 }

@@ -5,8 +5,9 @@ import { Tag as ModelTag, Tag, TagDocument } from 'src/tags/tag.schema';
 
 @Injectable()
 export class TagService {
-
-  constructor( @InjectModel(ModelTag.name) private tagModel: Model<TagDocument> ) {}
+  constructor(
+    @InjectModel(ModelTag.name) private tagModel: Model<TagDocument>,
+  ) {}
 
   async fetchAll(): Promise<Tag[]> {
     return await this.tagModel.find().limit(50).exec();

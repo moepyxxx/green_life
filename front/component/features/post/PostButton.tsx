@@ -1,37 +1,41 @@
-import React from 'react'
-import styled from 'styled-components';
-import Image from 'next/image'
-import { useRouter } from 'next/router'
-import AttentionImg from '../../../img/icon/attention.svg';
-import getColor from '../../../utility/getColor';
-import Pattern2 from '../../pattern/Pattern2';
-import isLogin from '../../../utility/isLogin';
+import React from "react";
+import styled from "styled-components";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import AttentionImg from "../../../img/icon/attention.svg";
+import getColor from "../../../utility/getColor";
+import Pattern2 from "../../pattern/Pattern2";
+import isLogin from "../../../utility/isLogin";
 
 const PostButton: React.FC = () => {
-  const router = useRouter()
+  const router = useRouter();
 
   const link = () => {
     if (isLogin()) {
-      router.push('/posts/create')
+      router.push("/posts/create");
     } else {
-      router.push('/signin?type=needLogin')
+      router.push("/signin?type=needLogin");
     }
-  }
+  };
 
   return (
     <Button onClick={link}>
       <WrapPattern>
-        <Pattern2 fill='secondary' />
+        <Pattern2 fill="secondary" />
       </WrapPattern>
       <WrapText>
-        <Image src={AttentionImg} alt='投稿画面へのリンク（飾り）' />
-        <PostText>greenを<br />投稿</PostText>
+        <Image src={AttentionImg} alt="投稿画面へのリンク（飾り）" />
+        <PostText>
+          greenを
+          <br />
+          投稿
+        </PostText>
       </WrapText>
-  </Button>
-  )
-}
+    </Button>
+  );
+};
 
-export default PostButton
+export default PostButton;
 
 const Button = styled.button`
   width: 116px;
@@ -56,7 +60,7 @@ const WrapText = styled.div`
 const PostText = styled.div`
   font-weight: bold;
   font-size: 14px;
-  color: ${getColor('white')};
+  color: ${getColor("white")};
   letter-spacing: 0.05rem;
   margin-left: 4px;
   width: 100%;

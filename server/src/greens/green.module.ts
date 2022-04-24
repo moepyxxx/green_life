@@ -5,9 +5,9 @@ import { Green, GreenSchema } from './green.schema';
 import { GreenService } from './green.service';
 
 @Module({
-  imports: [MongooseModule.forFeature([
-    { name: Green.name, schema: GreenSchema }
-  ])],
+  imports: [
+    MongooseModule.forFeature([{ name: Green.name, schema: GreenSchema }]),
+  ],
   controllers: [GreenController],
   providers: [GreenService],
 })

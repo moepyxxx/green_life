@@ -25,9 +25,17 @@ import { MessageService } from 'src/messages/message.service';
       { name: Oyuzuri.name, schema: OyuzuriSchema },
       { name: Message.name, schema: MessageSchema },
     ]),
-    HttpModule
+    HttpModule,
   ],
   controllers: [PostController],
-  providers: [PostService, TagService, UserService, GreenService, UserService, OyuzuriService, MessageService],
+  providers: [
+    PostService,
+    TagService,
+    UserService,
+    GreenService,
+    UserService,
+    OyuzuriService,
+    MessageService,
+  ],
 })
 export class PostModule {}

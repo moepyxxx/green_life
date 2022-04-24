@@ -11,9 +11,9 @@ export interface IApiPostDetail {
     position: {
       left: string;
       top: string;
-    },
+    };
     green: IApiGreen;
-  }[],
+  }[];
   tags: IApiTag[];
   createdAt: string;
   updatedAt: string;

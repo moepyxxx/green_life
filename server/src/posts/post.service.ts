@@ -2,7 +2,10 @@ import { Model, ObjectId, Types } from 'mongoose';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Post, PostDocument } from './post.schema';
-import { IPostSummary, PostSummaryMaker } from 'src/posts/interfaces/postSummery';
+import {
+  IPostSummary,
+  PostSummaryMaker,
+} from 'src/posts/interfaces/postSummery';
 import { IPostDetail, PostDetailMaker } from 'src/posts/interfaces/postDetail';
 import { IFindSummaryAllRequest } from './post.controller';
 import { TagService } from 'src/tags/tag.service';
@@ -20,13 +23,13 @@ import { IOyuzuriRequestUser } from './interfaces/oyuzuriRequestUser';
 import { MessageService } from 'src/messages/message.service';
 
 export interface IfindSummaryAllResult {
-  page: number,
-  posts: IPostSummary[]
+  page: number;
+  posts: IPostSummary[];
 }
 
 export type TResult = {
-  post: Post
-}
+  post: Post;
+};
 
 @Injectable()
 export class PostService {
@@ -36,79 +39,102 @@ export class PostService {
     private readonly userService: UserService,
     private readonly greenService: GreenService,
     private readonly oyuzuriService: OyuzuriService,
-    private readonly messageService: MessageService
+    private readonly messageService: MessageService,
   ) {}
 
-  async findSummaryAll(request: IFindSummaryAllRequest): Promise<IfindSummaryAllResult> {
-
+  async findSummaryAll(
+    request: IFindSummaryAllRequest,
+  ): Promise<IfindSummaryAllResult> {
     const param = {
       page: Number(request.page),
-      count: Number(request.count)
-    }
+      count: Number(request.count),
+    };
     const results = await this.postModel.find().limit(param.count);
 
-    const posts: IPostSummary[] = results.map(result => {
+    const posts: IPostSummary[] = results.map((result) => {
       return new PostSummaryMaker(result);
-      ;
     });
 
     return {
       page: param.page,
-      posts
-    }
+      posts,
+    };
   }
 
   async findOne(id: string, authToken: string | false): Promise<IPostDetail> {
     const post: Post = await this.postModel.findById(id).exec();
 
-    const greenpins: IGreenPin[] = await Promise.all(post.greenPins.map(async post => {
-      const green: Green = await this.greenService.fetchGreen(post.greenId.toString());
-      return {
-        position: post.position,
-        green
-      }
-    }))
+    const greenpins: IGreenPin[] = await Promise.all(
+      post.greenPins.map(async (post) => {
+        const green: Green = await this.greenService.fetchGreen(
+          post.greenId.toString(),
+        );
+        return {
+          position: post.position,
+          green,
+        };
+      }),
+    );
 
     const user: User = await this.userService.fetchUser(post.userId.toString());
-    const tags: Tag[] = await Promise.all(post.tagIds.map(async tagId => {
-      return await this.tagService.fetchTag(tagId.toString());
-    }))
+    const tags: Tag[] = await Promise.all(
+      post.tagIds.map(async (tagId) => {
+        return await this.tagService.fetchTag(tagId.toString());
+      }),
+    );
 
     const oyuzuri: Oyuzuri = await this.oyuzuriService.findByPostId(post._id);
-    
-    let accessUser: User | null = null
-    let oyuzuriRequestUsers: IOyuzuriRequestUser[] | null = []
+
+    let accessUser: User | null = null;
+    let oyuzuriRequestUsers: IOyuzuriRequestUser[] | null = [];
     if (oyuzuri && authToken) {
-      accessUser = await this.userService.fetchUserFromFirebaseUId(authToken)
-      oyuzuriRequestUsers = await Promise.all(oyuzuri.requestUsers.map(async userId => {
-        const requestUser = await this.userService.fetchUserFromObjectId(userId.toString())
-        const userMessage = await this.messageService.searchMessageByType(requestUser._id, oyuzuri._id, "request")
-        return {
-          userId: requestUser._id,
-          displayName: requestUser.displayName,
-          thumbnailUrl: requestUser.thumbnailUrl,
-          userName: requestUser.userName,
-          message: userMessage.message,
-          createdAt: userMessage.createdAt
-        }
-      }))
+      accessUser = await this.userService.fetchUserFromFirebaseUId(authToken);
+      oyuzuriRequestUsers = await Promise.all(
+        oyuzuri.requestUsers.map(async (userId) => {
+          const requestUser = await this.userService.fetchUserFromObjectId(
+            userId.toString(),
+          );
+          const userMessage = await this.messageService.searchMessageByType(
+            requestUser._id,
+            oyuzuri._id,
+            'request',
+          );
+          return {
+            userId: requestUser._id,
+            displayName: requestUser.displayName,
+            thumbnailUrl: requestUser.thumbnailUrl,
+            userName: requestUser.userName,
+            message: userMessage.message,
+            createdAt: userMessage.createdAt,
+          };
+        }),
+      );
     }
 
-    return new PostDetailMaker(post, tags, user, greenpins, oyuzuri, accessUser, oyuzuriRequestUsers, authToken);
+    return new PostDetailMaker(
+      post,
+      tags,
+      user,
+      greenpins,
+      oyuzuri,
+      accessUser,
+      oyuzuriRequestUsers,
+      authToken,
+    );
   }
 
   async create(post: ICreate, uId: string): Promise<TResult> {
     const user = await this.userService.fetchUserFromFirebaseUId(uId);
 
     try {
-      const _id = new Types.ObjectId;
+      const _id = new Types.ObjectId();
       const createPost = await new this.postModel({
         imagePath: post.imagePath,
         greenPins: post.greenPins,
         comment: post.comment,
         tags: post.tags,
         _id,
-        userId: user._id
+        userId: user._id,
       });
       await createPost.save();
 
@@ -120,22 +146,24 @@ export class PostService {
       }
 
       return {
-        post: createPost
-      }
-    } catch(error) {
+        post: createPost,
+      };
+    } catch (error) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
   }
 
-  async createOyuzuri(postId: string, oyuzuriUserId: string, oyuzuriComment: string): Promise<{oyuzuri: Oyuzuri}> {
-
+  async createOyuzuri(
+    postId: string,
+    oyuzuriUserId: string,
+    oyuzuriComment: string,
+  ): Promise<{ oyuzuri: Oyuzuri }> {
     const oyuzuri: IOyuzuriCreate = {
       postId,
       oyuzuriUserId,
-      oyuzuriComment
-    }
+      oyuzuriComment,
+    };
 
-    return await this.oyuzuriService.create(oyuzuri)
-  } 
-
+    return await this.oyuzuriService.create(oyuzuri);
+  }
 }

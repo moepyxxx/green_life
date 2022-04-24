@@ -1,23 +1,37 @@
-import React from 'react'
-import styled from 'styled-components';
-import getColor from '../../utility/getColor';
-import Tree from '../pattern/Tree';
+import React from "react";
+import styled from "styled-components";
+import getColor from "../../utility/getColor";
+import Tree from "../pattern/Tree";
 
 type Props = {
   top: number;
   left: number;
   click: () => void | null;
-  isActive?: boolean
-}
-const GreenPin: React.FC<Props> = ( { click, top, left, isActive = false } ) => {
-  return (
-    click
-      ? <ButtonPin onClick={click} top={top.toString()} left={left.toString()} isActive={isActive}><Tree /></ButtonPin> 
-      : <SpanPin onClick={click} top={top.toString()} left={left.toString()} isActive={isActive}><Tree /></SpanPin> 
+  isActive?: boolean;
+};
+const GreenPin: React.FC<Props> = ({ click, top, left, isActive = false }) => {
+  return click ? (
+    <ButtonPin
+      onClick={click}
+      top={top.toString()}
+      left={left.toString()}
+      isActive={isActive}
+    >
+      <Tree />
+    </ButtonPin>
+  ) : (
+    <SpanPin
+      onClick={click}
+      top={top.toString()}
+      left={left.toString()}
+      isActive={isActive}
+    >
+      <Tree />
+    </SpanPin>
   );
-}
+};
 
-export default GreenPin
+export default GreenPin;
 
 const ButtonPin = styled.button`
   position: absolute;
@@ -29,7 +43,8 @@ const ButtonPin = styled.button`
   top: calc(${(props) => props.top}% - 52px);
   left: calc(${(props) => props.left}% - 52px);
   background-color: #fff;
-  border: ${props => props.isActive ? `${getColor('gray')} solid 4px` : 'none'};
+  border: ${(props) =>
+    props.isActive ? `${getColor("gray")} solid 4px` : "none"};
 
   svg {
     position: absolute;
@@ -39,4 +54,4 @@ const ButtonPin = styled.button`
   }
 `;
 
-const SpanPin = ButtonPin.withComponent('span');
+const SpanPin = ButtonPin.withComponent("span");

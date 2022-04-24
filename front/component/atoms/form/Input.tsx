@@ -1,19 +1,31 @@
-import React from 'react'
-import styled from 'styled-components';
-import getColor from '../../../utility/getColor';
+import React from "react";
+import styled from "styled-components";
+import getColor from "../../../utility/getColor";
 
 type Props = {
-  change: (e?: React.ChangeEvent<HTMLInputElement>) => void,
-  value: string
-  type?: string
-  placeholder?: string
-}
+  change: (e?: React.ChangeEvent<HTMLInputElement>) => void;
+  value: string;
+  type?: string;
+  placeholder?: string;
+};
 
-const Input: React.FC<Props> = ( { change, value, type = 'text', placeholder = '' } ) => {
-  return <FormParts type={type} onChange={change} placeholder={placeholder} value={value} />
-}
+const Input: React.FC<Props> = ({
+  change,
+  value,
+  type = "text",
+  placeholder = "",
+}) => {
+  return (
+    <FormParts
+      type={type}
+      onChange={change}
+      placeholder={placeholder}
+      value={value}
+    />
+  );
+};
 
-export default Input
+export default Input;
 
 const FormParts = styled.input`
   background-color: ${getColor("disable")};
@@ -24,6 +36,6 @@ const FormParts = styled.input`
   ::placeholder {
     color: ${getColor("primary")};
     font-size: 1.4rem;
-    font-family: 'Noto Sans JP', sans-serif;
+    font-family: "Noto Sans JP", sans-serif;
   }
 `;

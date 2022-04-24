@@ -6,14 +6,17 @@ export type UserDocument = User & Document;
 
 @Schema()
 export class User {
-
   @Prop({ type: mongoose.Schema.Types.ObjectId })
   _id: mongoose.Schema.Types.ObjectId;
 
   @Prop({ required: true })
   firebaseUid: string;
 
-  @Prop({ required: true, default: 'https://storage.googleapis.com/greenlife-midori.appspot.com/defaults/green-chan.png' })
+  @Prop({
+    required: true,
+    default:
+      'https://storage.googleapis.com/greenlife-midori.appspot.com/defaults/green-chan.png',
+  })
   thumbnailUrl: string;
 
   @Prop({ required: true })
@@ -24,7 +27,7 @@ export class User {
 
   @Prop({ required: true })
   email: string;
-  
+
   @Prop({ required: true, default: new Date() })
   createdAt: Date;
 

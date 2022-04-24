@@ -1,14 +1,14 @@
-import React from 'react'
-import styled from 'styled-components';
-import Link from 'next/link'
-import getColor from '../../utility/getColor';
+import React from "react";
+import styled from "styled-components";
+import Link from "next/link";
+import getColor from "../../utility/getColor";
 
 type Props = {
   text: string;
-  arrow: 'left' | 'right';
+  arrow: "left" | "right";
   linkPath: string;
-}
-const ArrowTextLink: React.FC<Props> = ( { linkPath, text, arrow } ) => {
+};
+const ArrowTextLink: React.FC<Props> = ({ linkPath, text, arrow }) => {
   return (
     <Link href={linkPath} passHref>
       <InnerLink>
@@ -16,10 +16,10 @@ const ArrowTextLink: React.FC<Props> = ( { linkPath, text, arrow } ) => {
         <Text>{text}</Text>
       </InnerLink>
     </Link>
-  )
-}
+  );
+};
 
-export default ArrowTextLink
+export default ArrowTextLink;
 
 const InnerLink = styled.a`
   position: relative;
@@ -30,14 +30,18 @@ const Icon = styled.span`
   height: 20px;
   top: 50%;
   transform: translateY(-50%);
-  ${props => props.arrow === 'right' && `
+  ${(props) =>
+    props.arrow === "right" &&
+    `
     right: 0;
   `}
-  ${props => props.arrow === 'left' && `
+  ${(props) =>
+    props.arrow === "left" &&
+    `
     left: 0;
   `}
   &:after, &:before {
-    content: '';
+    content: "";
     position: absolute;
     width: 8px;
     height: 8px;
@@ -46,21 +50,29 @@ const Icon = styled.span`
   }
 
   &:before {
-    background: ${getColor('secondary')};
-    ${props => props.arrow === 'left' && `
+    background: ${getColor("secondary")};
+    ${(props) =>
+      props.arrow === "left" &&
+      `
       left: 0;
     `}
-    ${props => props.arrow === 'right' && `
+    ${(props) =>
+      props.arrow === "right" &&
+      `
       right: 0;
     `}
   }
 
   &:after {
     background: #fff;
-    ${props => props.arrow === 'left' && `
+    ${(props) =>
+      props.arrow === "left" &&
+      `
       left: 2px;
     `}
-    ${props => props.arrow === 'right' && `
+    ${(props) =>
+      props.arrow === "right" &&
+      `
       right: 2px;
     `}
   }

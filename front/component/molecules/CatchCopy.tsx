@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const CatchCopy = () => {
   return (
@@ -7,9 +7,8 @@ const CatchCopy = () => {
       <Small>ここに良いかんじのキャッチコピーを</Small>
     </>
   );
-}
+};
 export default CatchCopy;
-
 
 const Large = styled.p`
   font-size: 2rem;

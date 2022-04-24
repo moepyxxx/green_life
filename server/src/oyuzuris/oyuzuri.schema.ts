@@ -7,7 +7,6 @@ export type OyuzuriDocument = Oyuzuri & Document;
 
 @Schema()
 export class Oyuzuri {
-
   @Prop({ type: mongoose.Schema.Types.ObjectId })
   _id: mongoose.Schema.Types.ObjectId;
 
@@ -19,7 +18,7 @@ export class Oyuzuri {
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null })
   oyuzuriTargetUserId: mongoose.Schema.Types.ObjectId | null;
-  
+
   @Prop({ type: String, default: '' })
   oyuzuriComment: string;
 

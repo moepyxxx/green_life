@@ -1,59 +1,60 @@
-import Image from 'next/image';
-import React, { useState } from 'react'
-import styled from 'styled-components';
-import getColor from '../../utility/getColor';
+import Image from "next/image";
+import React, { useState } from "react";
+import styled from "styled-components";
+import getColor from "../../utility/getColor";
 
-import AttentionVerticalImg from '../../img/icon/attention_vertical.svg';
-import LikeImg from '../../img/icon/heart.svg';
-import SearchImg from '../../img/icon/search.svg';
+import AttentionVerticalImg from "../../img/icon/attention_vertical.svg";
+import LikeImg from "../../img/icon/heart.svg";
+import SearchImg from "../../img/icon/search.svg";
 
-import Pattern1 from '../pattern/Pattern1';
-import IconButton from '../atoms/IconButton';
-import PostButton from '../features/post/PostButton';
+import Pattern1 from "../pattern/Pattern1";
+import IconButton from "../atoms/IconButton";
+import PostButton from "../features/post/PostButton";
 
 const Menu = () => {
-
   const [isActive, setIsActive] = useState<boolean>(false);
 
   if (isActive) {
-
     return (
       <MenuInner>
         <Like>
-          <IconButton fill='secondary' click={() => console.log('link to like page')}>
+          <IconButton
+            fill="secondary"
+            click={() => console.log("link to like page")}
+          >
             <Image src={LikeImg} alt="お気に入りページへのリンク" />
           </IconButton>
         </Like>
         <Search>
-          <IconButton fill='secondary' click={() => console.log('link to search page')}>
+          <IconButton
+            fill="secondary"
+            click={() => console.log("link to search page")}
+          >
             <Image src={SearchImg} alt="検索ページへのリンク" />
           </IconButton>
         </Search>
         <Post>
           <PostButton />
         </Post>
-        <IconButton fill='secondary' click={() => setIsActive(false)}>
+        <IconButton fill="secondary" click={() => setIsActive(false)}>
           <Close />
         </IconButton>
       </MenuInner>
     );
-
   } else {
-
     return (
       <MenuOpenBtn onClick={() => setIsActive(true)}>
         <WrapPattern>
-          <Pattern1 fill='secondary' />
+          <Pattern1 fill="secondary" />
         </WrapPattern>
         <WrapImg>
           <Image src={AttentionVerticalImg} alt="メニューを開くボタン" />
         </WrapImg>
       </MenuOpenBtn>
     );
-
   }
-}
-export default Menu
+};
+export default Menu;
 
 const MenuOpenBtn = styled.button`
   position: fixed;
@@ -112,15 +113,16 @@ const Close = styled.span`
   transform: translate(-50%, -50%);
   top: 50%;
   display: block;
-  &:after, &:before {
-    content: '';
+  &:after,
+  &:before {
+    content: "";
     position: absolute;
     display: block;
     top: 50%;
     left: 50%;
     width: 2px;
     height: 20px;
-    background-color: ${getColor('primary')};
+    background-color: ${getColor("primary")};
   }
   &:after {
     transform: translate(-50%, -50%) rotate(45deg);

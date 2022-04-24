@@ -1,7 +1,7 @@
-import '../styles/globals.css'
+import "../styles/globals.css";
 import Head from "next/head";
-import { createGlobalStyle } from 'styled-components'
-import reset from 'styled-reset'
+import { createGlobalStyle } from "styled-components";
+import reset from "styled-reset";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -19,13 +19,16 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;600&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;600&family=Noto+Sans+JP:wght@400;500&display=swap"
+          rel="stylesheet"
+        />
       </Head>
       <GlobalStyle />
       <Component {...pageProps} />
     </>
-  )
+  );
 }
 
-MyApp.getInitialProps = async () => ({ pageProps: {} })
-export default MyApp
+MyApp.getInitialProps = async () => ({ pageProps: {} });
+export default MyApp;

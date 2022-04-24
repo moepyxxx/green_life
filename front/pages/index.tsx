@@ -1,19 +1,22 @@
-import React from 'react';
-import { GetStaticProps, InferGetStaticPropsType } from 'next';
-import styled from 'styled-components';
-import Image from 'next/image'
-import Logo from '../component/atoms/Logo';
+import React from "react";
+import { GetStaticProps, InferGetStaticPropsType } from "next";
+import styled from "styled-components";
+import Image from "next/image";
+import Logo from "../component/atoms/Logo";
 
-import DefaultTemplate from '../component/templates/Default';
-import CatchCopy from '../component/molecules/CatchCopy';
-import PostThumbnailLink, { TSummaryThumbnail } from '../component/molecules/PostThumbnailLink';
+import DefaultTemplate from "../component/templates/Default";
+import CatchCopy from "../component/molecules/CatchCopy";
+import PostThumbnailLink, {
+  TSummaryThumbnail,
+} from "../component/molecules/PostThumbnailLink";
 
-export default function Home({ page, posts }: InferGetStaticPropsType<typeof getStaticProps>) {
-
+export default function Home({
+  page,
+  posts,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <DefaultTemplate>
       <>
-
         <Title>
           <TitleLogo>
             <Logo />
@@ -25,9 +28,9 @@ export default function Home({ page, posts }: InferGetStaticPropsType<typeof get
           {posts.map((post, index) => {
             const summary: TSummaryThumbnail = {
               imagePath: post.imagePath,
-              linkPath: '/posts/' + post._id,
-            }
-            return(
+              linkPath: "/posts/" + post._id,
+            };
+            return (
               <ContentImg key={index}>
                 <PostThumbnailLink post={summary} />
               </ContentImg>
@@ -36,9 +39,8 @@ export default function Home({ page, posts }: InferGetStaticPropsType<typeof get
         </Contents>
       </>
     </DefaultTemplate>
-  )
+  );
 }
-
 
 const Title = styled.div`
   margin: 200px 0 60px;
@@ -61,20 +63,18 @@ const Contents = styled.div`
   justify-content: space-between;
   position: relative;
   &:after {
-    content: '';
+    content: "";
     display: block;
-    width: calc( calc(100% - 32px) / 3);
+    width: calc(calc(100% - 32px) / 3);
   }
 `;
 const ContentImg = styled.div`
-  width: calc( calc(100% - 32px) / 3);
+  width: calc(calc(100% - 32px) / 3);
   margin-bottom: 16px;
 `;
 
-
 export const getStaticProps: GetStaticProps = async () => {
-
-  const query = new URLSearchParams({ page : '1', count: '27' });
+  const query = new URLSearchParams({ page: "1", count: "27" });
   const url = `${process.env.NEXT_PUBLIC_API_URL}posts?${query}`;
 
   const { page, posts } = await (await fetch(url)).json();
@@ -82,8 +82,8 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       page,
-      posts
+      posts,
     },
-    revalidate: 60
+    revalidate: 60,
   };
-}
+};

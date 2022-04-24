@@ -1,9 +1,9 @@
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import getColor from '../../utility/getColor';
-import Typography from '../atoms/Typography';
-import Tree from '../pattern/Tree';
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import getColor from "../../utility/getColor";
+import Typography from "../atoms/Typography";
+import Tree from "../pattern/Tree";
 
 const Toaster: React.FC = () => {
   const router = useRouter();
@@ -14,67 +14,69 @@ const Toaster: React.FC = () => {
     text: string;
   }>({
     isActive: false,
-    text: ''
+    text: "",
   });
 
   useEffect(() => {
-    if(!router.isReady) return;
-    
+    if (!router.isReady) return;
+
     const { type } = router.query;
     if (!type) return;
 
-    let text = '';
+    let text = "";
     switch (type) {
-      case  'needLogin':
-        text = '投稿にはログインが必要です。ログインしてください。';
-        break;      
-      case  'signin':
-        text = 'サインインしました。さっそくgreenをポストしてみましょう！';
+      case "needLogin":
+        text = "投稿にはログインが必要です。ログインしてください。";
         break;
-      case  'signup':
-        text = 'greenLifeへようこそ！サインインして早速利用してみましょう！';
+      case "signin":
+        text = "サインインしました。さっそくgreenをポストしてみましょう！";
         break;
-      case  'timeout':
-        text = 'タイムアウトしました、再度ログインをし直してください。';
+      case "signup":
+        text = "greenLifeへようこそ！サインインして早速利用してみましょう！";
+        break;
+      case "timeout":
+        text = "タイムアウトしました、再度ログインをし直してください。";
         break;
     }
     activeToaster(text);
-
   }, [query, router]);
-
 
   const activeToaster = (text) => {
     setToaster({
       isActive: true,
-      text
+      text,
     });
 
     setTimeout(() => {
       setToaster({
         isActive: false,
-        text: ''
-      })
+        text: "",
+      });
     }, 5000);
-  }
+  };
 
   return (
-    <Contents display={toaster.isActive ? 'fixed' : 'none'}>
-      <IconContents><Tree color="secondary" /></IconContents>
-      <TextContents><Typography size="regular">{toaster.text}</Typography></TextContents>
-  </Contents>
+    <Contents display={toaster.isActive ? "fixed" : "none"}>
+      <IconContents>
+        <Tree color="secondary" />
+      </IconContents>
+      <TextContents>
+        <Typography size="regular">{toaster.text}</Typography>
+      </TextContents>
+    </Contents>
   );
-}
+};
 
-export default Toaster
+export default Toaster;
 
 const Contents = styled.div`
   position: fixed;
-  display: ${props => props.display};
+  display: ${(props) => props.display};
   width: calc(100% - 32px);
   top: 72px;
   left: 16px;
   z-index: 5;
-  background-color: ${getColor('gray')};
+  background-color: ${getColor("gray")};
   border-radius: 4px;
   padding: 20px;
   flex-wrap: wrap;

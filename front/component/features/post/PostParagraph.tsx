@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Flex } from "../../../styles/components/Flex";
 import Typography from "../../atoms/Typography";
 import HashTag from "../../molecules/HashTag";
 
@@ -17,7 +18,7 @@ type Props = {
 const PostParagraph: React.FC<Props> = ({ paragraph }) => {
   return (
     <>
-      <User>
+      <Flex>
         <Typography size="medium" margin="0 8px 0 0">
           {paragraph.name}
         </Typography>
@@ -25,7 +26,7 @@ const PostParagraph: React.FC<Props> = ({ paragraph }) => {
           size="medium"
           family="Bitter"
         >{`@${paragraph.username}`}</Typography>
-      </User>
+      </Flex>
 
       <Typography size="small" family="Bitter">
         <span suppressHydrationWarning>{paragraph.date}</span>
@@ -44,11 +45,6 @@ const PostParagraph: React.FC<Props> = ({ paragraph }) => {
     </>
   );
 };
-
-const User = styled.div`
-  display: flex;
-`;
-
 const Tags = styled.ul`
   li {
     margin: 0 8px 4px 0;

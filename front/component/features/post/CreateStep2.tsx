@@ -13,6 +13,8 @@ import { IGreenPin, IPost } from "../../../pages/posts/interfaces/post";
 import { ReactSelectOption } from "./CreateStep3";
 import { IApiGreen } from "../../../pages/posts/interfaces/apiGreen";
 import useFetch from "../../../utility/customhooks/useFetch";
+import { Spacing } from "../../../styles/components/Spacing";
+import { Flex } from "../../../styles/components/Flex";
 
 type Props = {
   post: IPost;
@@ -162,60 +164,62 @@ const CreateStep2: React.FC<Props> = ({ post, setPost }) => {
           <Typography size="regular">
             グリーンピンを追加することで、画像の中にはどんなグリーンがあるのかを伝えることができます。
           </Typography>
-          <Flex>
-            <FlexWrap>
-              <TextBudge>step 1</TextBudge>
-              <Typography margin="0 0 8px" size="regular">
-                ピンを追加したいところをタップ
-              </Typography>
-              <Image
-                src="/sample_1.jpg"
-                alt="サンプル"
-                width="300"
-                height="300"
-                objectFit="cover"
-              />
-            </FlexWrap>
-            <FlexWrap>
-              <TextBudge>step 2</TextBudge>
-              <Typography margin="0 0 8px" size="regular">
-                グリーン名を検索して登録
-              </Typography>
-              <Image
-                src="/sample_1.jpg"
-                alt="サンプル"
-                width="300"
-                height="300"
-                objectFit="cover"
-              />
-            </FlexWrap>
-            <FlexWrap>
-              <TextBudge>step 3</TextBudge>
-              <Typography margin="0 0 8px" size="regular">
-                グリーン名を検索して登録
-              </Typography>
-              <Image
-                src="/sample_1.jpg"
-                alt="サンプル"
-                width="300"
-                height="300"
-                objectFit="cover"
-              />
-            </FlexWrap>
-            <FlexWrap>
-              <TextBudge>step 4</TextBudge>
-              <Typography margin="0 0 8px" size="regular">
-                必要であれば複数のピンを指定
-              </Typography>
-              <Image
-                src="/sample_1.jpg"
-                alt="サンプル"
-                width="300"
-                height="300"
-                objectFit="cover"
-              />
-            </FlexWrap>
-          </Flex>
+          <Spacing mt={5}>
+            <Flex alignItems="flex-start" justifyContent="space-between">
+              <FlexWrap>
+                <TextBudge>step 1</TextBudge>
+                <Typography margin="0 0 8px" size="regular">
+                  ピンを追加したいところをタップ
+                </Typography>
+                <Image
+                  src="/sample_1.jpg"
+                  alt="サンプル"
+                  width="300"
+                  height="300"
+                  objectFit="cover"
+                />
+              </FlexWrap>
+              <FlexWrap>
+                <TextBudge>step 2</TextBudge>
+                <Typography margin="0 0 8px" size="regular">
+                  グリーン名を検索して登録
+                </Typography>
+                <Image
+                  src="/sample_1.jpg"
+                  alt="サンプル"
+                  width="300"
+                  height="300"
+                  objectFit="cover"
+                />
+              </FlexWrap>
+              <FlexWrap>
+                <TextBudge>step 3</TextBudge>
+                <Typography margin="0 0 8px" size="regular">
+                  グリーン名を検索して登録
+                </Typography>
+                <Image
+                  src="/sample_1.jpg"
+                  alt="サンプル"
+                  width="300"
+                  height="300"
+                  objectFit="cover"
+                />
+              </FlexWrap>
+              <FlexWrap>
+                <TextBudge>step 4</TextBudge>
+                <Typography margin="0 0 8px" size="regular">
+                  必要であれば複数のピンを指定
+                </Typography>
+                <Image
+                  src="/sample_1.jpg"
+                  alt="サンプル"
+                  width="300"
+                  height="300"
+                  objectFit="cover"
+                />
+              </FlexWrap>
+            </Flex>
+          </Spacing>
         </>
       </Modal>
     </>
@@ -253,14 +257,6 @@ const Grid = styled.span`
   width: calc(100% / 6);
   height: calc(100% / 6);
   background-color: rgba(31, 71, 45, 0.36);
-`;
-
-const Flex = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-top: 20px;
 `;
 
 const FlexWrap = styled.div`

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 
 import DefaultTemplate from "../../component/templates/Default";
 import ArrowTextLink from "../../component/molecules/ArrowTextLink";
@@ -18,6 +17,9 @@ import { useRouter } from "next/router";
 import OyuzuriParagraph, {
   TOyuzuriParagraph,
 } from "../../component/features/post/OyuzuriParagraph";
+import { TextAlign } from "../../styles/components/TextAlign";
+import { Spacing } from "../../styles/components/Spacing";
+import { Flex } from "../../styles/components/Flex";
 
 const PostDetail = () => {
   const apiFetch = useFetch();
@@ -101,23 +103,23 @@ const PostDetail = () => {
     return (
       <DefaultTemplate>
         <>
-          <FlexBetween>
+          <Flex alignItems="center" justifyContent="space-between">
             <ArrowTextLink linkPath="/" text="greenたちへ戻る" arrow="left" />
 
             <Switch checked={false} action={switchPlantVisual} />
-          </FlexBetween>
+          </Flex>
 
-          <MainImage>
+          <Spacing mt={4}>
             <SwitchingGreenImage
               isPlantVisualActive={isPlantVisualActive}
               greenPins={greenPins}
               imagePath={post.imagePath}
             />
-          </MainImage>
+          </Spacing>
 
-          <Reaction>
+          <TextAlign align="right">
             <SukiButton isActive={false} count={3000} />
-          </Reaction>
+          </TextAlign>
 
           <PostParagraph paragraph={postParagraph} />
 
@@ -131,17 +133,3 @@ const PostDetail = () => {
   }
 };
 export default PostDetail;
-
-const FlexBetween = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const MainImage = styled.div`
-  margin: 16px 0;
-`;
-
-const Reaction = styled.div`
-  text-align: right;
-`;

@@ -1,10 +1,9 @@
 import axios from "axios";
-import useFetchUser from "../fetchUser";
+import fetchUser from "../fetchUser";
 import useLogout from "./useLogout";
 
 const usePost = () => {
   const logout = useLogout();
-  const fetchUser = useFetchUser();
 
   return async <T, U>(
     apiPath: string,
@@ -17,7 +16,7 @@ const usePost = () => {
           process.env.NEXT_PUBLIC_API_LOCAL_URL + apiPath,
           request,
           {
-            headers: { Authorization: `Bearer ${fetchUser.token}` },
+            headers: { Authorization: `Bearer ${fetchUser()}` },
           }
         );
       } else {

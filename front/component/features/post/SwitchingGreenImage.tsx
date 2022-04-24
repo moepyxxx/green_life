@@ -6,6 +6,7 @@ import Typography from "../../atoms/Typography";
 import Shadow from "../../atoms/Shadow";
 import Modal from "../../atoms/Modal";
 import GreenPin from "../../molecules/GreenPin";
+import { TextAlign } from "../../../styles/components/TextAlign";
 
 export type TGreenPin = {
   green: {
@@ -66,7 +67,7 @@ const SwitchingGreenImage: React.FC<Props> = ({
           closeAction={() => setModalIsActive(false)}
           position="absolute"
         >
-          <ModalInner>
+          <TextAlign align0="center">
             <Image
               src={`/${modalText.green.imagePath}`}
               width="72"
@@ -78,7 +79,7 @@ const SwitchingGreenImage: React.FC<Props> = ({
               {modalText.green.name}
             </Typography>
             <Typography size="small">{modalText.green.description}</Typography>
-          </ModalInner>
+          </TextAlign>
         </Modal>
       </PlantVisual>
     </MainImage>
@@ -95,8 +96,4 @@ const MainImage = styled.div`
 const PlantVisual = styled.div`
   display: ${(props) => (props.isActive ? "block" : "none")};
   width: 100%;
-`;
-
-const ModalInner = styled.div`
-  text-align: center;
 `;

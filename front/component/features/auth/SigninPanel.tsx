@@ -11,6 +11,7 @@ import Label from "../../atoms/form/Label";
 import Typography from "../../atoms/Typography";
 import SquareButton from "../../molecules/SquareButton";
 import UnderLineTextLink from "../../molecules/UnderLineTextLink";
+import { Spacing } from "../../../styles/components/Spacing";
 
 const SigninPanel: React.FC = () => {
   const router = useRouter();
@@ -61,18 +62,18 @@ const SigninPanel: React.FC = () => {
 
   return (
     <>
-      <FormControl>
+      <Spacing mb={6}>
         <Label>ログインID（メールアドレス）</Label>
         <Input value={signinUser.email} change={changeEmail} />
-      </FormControl>
-      <FormControl>
+      </Spacing>
+      <Spacing mb={6}>
         <Label>パスワード</Label>
         <Input
           type="password"
           value={signinUser.password}
           change={changePassword}
         />
-      </FormControl>
+      </Spacing>
 
       <FormSubmit>
         <AuthFailed display={isFailure ? "block" : "none"}>
@@ -95,10 +96,6 @@ const SigninPanel: React.FC = () => {
     </>
   );
 };
-
-const FormControl = styled.div`
-  margin-bottom: 24px;
-`;
 
 const FormSubmit = styled.div`
   text-align: center;

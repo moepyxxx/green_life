@@ -3,7 +3,6 @@ import styled from "styled-components";
 import getColor from "../../utility/getColor";
 import TColor from "../types/color";
 import Typography from "../atoms/Typography";
-import TSize from "../types/size";
 
 type Props = {
   children: ReactChild;

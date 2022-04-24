@@ -9,6 +9,7 @@ import Typography from "../../atoms/Typography";
 import SquareButton from "../../molecules/SquareButton";
 import UnderLineTextLink from "../../molecules/UnderLineTextLink";
 import usePost from "../../../utility/customhooks/usePost";
+import { Spacing } from "../../../styles/components/Spacing";
 
 const SignupPanel: React.FC = () => {
   const router = useRouter();
@@ -66,28 +67,28 @@ const SignupPanel: React.FC = () => {
 
   return (
     <>
-      <FormControl>
+      <Spacing mb={6}>
         <Label>お名前（ニックネームでもOK）</Label>
         <Input
           value={signupUser.displayName}
           change={changeDisplayName}
           placeholder="グリーンちゃん"
         />
-      </FormControl>
+      </Spacing>
 
-      <FormControl>
+      <Spacing mb={6}>
         <Label>ログインID（メールアドレス）</Label>
         <Input value={signupUser.email} change={changeEmail} />
-      </FormControl>
+      </Spacing>
 
-      <FormControl>
+      <Spacing mb={6}>
         <Label>パスワード</Label>
         <Input
           type="password"
           value={signupUser.password}
           change={changePassword}
         />
-      </FormControl>
+      </Spacing>
 
       <FormSubmit>
         <AuthFailed display={isFailure ? "block" : "none"}>
@@ -110,10 +111,6 @@ const SignupPanel: React.FC = () => {
     </>
   );
 };
-
-const FormControl = styled.div`
-  margin-bottom: 24px;
-`;
 
 const FormSubmit = styled.div`
   text-align: center;

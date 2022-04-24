@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import { useRouter } from "next/router";
 
 import DefaultTemplate from "../../component/templates/Default";
@@ -17,6 +16,9 @@ import { IPost } from "./interfaces/post";
 import usePostImage from "../../utility/customhooks/usePostImage";
 import usePost from "../../utility/customhooks/usePost";
 import CreateStep5 from "../../component/features/post/CreateStep5";
+import { Flex } from "../../styles/components/Flex";
+import { Spacing } from "../../styles/components/Spacing";
+import { TextAlign } from "../../styles/components/TextAlign";
 
 export default function PostCreate() {
   const router = useRouter();
@@ -156,12 +158,14 @@ export default function PostCreate() {
   return (
     <DefaultTemplate>
       <>
-        <StepLayout>
-          <StepCounter
-            allCount={stepPaginations.length}
-            currentCount={currentStep}
-          />
-        </StepLayout>
+        <Spacing ma="0 auto" pa="20px 0">
+          <Flex>
+            <StepCounter
+              allCount={stepPaginations.length}
+              currentCount={currentStep}
+            />
+          </Flex>
+        </Spacing>
 
         {stepPaginations.map((stepPagination, index) => {
           if (stepPaginations.length === 0) return null;
@@ -179,7 +183,11 @@ export default function PostCreate() {
                   subTitle={stepTexts[currentStep - 1].sub}
                 />
 
-                <Main>{stepContentsComponent()}</Main>
+                <Spacing mt={10} mb={10}>
+                  <TextAlign align="center">
+                    {stepContentsComponent()}
+                  </TextAlign>
+                </Spacing>
 
                 <StepPagination
                   next={stepPagination.next}
@@ -193,14 +201,3 @@ export default function PostCreate() {
     </DefaultTemplate>
   );
 }
-
-const StepLayout = styled.div`
-  margin: 0 auto;
-  padding: 20px 0;
-  display: flex;
-`;
-
-const Main = styled.div`
-  margin: 40px 0;
-  text-align: center;
-`;

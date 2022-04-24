@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Select, { ActionMeta, MultiValue } from "react-select";
-import styled from "styled-components";
 import { IApiTag } from "../../../pages/posts/interfaces/apiTag";
 import { IPost } from "../../../pages/posts/interfaces/post";
+import { Spacing } from "../../../styles/components/Spacing";
 import useFetch from "../../../utility/customhooks/useFetch";
 
 type Props = {
@@ -55,7 +55,7 @@ const CreateStep3: React.FC<Props> = ({ post, setPost }) => {
 
   return (
     <>
-      <TagSelect>
+      <Spacing ma="0">
         <Select
           isMulti
           defaultValue={defaultTags}
@@ -63,13 +63,9 @@ const CreateStep3: React.FC<Props> = ({ post, setPost }) => {
           options={selectOptions}
           onChange={change}
         />
-      </TagSelect>
+      </Spacing>
     </>
   );
 };
-
-const TagSelect = styled.div`
-  margin: 0;
-`;
 
 export default CreateStep3;

@@ -12,6 +12,9 @@ import Modal from "../../atoms/Modal";
 import ReadTitle from "../../molecules/ReadTitle";
 import TextArea from "../../atoms/form/TextArea";
 import TColor from "../../types/color";
+import { Spacing } from "../../../styles/components/Spacing";
+import { Flex } from "../../../styles/components/Flex";
+import { TextAlign } from "../../../styles/components/TextAlign";
 
 type Props = {
   post: IPost;
@@ -43,7 +46,7 @@ const CreateStep5: React.FC<Props> = ({ post, setPost, executePost }) => {
 
   return (
     <>
-      <Select>
+      <Flex alignItems="center" justifyContent="center">
         <RadiusButton
           click={() => setPost({ ...post, oyuzuriFlag: true })}
           margin="0 8px 0"
@@ -64,15 +67,15 @@ const CreateStep5: React.FC<Props> = ({ post, setPost, executePost }) => {
         >
           オフにする
         </RadiusButton>
-      </Select>
+      </Flex>
 
-      <QuestionIcon>
-        <IconButton click={() => setIsModalActive(true)}>
+      <TextAlign align="center">
+        <Spacing mt={8} mb={5}>
           <Typography color="white" weight="bold">
             ?
           </Typography>
-        </IconButton>
-      </QuestionIcon>
+        </Spacing>
+      </TextAlign>
 
       <OyuzuriComment display={post.oyuzuriFlag ? "block" : "none"}>
         <ReadTitle
@@ -81,9 +84,9 @@ const CreateStep5: React.FC<Props> = ({ post, setPost, executePost }) => {
           subTitle="おゆずりにかける思いや、お返事が欲しい日時、費用、植物の状態などを簡単に記載してください"
         />
 
-        <Margin>
+        <Spacing mt={6}>
           <TextArea text={post.oyuzuriComment} change={commentChange} />
-        </Margin>
+        </Spacing>
       </OyuzuriComment>
 
       <SquareButton margin="16px 0 0" click={executePost}>
@@ -103,93 +106,71 @@ const CreateStep5: React.FC<Props> = ({ post, setPost, executePost }) => {
           <Typography size="regular">
             ダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミー
           </Typography>
-          <Flex>
-            <FlexWrap>
-              <TextBudge>step 1</TextBudge>
-              <Typography margin="0 0 8px" size="regular">
-                ほげほげほげ
-              </Typography>
-              <Image
-                src="/sample_1.jpg"
-                alt="サンプル"
-                width="300"
-                height="300"
-                objectFit="cover"
-              />
-            </FlexWrap>
-            <FlexWrap>
-              <TextBudge>step 2</TextBudge>
-              <Typography margin="0 0 8px" size="regular">
-                ほげほげほげ
-              </Typography>
-              <Image
-                src="/sample_1.jpg"
-                alt="サンプル"
-                width="300"
-                height="300"
-                objectFit="cover"
-              />
-            </FlexWrap>
-            <FlexWrap>
-              <TextBudge>step 3</TextBudge>
-              <Typography margin="0 0 8px" size="regular">
-                ほげほげほげ
-              </Typography>
-              <Image
-                src="/sample_1.jpg"
-                alt="サンプル"
-                width="300"
-                height="300"
-                objectFit="cover"
-              />
-            </FlexWrap>
-            <FlexWrap>
-              <TextBudge>step 4</TextBudge>
-              <Typography margin="0 0 8px" size="regular">
-                ほげほげほげ
-              </Typography>
-              <Image
-                src="/sample_1.jpg"
-                alt="サンプル"
-                width="300"
-                height="300"
-                objectFit="cover"
-              />
-            </FlexWrap>
-          </Flex>
+          <Spacing mt={5}>
+            <Flex alignItems="flex-start" justifyContent="space-between">
+              <FlexWrap>
+                <TextBudge>step 1</TextBudge>
+                <Typography margin="0 0 8px" size="regular">
+                  ほげほげほげ
+                </Typography>
+                <Image
+                  src="/sample_1.jpg"
+                  alt="サンプル"
+                  width="300"
+                  height="300"
+                  objectFit="cover"
+                />
+              </FlexWrap>
+              <FlexWrap>
+                <TextBudge>step 2</TextBudge>
+                <Typography margin="0 0 8px" size="regular">
+                  ほげほげほげ
+                </Typography>
+                <Image
+                  src="/sample_1.jpg"
+                  alt="サンプル"
+                  width="300"
+                  height="300"
+                  objectFit="cover"
+                />
+              </FlexWrap>
+              <FlexWrap>
+                <TextBudge>step 3</TextBudge>
+                <Typography margin="0 0 8px" size="regular">
+                  ほげほげほげ
+                </Typography>
+                <Image
+                  src="/sample_1.jpg"
+                  alt="サンプル"
+                  width="300"
+                  height="300"
+                  objectFit="cover"
+                />
+              </FlexWrap>
+              <FlexWrap>
+                <TextBudge>step 4</TextBudge>
+                <Typography margin="0 0 8px" size="regular">
+                  ほげほげほげ
+                </Typography>
+                <Image
+                  src="/sample_1.jpg"
+                  alt="サンプル"
+                  width="300"
+                  height="300"
+                  objectFit="cover"
+                />
+              </FlexWrap>
+            </Flex>
+          </Spacing>
         </>
       </Modal>
     </>
   );
 };
-
-const Select = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const QuestionIcon = styled.div`
-  text-align: center;
-  margin: 32px 0 20px;
-`;
-
-const Margin = styled.div`
-  margin: 24px 0 0;
-`;
-
 const OyuzuriComment = styled.div`
   display: ${(prop) => prop.display};
   text-align: center;
   margin: 32px 0;
-`;
-
-const Flex = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-top: 20px;
 `;
 
 const FlexWrap = styled.div`

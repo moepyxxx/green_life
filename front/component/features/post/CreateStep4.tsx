@@ -1,6 +1,6 @@
 import React from "react";
-import styled from "styled-components";
 import { IPost } from "../../../pages/posts/interfaces/post";
+import { Spacing } from "../../../styles/components/Spacing";
 import TextArea from "../../atoms/form/TextArea";
 
 type Props = {
@@ -16,15 +16,11 @@ const CreateStep4: React.FC<Props> = ({ post, setPost }) => {
 
   return (
     <>
-      <AppealComment>
+      <Spacing ma="0">
         <TextArea text={post.comment} change={commentChange} />
-      </AppealComment>
+      </Spacing>
     </>
   );
 };
-
-const AppealComment = styled.div`
-  margin: 0;
-`;
 
 export default CreateStep4;

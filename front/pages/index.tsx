@@ -1,7 +1,6 @@
 import React from "react";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import styled from "styled-components";
-import Image from "next/image";
 import Logo from "../component/atoms/Logo";
 
 import DefaultTemplate from "../component/templates/Default";
@@ -10,8 +9,9 @@ import PostThumbnailLink, {
   TSummaryThumbnail,
 } from "../component/molecules/PostThumbnailLink";
 
+import { Flex } from "../styles/components/Flex";
+
 export default function Home({
-  page,
   posts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
@@ -24,7 +24,7 @@ export default function Home({
           <CatchCopy />
         </Title>
 
-        <Contents>
+        <Contents alignItems="center" justifyContent="space-between">
           {posts.map((post, index) => {
             const summary: TSummaryThumbnail = {
               imagePath: post.imagePath,
@@ -56,11 +56,7 @@ const TitleLogo = styled.div`
   margin: 0 auto 20px;
 `;
 
-const Contents = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
+const Contents = styled(Flex)`
   position: relative;
   &:after {
     content: "";

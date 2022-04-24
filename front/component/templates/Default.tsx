@@ -1,5 +1,6 @@
 import React, { ReactChild } from "react";
 import styled from "styled-components";
+import { Spacing } from "../../styles/components/Spacing";
 import Toaster from "../features/Toaster";
 
 import Footer from "./Footer";
@@ -15,15 +16,12 @@ const Default: React.FC<Props> = ({ children }) => {
     <>
       <Header />
       <Toaster />
-      <Layout>{children}</Layout>
+      <Spacing mt={18} pl={4} pr={4}>
+        {children}
+      </Spacing>
       <Menu />
       <Footer />
     </>
   );
 };
 export default Default;
-
-const Layout = styled.section`
-  margin-top: 72px;
-  padding: 0 16px;
-`;

@@ -10,6 +10,7 @@ import SearchImg from "../../img/icon/search.svg";
 import Pattern1 from "../pattern/Pattern1";
 import IconButton from "../atoms/IconButton";
 import PostButton from "../features/post/PostButton";
+import { Spacing } from "../../styles/components/Spacing";
 
 const Menu = () => {
   const [isActive, setIsActive] = useState<boolean>(false);
@@ -17,25 +18,25 @@ const Menu = () => {
   if (isActive) {
     return (
       <MenuInner>
-        <Like>
+        <Spacing mb={2}>
           <IconButton
             fill="secondary"
             click={() => console.log("link to like page")}
           >
             <Image src={LikeImg} alt="お気に入りページへのリンク" />
           </IconButton>
-        </Like>
-        <Search>
+        </Spacing>
+        <Spacing mb={2}>
           <IconButton
             fill="secondary"
             click={() => console.log("link to search page")}
           >
             <Image src={SearchImg} alt="検索ページへのリンク" />
           </IconButton>
-        </Search>
-        <Post>
+        </Spacing>
+        <Spacing mb={2}>
           <PostButton />
-        </Post>
+        </Spacing>
         <IconButton fill="secondary" click={() => setIsActive(false)}>
           <Close />
         </IconButton>
@@ -95,15 +96,6 @@ const MenuInner = styled.div`
   flex-flow: column;
   align-items: center;
   justify-content: center;
-`;
-const Like = styled.div`
-  margin-bottom: 8px;
-`;
-const Search = styled.div`
-  margin-bottom: 8px;
-`;
-const Post = styled.div`
-  margin-bottom: 8px;
 `;
 const Close = styled.span`
   width: 40px;

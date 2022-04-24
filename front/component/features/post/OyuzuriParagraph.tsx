@@ -1,8 +1,10 @@
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { IApiOyuzuriRequestUser } from "../../../pages/posts/interfaces/apiPostDetail";
-import useFetch from "../../../utility/customhooks/useFetch";
+import { Flex } from "../../../styles/components/Flex";
+import { Spacing } from "../../../styles/components/Spacing";
+import { TextAlign } from "../../../styles/components/TextAlign";
 import usePost from "../../../utility/customhooks/usePost";
 import getColor from "../../../utility/getColor";
 import TextArea from "../../atoms/form/TextArea";
@@ -69,27 +71,29 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
     } else {
       return (
         <>
-          <FlexLeft>
-            {paragraph.oyuzuriRequestUsers.map((oyuzuriUser) => {
-              return (
-                <UserButton
-                  key={oyuzuriUser.userId}
-                  onClick={() => showRequestUserMessage(oyuzuriUser)}
-                >
-                  <Image
-                    unoptimized
-                    src={oyuzuriUser.thumbnailUrl}
-                    width="400"
-                    height="400"
-                    objectFit="cover"
-                  />
-                  <Typography size="small" color="primary" family="Bitter">
-                    {oyuzuriUser.userName.slice(0, 6) + "…"}
-                  </Typography>
-                </UserButton>
-              );
-            })}
-          </FlexLeft>
+          <Spacing mt={5}>
+            <Flex alignItems="flex-start" justifyContent="left">
+              {paragraph.oyuzuriRequestUsers.map((oyuzuriUser) => {
+                return (
+                  <UserButton
+                    key={oyuzuriUser.userId}
+                    onClick={() => showRequestUserMessage(oyuzuriUser)}
+                  >
+                    <Image
+                      unoptimized
+                      src={oyuzuriUser.thumbnailUrl}
+                      width="400"
+                      height="400"
+                      objectFit="cover"
+                    />
+                    <Typography size="small" color="primary" family="Bitter">
+                      {oyuzuriUser.userName.slice(0, 6) + "…"}
+                    </Typography>
+                  </UserButton>
+                );
+              })}
+            </Flex>
+          </Spacing>
           <Shadow isActive={isModalActive} />
           <Modal
             isActive={isModalActive}
@@ -105,14 +109,14 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
                     displayName={currentRequestUser.displayName}
                     imageUrl={currentRequestUser.thumbnailUrl}
                   />
-                  <Margin>
+                  <Spacing mt={4} mb={4}>
                     <SimpleBox>
                       <Typography size="regular">
                         {currentRequestUser.message}
                       </Typography>
                     </SimpleBox>
-                  </Margin>
-                  <Center>
+                  </Spacing>
+                  <TextAlign align0="center">
                     <RadiusButton
                       click={() => console.log("link to user profile")}
                       margin="0 0 8px 0"
@@ -128,7 +132,7 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
                     >
                       おゆずりする
                     </RadiusButton>
-                  </Center>
+                  </TextAlign>
                 </>
               )}
             </>
@@ -179,7 +183,7 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
     <>
       <Gray>
         <>
-          <FlexJustify>
+          <Flex alignItems="center" justifyContent="space-between">
             <Typography size="medium" weight="bold">
               おゆずりします！
             </Typography>
@@ -188,7 +192,7 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
                 ?
               </Typography>
             </IconButton>
-          </FlexJustify>
+          </Flex>
           <Typography size="regular" margin="8px 0 0">
             {paragraph.comment}
           </Typography>
@@ -198,15 +202,17 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
               育てたいを押してくれたユーザーさん
             </Typography>
             {oyuzuriRequestUsersComment()}
-            <RightAlign>
-              <Caution />
-              <UnderLineTextButton
-                color="danger"
-                click={() => console.log("取り下げる")}
-              >
-                おゆずりを取り下げる
-              </UnderLineTextButton>
-            </RightAlign>
+            <Spacing mt={5}>
+              <Flex alignItems="flex-start" justifyContent="right">
+                <Caution />
+                <UnderLineTextButton
+                  color="danger"
+                  click={() => console.log("取り下げる")}
+                >
+                  おゆずりを取り下げる
+                </UnderLineTextButton>
+              </Flex>
+            </Spacing>
           </OyuzuriOwner>
         </>
       </Gray>
@@ -252,60 +258,62 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
           <Typography size="regular">
             ダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミー
           </Typography>
-          <Flex>
-            <FlexWrap>
-              <TextBudge>step 1</TextBudge>
-              <Typography margin="0 0 8px" size="regular">
-                ほげほげほげ
-              </Typography>
-              <Image
-                src="/sample_1.jpg"
-                alt="サンプル"
-                width="300"
-                height="300"
-                objectFit="cover"
-              />
-            </FlexWrap>
-            <FlexWrap>
-              <TextBudge>step 2</TextBudge>
-              <Typography margin="0 0 8px" size="regular">
-                ほげほげほげ
-              </Typography>
-              <Image
-                src="/sample_1.jpg"
-                alt="サンプル"
-                width="300"
-                height="300"
-                objectFit="cover"
-              />
-            </FlexWrap>
-            <FlexWrap>
-              <TextBudge>step 3</TextBudge>
-              <Typography margin="0 0 8px" size="regular">
-                ほげほげほげ
-              </Typography>
-              <Image
-                src="/sample_1.jpg"
-                alt="サンプル"
-                width="300"
-                height="300"
-                objectFit="cover"
-              />
-            </FlexWrap>
-            <FlexWrap>
-              <TextBudge>step 4</TextBudge>
-              <Typography margin="0 0 8px" size="regular">
-                ほげほげほげ
-              </Typography>
-              <Image
-                src="/sample_1.jpg"
-                alt="サンプル"
-                width="300"
-                height="300"
-                objectFit="cover"
-              />
-            </FlexWrap>
-          </Flex>
+          <Spacing mt={5}>
+            <Flex flexStart="flex-start" alignItems="space-between">
+              <FlexWrap>
+                <TextBudge>step 1</TextBudge>
+                <Typography margin="0 0 8px" size="regular">
+                  ほげほげほげ
+                </Typography>
+                <Image
+                  src="/sample_1.jpg"
+                  alt="サンプル"
+                  width="300"
+                  height="300"
+                  objectFit="cover"
+                />
+              </FlexWrap>
+              <FlexWrap>
+                <TextBudge>step 2</TextBudge>
+                <Typography margin="0 0 8px" size="regular">
+                  ほげほげほげ
+                </Typography>
+                <Image
+                  src="/sample_1.jpg"
+                  alt="サンプル"
+                  width="300"
+                  height="300"
+                  objectFit="cover"
+                />
+              </FlexWrap>
+              <FlexWrap>
+                <TextBudge>step 3</TextBudge>
+                <Typography margin="0 0 8px" size="regular">
+                  ほげほげほげ
+                </Typography>
+                <Image
+                  src="/sample_1.jpg"
+                  alt="サンプル"
+                  width="300"
+                  height="300"
+                  objectFit="cover"
+                />
+              </FlexWrap>
+              <FlexWrap>
+                <TextBudge>step 4</TextBudge>
+                <Typography margin="0 0 8px" size="regular">
+                  ほげほげほげ
+                </Typography>
+                <Image
+                  src="/sample_1.jpg"
+                  alt="サンプル"
+                  width="300"
+                  height="300"
+                  objectFit="cover"
+                />
+              </FlexWrap>
+            </Flex>
+          </Spacing>
         </>
       </Modal>
 
@@ -325,7 +333,7 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
             placeHolder="おゆずりのお願いやアピールをしましょう"
             change={requestMessageChange}
           />
-          <Center>
+          <TextAlign align="center">
             <RadiusButton
               margin="16px 0 8px"
               borderColor="secondary"
@@ -338,7 +346,7 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
             <RadiusButton click={oyuzuriRequest}>
               おゆずりリクエスト
             </RadiusButton>
-          </Center>
+          </TextAlign>
         </>
       </Modal>
 
@@ -354,7 +362,7 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
             おゆずりリクエストをキャンセルしますがよろしいですか？
             相手へ送ったメッセージも取り消されます。
           </Typography>
-          <Center>
+          <TextAlign align="center">
             <RadiusButton
               margin="16px 0 8px"
               borderColor="secondary"
@@ -365,7 +373,7 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
               やっぱりやめる
             </RadiusButton>
             <RadiusButton click={oyuzuriCancel}>キャンセル</RadiusButton>
-          </Center>
+          </TextAlign>
         </>
       </Modal>
     </>
@@ -383,13 +391,6 @@ const OyuzuriOwner = styled.div`
   margin-top: 32px;
 `;
 
-const RightAlign = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: right;
-  margin-top: 20px;
-`;
-
 const Gray = styled.div`
   margin: 32px 0 0;
   background-color: ${getColor("disable")};
@@ -404,41 +405,9 @@ const UserButton = styled.button`
   text-align: center;
 `;
 
-const Flex = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-top: 20px;
-`;
-
-const FlexLeft = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: left;
-  margin-top: 20px;
-`;
-
 const FlexWrap = styled.div`
   width: calc(50% - 8px);
   margin-bottom: 16px;
-`;
-
-const FlexJustify = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  width: 100%;
-  justify-content: space-between;
-`;
-
-const Center = styled.div`
-  text-align: center;
-`;
-
-const Margin = styled.div`
-  margin: 16px 0;
 `;
 
 export default OyuzuriParagraph;

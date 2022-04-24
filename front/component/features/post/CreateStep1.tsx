@@ -7,6 +7,8 @@ import Typography from "../../atoms/Typography";
 import Image from "next/image";
 import { IPost } from "../../../pages/posts/interfaces/post";
 import File from "../../atoms/form/File";
+import { Flex } from "../../../styles/components/Flex";
+import { Spacing } from "../../../styles/components/Spacing";
 
 type Props = {
   post: IPost;
@@ -49,57 +51,51 @@ const CreateStep1: React.FC<Props> = ({ post, setPost, setImageFile }) => {
           <Typography size="regular">
             greenLifeのチームがみんなで楽しく写真を見られるように、写真にはいくつかのご遠慮ルールが存在します。
           </Typography>
-          <Flex>
-            <FlexWrap>
-              <Typography margin="0 0 8px" size="regular">
-                ぼやけたグリーンたちの写真
-              </Typography>
-              <Image
-                src="/sample_1.jpg"
-                alt="サンプル"
-                width="300"
-                height="300"
-                objectFit="cover"
-              />
-            </FlexWrap>
-            <FlexWrap>
-              <Typography margin="0 0 8px" size="regular">
-                ヒトがメインの写真
-              </Typography>
-              <Image
-                src="/sample_1.jpg"
-                alt="サンプル"
-                width="300"
-                height="300"
-                objectFit="cover"
-              />
-            </FlexWrap>
-            <FlexWrap>
-              <Typography margin="0 0 8px" size="regular">
-                グリーン以外の写真
-              </Typography>
-              <Image
-                src="/sample_1.jpg"
-                alt="サンプル"
-                width="300"
-                height="300"
-                objectFit="cover"
-              />
-            </FlexWrap>
-          </Flex>
+          <Spacing mt={5}>
+            <Flex alignItems="flex-start" justifyContent="space-between">
+              <FlexWrap>
+                <Typography margin="0 0 8px" size="regular">
+                  ぼやけたグリーンたちの写真
+                </Typography>
+                <Image
+                  src="/sample_1.jpg"
+                  alt="サンプル"
+                  width="300"
+                  height="300"
+                  objectFit="cover"
+                />
+              </FlexWrap>
+              <FlexWrap>
+                <Typography margin="0 0 8px" size="regular">
+                  ヒトがメインの写真
+                </Typography>
+                <Image
+                  src="/sample_1.jpg"
+                  alt="サンプル"
+                  width="300"
+                  height="300"
+                  objectFit="cover"
+                />
+              </FlexWrap>
+              <FlexWrap>
+                <Typography margin="0 0 8px" size="regular">
+                  グリーン以外の写真
+                </Typography>
+                <Image
+                  src="/sample_1.jpg"
+                  alt="サンプル"
+                  width="300"
+                  height="300"
+                  objectFit="cover"
+                />
+              </FlexWrap>
+            </Flex>
+          </Spacing>
         </>
       </Modal>
     </>
   );
 };
-
-const Flex = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-top: 20px;
-`;
 
 const FlexWrap = styled.div`
   width: calc(50% - 8px);

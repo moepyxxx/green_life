@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Spacing } from "../../styles/components/Spacing";
 import getColor from "../../utility/getColor";
 
 import Logo from "../atoms/Logo";
@@ -7,7 +8,7 @@ import Wave from "../pattern/Wave";
 
 const Footer = () => {
   return (
-    <FooterWrap>
+    <Spacing mt={22}>
       <Wave />
       <FooterText>
         <FooterLogo>
@@ -16,14 +17,11 @@ const Footer = () => {
         <FooterCatch>もっと、暮らしを、□ □ □ 。</FooterCatch>
         <FooterCopy>@ copyright Moeko.I All right Reserved.</FooterCopy>
       </FooterText>
-    </FooterWrap>
+    </Spacing>
   );
 };
 export default Footer;
 
-const FooterWrap = styled.footer`
-  margin-top: 88px;
-`;
 const FooterText = styled.div`
   background-color: ${getColor("primary")};
   width: 100%;

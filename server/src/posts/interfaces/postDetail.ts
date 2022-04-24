@@ -1,10 +1,10 @@
-import { IGreenPin } from "./greenPin";
-import { Tag } from "src/tags/tag.schema";
-import { Post } from "../post.schema";
-import { ObjectId, Schema } from "mongoose";
-import { User } from "src/users/user.schema";
-import { Oyuzuri } from "src/oyuzuris/oyuzuri.schema";
-import { IOyuzuriRequestUser } from "./oyuzuriRequestUser";
+import { IGreenPin } from './greenPin';
+import { Tag } from 'src/tags/tag.schema';
+import { Post } from '../post.schema';
+import { ObjectId, Schema } from 'mongoose';
+import { User } from 'src/users/user.schema';
+import { Oyuzuri } from 'src/oyuzuris/oyuzuri.schema';
+import { IOyuzuriRequestUser } from './oyuzuriRequestUser';
 
 export interface IPostDetail {
   _id: ObjectId;
@@ -24,7 +24,6 @@ export interface IPostDetail {
 }
 
 export class PostDetailMaker implements IPostDetail {
-
   _id: ObjectId;
   user: User;
   imagePath: string;
@@ -48,7 +47,7 @@ export class PostDetailMaker implements IPostDetail {
     oyuzuri: Oyuzuri | null,
     accessUser: User | null,
     requestUsers: IOyuzuriRequestUser[] | null,
-    requestUid: string | false
+    requestUid: string | false,
   ) {
     this._id = post._id;
     this.user = user;
@@ -72,12 +71,13 @@ export class PostDetailMaker implements IPostDetail {
       // 自分の投稿ではないので返却しない
       this.oyuzuriRequest = null;
     } else {
-
       // 自分の投稿ではないので返却しない
       this.oyuzuriRequestUsers = null;
 
       // 返却
-      this.oyuzuriRequest =　oyuzuri ? oyuzuri.requestUsers.includes(accessUser._id) : null;
+      this.oyuzuriRequest = oyuzuri
+        ? oyuzuri.requestUsers.includes(accessUser._id)
+        : null;
     }
   }
 

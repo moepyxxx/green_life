@@ -4,15 +4,23 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 export type MessageDocument = Message & Document;
 
-export type MessageType = 'request' | 'userConfirm' | 'returnConfirm' | 'messaging' | 'cancel';
+export type MessageType =
+  | 'request'
+  | 'userConfirm'
+  | 'returnConfirm'
+  | 'messaging'
+  | 'cancel';
 
 @Schema()
 export class Message {
-
   @Prop({ type: mongoose.Schema.Types.ObjectId })
   _id: mongoose.Schema.Types.ObjectId;
 
-  @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Oyuzuri' })
+  @Prop({
+    required: true,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Oyuzuri',
+  })
   oyuzuriId: mongoose.Schema.Types.ObjectId;
 
   @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' })

@@ -6,13 +6,12 @@ export type TagDocument = Tag & Document;
 
 @Schema()
 export class Tag {
-  
   @Prop({ type: mongoose.Schema.Types.ObjectId })
   _id: mongoose.Schema.Types.ObjectId;
 
   @Prop({ required: true })
   label: string;
-  
+
   @Prop({ required: true, default: new Date() })
   createdAt: Date;
 

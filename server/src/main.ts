@@ -7,12 +7,14 @@ import { initializeApp, cert } from 'firebase-admin/app';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
-  
+
   const configService: ConfigService = app.get(ConfigService);
 
   const adminConfig: ServiceAccount = {
     projectId: configService.get<string>('FIREBASE_PROJECT_ID'),
-    privateKey: configService.get<string>('FIREBASE_PRIVATE_KEY').replace(/\\n/g, '\n'),
+    privateKey: configService
+      .get<string>('FIREBASE_PRIVATE_KEY')
+      .replace(/\\n/g, '\n'),
     clientEmail: configService.get<string>('FIREBASE_CLIENT_EMAIL'),
   };
 
@@ -22,6 +24,5 @@ async function bootstrap() {
   });
 
   await app.listen(3001);
-
 }
 bootstrap();

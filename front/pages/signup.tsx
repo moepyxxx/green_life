@@ -1,13 +1,12 @@
-import React from 'react';
-import styled from 'styled-components';
-import Logo from '../component/atoms/Logo';
-import GreenLifeDescription from '../component/features/auth/GreenLifeDescription';
-import SignupPanel from '../component/features/auth/SignupPanel';
+import React from "react";
+import styled from "styled-components";
+import Logo from "../component/atoms/Logo";
+import GreenLifeDescription from "../component/features/auth/GreenLifeDescription";
+import SignupPanel from "../component/features/auth/SignupPanel";
 
-import DefaultTemplate from '../component/templates/Default';
+import DefaultTemplate from "../component/templates/Default";
 
 export default function SignUp() {
-
   return (
     <DefaultTemplate>
       <>
@@ -19,9 +18,8 @@ export default function SignUp() {
         <GreenLifeDescription />
       </>
     </DefaultTemplate>
-  )
+  );
 }
-
 
 const ItemLogo = styled.div`
   margin: 100px auto 60px;

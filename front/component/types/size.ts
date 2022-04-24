@@ -1,2 +1,2 @@
-type TSize = 'small' | 'regular' | 'medium' | 'large';
+type TSize = "small" | "regular" | "medium" | "large";
 export default TSize;

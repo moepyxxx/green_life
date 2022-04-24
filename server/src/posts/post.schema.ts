@@ -6,7 +6,6 @@ export type PostDocument = Post & Document;
 
 @Schema()
 export class Post {
-
   @Prop({ type: mongoose.Schema.Types.ObjectId })
   _id: mongoose.Schema.Types.ObjectId;
 
@@ -19,19 +18,23 @@ export class Post {
   @Prop({ required: true })
   comment: string;
 
-  @Prop({ type: [{
-    position: {
-      left: { type: Number },
-      top: { type: Number },
-    },
-    greenId: { type: mongoose.Schema.Types.ObjectId, ref: 'Green' }
-  }]})
+  @Prop({
+    type: [
+      {
+        position: {
+          left: { type: Number },
+          top: { type: Number },
+        },
+        greenId: { type: mongoose.Schema.Types.ObjectId, ref: 'Green' },
+      },
+    ],
+  })
   greenPins: {
     position: {
-      left: number,
-      top: number,
-    },
-    greenId: mongoose.Schema.Types.ObjectId
+      left: number;
+      top: number;
+    };
+    greenId: mongoose.Schema.Types.ObjectId;
   }[];
 
   @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'Tag' })

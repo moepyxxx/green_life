@@ -5,9 +5,7 @@ import { Tag, TagSchema } from './tag.schema';
 import { TagService } from './tag.service';
 
 @Module({
-  imports: [MongooseModule.forFeature([
-    { name: Tag.name, schema: TagSchema }
-  ])],
+  imports: [MongooseModule.forFeature([{ name: Tag.name, schema: TagSchema }])],
   controllers: [TagController],
   providers: [TagService],
 })

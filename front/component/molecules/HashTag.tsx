@@ -1,15 +1,14 @@
-import React, { ReactChild } from 'react'
-import styled from 'styled-components';
-import Link from 'next/link'
-import getColor from '../../utility/getColor';
+import React, { ReactChild } from "react";
+import styled from "styled-components";
+import Link from "next/link";
+import getColor from "../../utility/getColor";
 
 type Props = {
   children: ReactChild;
   isLink: boolean;
   link?: string;
-}
-const HashTag: React.FC<Props> = ( { isLink, link, children } ) => {
-
+};
+const HashTag: React.FC<Props> = ({ isLink, link, children }) => {
   if (isLink && link) {
     return (
       <List>
@@ -29,9 +28,9 @@ const HashTag: React.FC<Props> = ( { isLink, link, children } ) => {
       </List>
     );
   }
-}
+};
 
-export default HashTag
+export default HashTag;
 
 const InnerLink = styled.a;
 
@@ -45,12 +44,12 @@ const Icon = styled.span`
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background-color: ${getColor('primary')};
+  background-color: ${getColor("primary")};
   vertical-align: middle;
   margin-right: 8px;
   position: relative;
   &:after {
-    content: '#';
+    content: "#";
     color: #fff;
     position: absolute;
     top: 50%;

@@ -1,25 +1,25 @@
-import React, { useRef, useEffect } from 'react'
-import styled from 'styled-components';
-import getColor from '../../utility/getColor';
-import TColor from '../types/color';
+import React, { useRef, useEffect } from "react";
+import styled from "styled-components";
+import getColor from "../../utility/getColor";
+import TColor from "../types/color";
 
 type Props = {
-  fill?: TColor
-}
-const Wave: React.FC<Props> = ({ fill = 'primary' }) => {
-  const canvasRef = useRef(null)
+  fill?: TColor;
+};
+const Wave: React.FC<Props> = ({ fill = "primary" }) => {
+  const canvasRef = useRef(null);
 
   const getContext = (): CanvasRenderingContext2D => {
     const canvas: any = canvasRef.current;
-    return canvas.getContext('2d');
+    return canvas.getContext("2d");
   };
 
   useEffect(() => {
     const ctx: CanvasRenderingContext2D = getContext();
-    
+
     const canvas = canvasRef.current;
     canvas.width = canvasRef.current.offsetWidth;
-    canvas.height =  canvasRef.current.offsetHeight * 2;
+    canvas.height = canvasRef.current.offsetHeight * 2;
 
     ctx.fillStyle = getColor(fill);
 
@@ -29,10 +29,9 @@ const Wave: React.FC<Props> = ({ fill = 'primary' }) => {
 
     const waveStartY = 24;
     drow(ctx, waveStartY, canvasEndX, canvasEndY);
-  })
+  });
 
   const drow = (ctx, waveStartY, canvasEndX, canvasEndY) => {
-
     const amplitude = 24;
     const period = 100;
     const degree = 0;
@@ -41,7 +40,7 @@ const Wave: React.FC<Props> = ({ fill = 'primary' }) => {
     ctx.moveTo(0, waveStartY);
 
     for (let x = 0; x <= canvasEndX; x += 1) {
-      const y = - amplitude * Math.sin((Math.PI / period) * (degree + x));
+      const y = -amplitude * Math.sin((Math.PI / period) * (degree + x));
       ctx.lineTo(x, y + waveStartY);
     }
 
@@ -49,16 +48,15 @@ const Wave: React.FC<Props> = ({ fill = 'primary' }) => {
     ctx.lineTo(0, canvasEndY);
     ctx.closePath();
     ctx.fill();
-  }
-
+  };
 
   return (
     <WaveWrap>
       <Canvas className="canvas" width="" height="" ref={canvasRef} />
     </WaveWrap>
   );
-}
-export default Wave
+};
+export default Wave;
 
 const WaveWrap = styled.section`
   overflow: hidden;

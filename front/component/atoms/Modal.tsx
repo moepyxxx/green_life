@@ -1,15 +1,20 @@
-import React, { ReactChild } from 'react'
-import styled from 'styled-components';
-import getColor from '../../utility/getColor';
+import React, { ReactChild } from "react";
+import styled from "styled-components";
+import getColor from "../../utility/getColor";
 
 type Props = {
   isActive: boolean;
   children: ReactChild;
   closeAction: () => void;
   position?: "absolute" | "fixed";
-}
+};
 
-const Modal: React.FC<Props> = ( { isActive, children, closeAction, position = "fixed" } ) => {
+const Modal: React.FC<Props> = ({
+  isActive,
+  children,
+  closeAction,
+  position = "fixed",
+}) => {
   return (
     <>
       <InnerModal isActive={isActive} position={position}>
@@ -17,14 +22,14 @@ const Modal: React.FC<Props> = ( { isActive, children, closeAction, position = "
         {children}
       </InnerModal>
     </>
-  )
-}
+  );
+};
 
-export default Modal
+export default Modal;
 
 const InnerModal = styled.div`
-  display: ${(props) => props.isActive ? 'block' : 'none'};
-  position: ${props => props.position};
+  display: ${(props) => (props.isActive ? "block" : "none")};
+  position: ${(props) => props.position};
   z-index: 10;
   top: 50%;
   left: 50%;
@@ -34,7 +39,7 @@ const InnerModal = styled.div`
   background-color: #fff;
   padding: 32px;
   border-radius: 8px;
-  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, .25);
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   text-align: left;
 `;
 
@@ -45,11 +50,11 @@ const CloseIcon = styled.div`
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background-color: ${getColor('secondary')};
+  background-color: ${getColor("secondary")};
   border: 1px solid #fff;
 
   &:after {
-    content: '×';
+    content: "×";
     color: #fff;
     position: absolute;
     top: 50%;

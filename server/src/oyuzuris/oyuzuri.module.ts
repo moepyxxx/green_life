@@ -16,7 +16,7 @@ import { MessageService } from 'src/messages/message.service';
       { name: User.name, schema: UserSchema },
       { name: Message.name, schema: MessageSchema },
     ]),
-    HttpModule
+    HttpModule,
   ],
   controllers: [OyuzuriController],
   providers: [OyuzuriService, UserService, MessageService],

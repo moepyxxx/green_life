@@ -1,21 +1,22 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import React, { ReactNode, useEffect, useState } from 'react'
-import styled from 'styled-components';
-import useFetch from '../../utility/customhooks/useFetch';
-import isLogin from '../../utility/isLogin';
-import getColor from '../../utility/getColor';
-import Logo from '../atoms/Logo';
+import Image from "next/image";
+import Link from "next/link";
+import React, { ReactNode, useEffect, useState } from "react";
+import styled from "styled-components";
+import useFetch from "../../utility/customhooks/useFetch";
+import isLogin from "../../utility/isLogin";
+import getColor from "../../utility/getColor";
+import Logo from "../atoms/Logo";
 
 type TThumbnail = {
   thumbnailUrl: string;
-}
+};
 
 const Header = () => {
-  
   const apiFetch = useFetch();
   const [statusNode, setStatusNode] = useState<ReactNode>();
-  const [thumbnail, setThumbnail] = useState<string>('https://storage.googleapis.com/greenlife-midori.appspot.com/users/green-chan.png');
+  const [thumbnail, setThumbnail] = useState<string>(
+    "https://storage.googleapis.com/greenlife-midori.appspot.com/users/green-chan.png"
+  );
 
   useEffect(() => {
     if (!isLogin()) return;
@@ -26,39 +27,41 @@ const Header = () => {
     if (isLogin()) {
       setStatusNode(
         <LogginedBudge>
-          <Image unoptimized src={thumbnail} alt="ユーザーアイコン" layout="fill" objectFit="cover" />
+          <Image
+            unoptimized
+            src={thumbnail}
+            alt="ユーザーアイコン"
+            layout="fill"
+            objectFit="cover"
+          />
         </LogginedBudge>
-      )
+      );
     } else {
       setStatusNode(
         <Link href="/signin" passHref>
-          <LogoutBudge>
-            Login
-          </LogoutBudge>
-        </Link>  
-      )    
+          <LogoutBudge>Login</LogoutBudge>
+        </Link>
+      );
     }
-  }, [thumbnail])
+  }, [thumbnail]);
 
   const initializeThumbnail = async () => {
     const result = await apiFetch<TThumbnail>(`users/thumbnail`, true);
     if (!result) return;
     setThumbnail(result.thumbnailUrl);
-  }
+  };
 
   return (
     <HeaderWrap>
-
       <LogoSpace>
         <Logo />
       </LogoSpace>
 
       {statusNode}
-
     </HeaderWrap>
   );
-}
-export default Header
+};
+export default Header;
 
 const HeaderWrap = styled.header`
   position: fixed;

@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
-import styled from 'styled-components';
-import getColor from '../../utility/getColor';
-import getSize from '../../utility/getSize';
+import { ReactNode } from "react";
+import styled from "styled-components";
+import getColor from "../../utility/getColor";
+import getSize from "../../utility/getSize";
 import TColor from "../types/color";
 import TSize from "../types/size";
 
@@ -11,22 +11,21 @@ type Props = {
   size?: TSize;
   children: ReactNode;
   margin?: string;
-  weight?: 'bold' | 'normal';
-  family?: 'Noto Sans JP' | 'Bitter';
+  weight?: "bold" | "normal";
+  family?: "Noto Sans JP" | "Bitter";
   underline?: boolean;
-}
+};
 
 const Typography: React.FC<Props> = ({
-  color = 'base',
-  size = 'medium',
-  family = 'Noto Sans JP',
-  margin = '0',
-  weight = 'normal',
+  color = "base",
+  size = "medium",
+  family = "Noto Sans JP",
+  margin = "0",
+  weight = "normal",
   underline = false,
   tag = "p",
-  children
+  children,
 }) => {
-
   if (tag === "span") {
     return (
       <SpanText
@@ -39,9 +38,9 @@ const Typography: React.FC<Props> = ({
       >
         {children}
       </SpanText>
-    )
+    );
   } else {
-    return(
+    return (
       <Text
         size={size}
         color={color}
@@ -52,23 +51,25 @@ const Typography: React.FC<Props> = ({
       >
         {children}
       </Text>
-    )
+    );
   }
-}
+};
 
 const Text = styled.p`
   white-space: pre-wrap;
-  font-size: ${prop => getSize(prop.size)}rem;
-  color: ${prop => getColor(prop.color)};
-  font-family: "${prop => prop.family}", sans-serif;
-  margin: ${prop => prop.margin};
-  font-weight: ${prop => prop.weight};
-  ${props => props.underline && `
+  font-size: ${(prop) => getSize(prop.size)}rem;
+  color: ${(prop) => getColor(prop.color)};
+  font-family: "${(prop) => prop.family}", sans-serif;
+  margin: ${(prop) => prop.margin};
+  font-weight: ${(prop) => prop.weight};
+  ${(props) =>
+    props.underline &&
+    `
     text-decoration: underline;
     display: inline;
   `}
 `;
 
-const SpanText = Text.withComponent('span');
+const SpanText = Text.withComponent("span");
 
 export default Typography;

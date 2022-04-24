@@ -1,5 +1,5 @@
-import { ObjectId } from "mongoose";
-import { Post } from "../post.schema";
+import { ObjectId } from 'mongoose';
+import { Post } from '../post.schema';
 
 export interface IPostSummary {
   _id: ObjectId;
@@ -7,7 +7,6 @@ export interface IPostSummary {
 }
 
 export class PostSummaryMaker implements IPostSummary {
-
   _id: ObjectId;
   imagePath: string;
 

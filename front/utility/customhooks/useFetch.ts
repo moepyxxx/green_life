@@ -7,13 +7,16 @@ const useFetch = () => {
 
   return async <T>(
     apiPath: string,
-    isRequiredAuthorization?: boolean
+    isRequiredAuthorization?: boolean | "ifExists"
   ): Promise<T> => {
     try {
-      if (isRequiredAuthorization) {
+      if (
+        isRequiredAuthorization === true ||
+        (isRequiredAuthorization === "ifExists" && fetchUser() !== null)
+      ) {
         return await (
           await axios.get(process.env.NEXT_PUBLIC_API_LOCAL_URL + apiPath, {
-            headers: { Authorization: `Bearer ${fetchUser().token}` },
+            headers: { Authorization: `Bearer ${fetchUser()}` },
           })
         ).data;
       } else {

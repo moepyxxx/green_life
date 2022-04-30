@@ -1,12 +1,8 @@
-const fetchUser = (): {
-  token: string;
-} => {
+const fetchUserToken = (): string | null => {
   const jwt = localStorage.getItem("jwt");
   if (!jwt) {
-    throw new Error("ログインできていません！itTokenがないよ");
+    return null;
   }
-  return {
-    token: jwt,
-  };
+  return jwt;
 };
-export default fetchUser;
+export default fetchUserToken;

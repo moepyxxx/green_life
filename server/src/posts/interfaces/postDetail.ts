@@ -75,9 +75,10 @@ export class PostDetailMaker implements IPostDetail {
       this.oyuzuriRequestUsers = null;
 
       // 返却
-      this.oyuzuriRequest = oyuzuri
-        ? oyuzuri.requestUsers.includes(accessUser._id)
-        : null;
+      this.oyuzuriRequest =
+        oyuzuri && requestUid
+          ? oyuzuri.requestUsers.includes(accessUser._id)
+          : null;
     }
   }
 

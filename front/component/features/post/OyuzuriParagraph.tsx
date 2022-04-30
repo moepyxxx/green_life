@@ -5,6 +5,7 @@ import { IApiOyuzuriRequestUser } from "../../../pages/posts/interfaces/apiPostD
 import { Flex } from "../../../styles/components/Flex";
 import { Spacing } from "../../../styles/components/Spacing";
 import { TextAlign } from "../../../styles/components/TextAlign";
+import isUseLogin from "../../../utility/customhooks/isUseLogin";
 import usePost from "../../../utility/customhooks/usePost";
 import getColor from "../../../utility/getColor";
 import TextArea from "../../atoms/form/TextArea";
@@ -35,6 +36,7 @@ type Props = {
 };
 const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
   const apiPost = usePost();
+  const isLogin = isUseLogin();
 
   const [isDescriptionModalActive, setIsDescriptionModalActive] =
     useState<boolean>(false);
@@ -217,7 +219,9 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
         </>
       </Gray>
 
-      <Request display={paragraph.isPostMyself ? "none" : "display"}>
+      <Request
+        display={paragraph.isPostMyself || !isLogin() ? "none" : "display"}
+      >
         <SquareButton
           click={
             paragraph.oyuzuriRequest === true

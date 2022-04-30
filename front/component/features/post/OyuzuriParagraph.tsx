@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { IApiOyuzuriRequestUser } from "../../../pages/posts/interfaces/apiPostDetail";
 import { Flex } from "../../../styles/components/Flex";
@@ -38,20 +38,34 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
   const apiPost = usePost();
   const isLogin = isUseLogin();
 
+  const [isModalActive, setIsModalActive] = useState<boolean>(false);
   const [isDescriptionModalActive, setIsDescriptionModalActive] =
     useState<boolean>(false);
   const [isRequestModalActive, setIsRequestModalActive] =
     useState<boolean>(false);
   const [isCancelModalActive, setIsCancelModalActive] =
     useState<boolean>(false);
+  const [isOyuzuriTargetModalActive, setIsOyuzuriTargetModalActive] =
+    useState<boolean>(false);
+
   const [requestMessage, setRequestMessage] = useState<string>("");
-  const [isModalActive, setIsModalActive] = useState<boolean>(false);
+  const [confirmMessage, setConfirmMessage] = useState<string>("");
+
   const [currentRequestUser, setCurrentRequestUser] =
     useState<IApiOyuzuriRequestUser | null>(null);
+
+  useEffect(() => {
+    setIsModalActive(false);
+  }, [isOyuzuriTargetModalActive]);
 
   const requestMessageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const comment = e.target.value;
     setRequestMessage(comment);
+  };
+
+  const confirmMessageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const comment = e.target.value;
+    setConfirmMessage(comment);
   };
 
   const showRequestUserMessage = (user: IApiOyuzuriRequestUser) => {
@@ -129,7 +143,7 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
                       プロフィールを見る
                     </RadiusButton>
                     <RadiusButton
-                      click={() => console.log("oyuzuri!")}
+                      click={() => setIsOyuzuriTargetModalActive(true)}
                       bgColor="primary"
                     >
                       おゆずりする
@@ -161,6 +175,26 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
     if (result) {
       setIsRequestModalActive(false);
       console.log("リクエスト送れました！");
+    }
+  };
+
+  const oyuzuriConfirm = async () => {
+    const result = await apiPost<
+      {
+        message: string;
+      },
+      boolean
+    >(
+      `oyuzuris/${oyuzuriId}/confirm`,
+      {
+        message: confirmMessage,
+      },
+      true
+    );
+
+    if (result) {
+      setIsOyuzuriTargetModalActive(false);
+      console.log("おゆずり確認メッセージが送れました！");
     }
   };
 
@@ -247,7 +281,8 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
         isActive={
           isDescriptionModalActive ||
           isCancelModalActive ||
-          isRequestModalActive
+          isRequestModalActive ||
+          isOyuzuriTargetModalActive
         }
       />
 
@@ -377,6 +412,39 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
               やっぱりやめる
             </RadiusButton>
             <RadiusButton click={oyuzuriCancel}>キャンセル</RadiusButton>
+          </TextAlign>
+        </>
+      </Modal>
+
+      <Modal
+        isActive={isOyuzuriTargetModalActive}
+        closeAction={() => setIsOyuzuriTargetModalActive(false)}
+      >
+        <>
+          <Typography color="secondary" weight="bold">
+            {currentRequestUser?.displayName || ""}さんへおゆずりする
+          </Typography>
+          <Typography size="regular" margin="0 0 20px">
+            おゆずりOKコメントを送りましょう！このコメントに対して
+            {currentRequestUser?.displayName || ""}
+            さんが返信をした時点で、やりとりがスタートとなります。
+          </Typography>
+          <TextArea
+            text={confirmMessage}
+            placeHolder="おゆずりの最終確認をしましょう"
+            change={confirmMessageChange}
+          />
+          <TextAlign align="center">
+            <RadiusButton
+              margin="16px 0 8px"
+              borderColor="secondary"
+              bgColor="white"
+              color="secondary"
+              click={() => setIsOyuzuriTargetModalActive(false)}
+            >
+              やっぱりやめる
+            </RadiusButton>
+            <RadiusButton click={oyuzuriConfirm}>おゆずり決定</RadiusButton>
           </TextAlign>
         </>
       </Modal>

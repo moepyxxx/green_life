@@ -1,6 +1,6 @@
 export type TOyuzuriStatus =
   | 'wantedly'
-  | 'userConfirm'
+  | 'confirm'
   | 'canceled'
   | 'messaging'
   | 'complete';

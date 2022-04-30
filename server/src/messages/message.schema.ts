@@ -6,8 +6,8 @@ export type MessageDocument = Message & Document;
 
 export type MessageType =
   | 'request'
-  | 'userConfirm'
-  | 'returnConfirm'
+  | 'confirm'
+  | 'approve'
   | 'messaging'
   | 'cancel';
 

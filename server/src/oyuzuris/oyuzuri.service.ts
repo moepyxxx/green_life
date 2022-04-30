@@ -87,6 +87,56 @@ export class OyuzuriService {
   }
 
   /**
+   * おゆずりをリクエストの承認確認する
+   * @param oyuzuriOwnerId おゆずりオーナーID
+   * @param requestUId リクエストユーザーのuId
+   * @param message メッセージ
+   */
+  async confirm(
+    oyuzuriOwnerId: string,
+    requestUId: string,
+    request: {
+      message: string;
+    },
+  ): Promise<boolean> {
+    // リクエストユーザーを特定
+    const requestUser = await this.userService.fetchUserFromFirebaseUId(
+      requestUId,
+    );
+
+    const messageCreate: ICreateMessage = {
+      message: request.message,
+      messageType: 'confirm',
+    };
+
+    try {
+      // おゆずり元ユーザーをユーザーを識別してメッセージを投稿する
+      const oyuzuriUser = await this.oyuzuriModel
+        .findById(oyuzuriOwnerId)
+        .exec();
+      await this.messageSerivce.create(
+        messageCreate,
+        requestUser._id,
+        oyuzuriUser._id,
+        oyuzuriOwnerId,
+      );
+
+      // おゆずりスキーマをアップデート
+      await this.oyuzuriModel.updateOne(
+        { _id: oyuzuriOwnerId },
+        {
+          oyuzuriTargetUserId: requestUser._id,
+          status: 'confirm',
+        },
+      );
+    } catch (e) {
+      console.error(e);
+      return false;
+    }
+    return true;
+  }
+
+  /**
    * おゆずりをキャンセルする
    * @param oyuzuriOwnerId おゆずりオーナーID
    * @param requestUId リクエストユーザーのuId

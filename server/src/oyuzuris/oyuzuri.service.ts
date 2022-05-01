@@ -136,6 +136,35 @@ export class OyuzuriService {
     return true;
   }
 
+  async approve(oyuzuriOwnerId: string, requestUId: string) {
+    // リクエストユーザーを特定
+    const requestUser = await this.userService.fetchUserFromFirebaseUId(
+      requestUId,
+    );
+
+    try {
+      const oyuzuri = await this.oyuzuriModel
+        .findOne({ _id: oyuzuriOwnerId })
+        .exec();
+
+      if (oyuzuri.oyuzuriTargetUserId !== requestUser._id) {
+        throw new Error('リクエストユーザーが間違っています');
+      }
+
+      // おゆずりスキーマをアップデート
+      await this.oyuzuriModel.updateOne(
+        { _id: oyuzuriOwnerId },
+        {
+          status: 'messaging',
+        },
+      );
+    } catch (e) {
+      console.error(e);
+      return false;
+    }
+    return true;
+  }
+
   /**
    * おゆずりをキャンセルする
    * @param oyuzuriOwnerId おゆずりオーナーID

@@ -68,6 +68,27 @@ export class OyuzuriController {
     }
   }
 
+  @Post(':id/approve')
+  async approve(
+    @Headers('Authorization') authorization: string,
+    @Param('id') id: string,
+  ): Promise<boolean> {
+    try {
+      // なんかないのかな…あると思うけど…
+      const isAuthed: string | false = await this.userService.verifyIdToken(
+        authorization.replace('Bearer ', ''),
+      );
+      if (isAuthed) {
+        return await this.oyuzuriService.approve(id, isAuthed);
+      }
+    } catch (e) {
+      throw new HttpException(
+        'this accoun is not authed',
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+  }
+
   @Post(':id/cancel')
   async cancel(
     @Headers('Authorization') authorization: string,

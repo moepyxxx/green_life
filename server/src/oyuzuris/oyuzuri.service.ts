@@ -5,7 +5,9 @@ import { MessageService } from 'src/messages/message.service';
 import { ICreate as ICreateMessage } from 'src/messages/interfaces/create';
 import { UserService } from 'src/users/user.service';
 import { ICreate } from './interfaces/create';
+import { ICreate as IMessageCreate } from '../messageContainers/interfaces/create';
 import { Oyuzuri, OyuzuriDocument } from './oyuzuri.schema';
+import { MessageContainerService } from 'src/messageContainers/messageContainer.service';
 
 @Injectable()
 export class OyuzuriService {
@@ -13,6 +15,7 @@ export class OyuzuriService {
     @InjectModel(Oyuzuri.name) private oyuzuriModel: Model<OyuzuriDocument>,
     private readonly userService: UserService,
     private readonly messageSerivce: MessageService,
+    private readonly messageContainerSerivce: MessageContainerService,
   ) {}
 
   async findByPostId(postId: Schema.Types.ObjectId): Promise<Oyuzuri> {
@@ -146,12 +149,12 @@ export class OyuzuriService {
   }
 
   async approve(oyuzuriOwnerId: string, requestUId: string) {
-    // リクエストユーザーを特定
-    const requestUser = await this.userService.fetchUserFromFirebaseUId(
-      requestUId,
-    );
-
     try {
+      // リクエストユーザーを特定
+      const requestUser = await this.userService.fetchUserFromFirebaseUId(
+        requestUId,
+      );
+
       const oyuzuri = await this.oyuzuriModel
         .findOne({ _id: oyuzuriOwnerId })
         .exec();
@@ -167,6 +170,26 @@ export class OyuzuriService {
           status: 'messaging',
         },
       );
+
+      const requestMessage = await this.messageSerivce.searchMessageByType(
+        oyuzuri.oyuzuriTargetUserId,
+        oyuzuri._id,
+        'request',
+      );
+
+      const confirmMessage = await this.messageSerivce.searchMessageByType(
+        oyuzuri.oyuzuriUserId,
+        oyuzuri._id,
+        'request',
+      );
+
+      // おゆずりコンテナを作成してこれまでのメッセージを格納
+      const messageContainerCreater: IMessageCreate = {
+        messageIds: [requestMessage._id, confirmMessage._id],
+        oyuzuriId: oyuzuri._id,
+      };
+
+      await this.messageContainerSerivce.create(messageContainerCreater);
     } catch (e) {
       console.error(e);
       return false;

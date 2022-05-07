@@ -29,4 +29,5 @@ export class MessageContainer {
   deletedAt: Date | null;
 }
 
-export const MessageSchema = SchemaFactory.createForClass(MessageContainer);
+export const MessageContainerSchema =
+  SchemaFactory.createForClass(MessageContainer);

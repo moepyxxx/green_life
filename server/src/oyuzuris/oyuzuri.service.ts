@@ -8,6 +8,9 @@ import { ICreate } from './interfaces/create';
 import { ICreate as IMessageCreate } from '../messageContainers/interfaces/create';
 import { Oyuzuri, OyuzuriDocument } from './oyuzuri.schema';
 import { MessageContainerService } from 'src/messageContainers/messageContainer.service';
+import { User } from 'src/users/user.schema';
+import { IOyuzuriRequestUser } from 'src/posts/interfaces/oyuzuriRequestUser';
+import { IOyuzuri } from './interfaces/oyuzuri';
 
 @Injectable()
 export class OyuzuriService {
@@ -20,6 +23,166 @@ export class OyuzuriService {
 
   async findByPostId(postId: Schema.Types.ObjectId): Promise<Oyuzuri> {
     return this.oyuzuriModel.findOne({ postId }).exec();
+  }
+
+  /**
+   *
+   * @param oyuzuriOwnerId おゆずりオーナーID
+   * @param requestUId リクエストユーザーのuId
+   */
+  async findOne(oyuzuriOwnerId: string, requestUId: string): Promise<IOyuzuri> {
+    // おゆずりを特定
+    const oyuzuri = await this.oyuzuriModel.findById(oyuzuriOwnerId).exec();
+
+    // オーナーを特定
+    const owner: User = await this.userService.fetchUser(
+      oyuzuri.oyuzuriUserId.toString(),
+    );
+
+    const isPostMyself = owner.firebaseUid === requestUId;
+    return isPostMyself
+      ? this.formatMyselfOne(oyuzuri)
+      : this.formatOtherOne(oyuzuri, requestUId);
+  }
+
+  async formatMyselfOne(oyuzuri: Oyuzuri): Promise<IOyuzuri> {
+    const init: IOyuzuri = {
+      _id: oyuzuri._id,
+      status: oyuzuri.status,
+      oyuzuriComment: oyuzuri.oyuzuriComment,
+      isPostMyself: true,
+    };
+
+    if (oyuzuri.status === 'wantedly') {
+      const oyuzuriRequestUsers: IOyuzuriRequestUser[] | null =
+        await Promise.all(
+          oyuzuri.requestUsers.map(async (userId) => {
+            const requestUser = await this.userService.fetchUserFromObjectId(
+              userId.toString(),
+            );
+            const userMessage = await this.messageSerivce.searchMessageByType(
+              requestUser._id,
+              oyuzuri._id,
+              'request',
+            );
+            return {
+              userId: requestUser._id,
+              displayName: requestUser.displayName,
+              thumbnailUrl: requestUser.thumbnailUrl,
+              userName: requestUser.userName,
+              message: userMessage.message,
+              createdAt: userMessage.createdAt,
+            };
+          }),
+        );
+      return {
+        ...init,
+        oyuzuriRequestUsers,
+      };
+    } else if (oyuzuri.status === 'canceled') {
+      return {
+        ...init,
+      };
+    } else {
+      const requestUser = await this.userService.fetchUserFromObjectId(
+        oyuzuri.oyuzuriTargetUserId.toString(),
+      );
+
+      if (oyuzuri.status === 'confirm') {
+        const confirmMessage = await this.messageSerivce.searchMessageByType(
+          oyuzuri.oyuzuriUserId,
+          oyuzuri._id,
+          'confirm',
+        );
+
+        return {
+          ...init,
+          oyuzuriTargetUser: {
+            userId: requestUser._id,
+            displayName: requestUser.displayName,
+            thumbnailUrl: requestUser.thumbnailUrl,
+            userName: requestUser.userName,
+            message: confirmMessage.message,
+            createdAt: confirmMessage.createdAt,
+          },
+        };
+      } else if (oyuzuri.status === 'messaging') {
+        return {
+          ...init,
+          oyuzuriTargetUser: {
+            userId: requestUser._id,
+            displayName: requestUser.displayName,
+            thumbnailUrl: requestUser.thumbnailUrl,
+            userName: requestUser.userName,
+          },
+          messageContainerId: oyuzuri.messageContainerId,
+        };
+      } else if (oyuzuri.status === 'complete') {
+        return {
+          ...init,
+          oyuzuriTargetUser: {
+            userId: requestUser._id,
+            displayName: requestUser.displayName,
+            thumbnailUrl: requestUser.thumbnailUrl,
+            userName: requestUser.userName,
+          },
+        };
+      }
+    }
+  }
+
+  async formatOtherOne(
+    oyuzuri: Oyuzuri,
+    requestUId: string,
+  ): Promise<IOyuzuri> {
+    const accessUser = await this.userService.fetchUserFromFirebaseUId(
+      requestUId,
+    );
+
+    const isRequest = oyuzuri.requestUsers.includes(accessUser._id);
+    const init = {
+      _id: oyuzuri._id,
+      status: oyuzuri.status,
+      oyuzuriComment: oyuzuri.oyuzuriComment,
+      isPostMyself: false,
+      isRequest,
+    };
+
+    if (oyuzuri.status === 'wantedly') {
+      return init;
+    }
+
+    const isTargetUser =
+      oyuzuri.oyuzuriTargetUserId.toString() === accessUser._id.toString();
+
+    if (oyuzuri.status === 'complete' || oyuzuri.status === 'canceled') {
+      return {
+        ...init,
+        isTargetUser,
+      };
+    }
+
+    if (oyuzuri.status === 'confirm') {
+      const confirmMessage = await this.messageSerivce.searchMessageByType(
+        oyuzuri.oyuzuriUserId,
+        oyuzuri._id,
+        'confirm',
+      );
+
+      return {
+        ...init,
+        isTargetUser,
+        confirmMessage: confirmMessage.message,
+      };
+    }
+
+    if (oyuzuri.status === 'messaging') {
+      return {
+        ...init,
+        isTargetUser,
+        messageContainerId: oyuzuri.messageContainerId,
+      };
+    }
   }
 
   /**

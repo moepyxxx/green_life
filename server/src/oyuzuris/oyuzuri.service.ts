@@ -22,6 +22,10 @@ export class OyuzuriService {
     return this.oyuzuriModel.findOne({ postId }).exec();
   }
 
+  /**
+   * おゆずりを作成する
+   * @param post リクエスト
+   */
   async create(post: ICreate): Promise<{ oyuzuri: Oyuzuri }> {
     try {
       const _id = new Types.ObjectId();
@@ -148,6 +152,11 @@ export class OyuzuriService {
     return true;
   }
 
+  /**
+   * おゆずりを承認する
+   * @param oyuzuriOwnerId おゆずりオーナーID
+   * @param requestUId リクエストユーザーのuId
+   */
   async approve(oyuzuriOwnerId: string, requestUId: string) {
     try {
       // リクエストユーザーを特定

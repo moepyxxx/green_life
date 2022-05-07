@@ -97,11 +97,23 @@ export class OyuzuriService {
     requestUId: string,
     request: {
       message: string;
+      targetUserId: string;
     },
   ): Promise<boolean> {
+    // おゆずりを特定
+    const oyuzuri = await this.oyuzuriModel.findById(oyuzuriOwnerId).exec();
     // リクエストユーザーを特定
     const requestUser = await this.userService.fetchUserFromFirebaseUId(
       requestUId,
+    );
+
+    if (requestUser._id.toString() !== oyuzuri.oyuzuriUserId.toString()) {
+      throw new Error('リクエストユーザーが間違っています');
+    }
+
+    // ターゲットユーザーを特定
+    const targetUser = await this.userService.fetchUserFromObjectId(
+      request.targetUserId,
     );
 
     const messageCreate: ICreateMessage = {
@@ -111,13 +123,10 @@ export class OyuzuriService {
 
     try {
       // おゆずり元ユーザーをユーザーを識別してメッセージを投稿する
-      const oyuzuriUser = await this.oyuzuriModel
-        .findById(oyuzuriOwnerId)
-        .exec();
       await this.messageSerivce.create(
         messageCreate,
-        requestUser._id,
-        oyuzuriUser._id,
+        targetUser._id,
+        oyuzuri.oyuzuriUserId,
         oyuzuriOwnerId,
       );
 
@@ -125,7 +134,7 @@ export class OyuzuriService {
       await this.oyuzuriModel.updateOne(
         { _id: oyuzuriOwnerId },
         {
-          oyuzuriTargetUserId: requestUser._id,
+          oyuzuriTargetUserId: targetUser._id,
           status: 'confirm',
         },
       );

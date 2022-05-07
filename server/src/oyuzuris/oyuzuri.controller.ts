@@ -5,7 +5,6 @@ import {
   Headers,
   HttpException,
   HttpStatus,
-  Get,
   Body,
 } from '@nestjs/common';
 import { UserService } from 'src/users/user.service';
@@ -50,6 +49,7 @@ export class OyuzuriController {
     @Body()
     request: {
       message: string;
+      targetUserId: string;
     },
   ): Promise<boolean> {
     try {
@@ -57,6 +57,8 @@ export class OyuzuriController {
       const isAuthed: string | false = await this.userService.verifyIdToken(
         authorization.replace('Bearer ', ''),
       );
+      console.log('hoge');
+      console.log(isAuthed);
       if (isAuthed) {
         return await this.oyuzuriService.confirm(id, isAuthed, request);
       }

@@ -182,12 +182,14 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
     const result = await apiPost<
       {
         message: string;
+        targetUserId: string;
       },
       boolean
     >(
       `oyuzuris/${oyuzuriId}/confirm`,
       {
         message: confirmMessage,
+        targetUserId: currentRequestUser.userId,
       },
       true
     );

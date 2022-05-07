@@ -14,9 +14,7 @@ export class MessageContainerService {
     private messageContainerModel: Model<MessageContainerDocument>,
   ) {}
 
-  async create(
-    request: ICreate,
-  ): Promise<{ messageContainer: MessageContainer }> {
+  async create(request: ICreate): Promise<MessageContainer> {
     try {
       const _id = new Types.ObjectId();
       const createMessageContainer = await new this.messageContainerModel({
@@ -26,7 +24,7 @@ export class MessageContainerService {
 
       await createMessageContainer.save();
 
-      return { messageContainer: createMessageContainer };
+      return createMessageContainer;
     } catch (error) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }

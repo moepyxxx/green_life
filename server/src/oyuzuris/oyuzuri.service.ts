@@ -168,17 +168,11 @@ export class OyuzuriService {
         .findOne({ _id: oyuzuriOwnerId })
         .exec();
 
-      if (oyuzuri.oyuzuriTargetUserId !== requestUser._id) {
+      if (
+        oyuzuri.oyuzuriTargetUserId.toString() !== requestUser._id.toString()
+      ) {
         throw new Error('リクエストユーザーが間違っています');
       }
-
-      // おゆずりスキーマをアップデート
-      await this.oyuzuriModel.updateOne(
-        { _id: oyuzuriOwnerId },
-        {
-          status: 'messaging',
-        },
-      );
 
       const requestMessage = await this.messageSerivce.searchMessageByType(
         oyuzuri.oyuzuriTargetUserId,
@@ -198,7 +192,18 @@ export class OyuzuriService {
         oyuzuriId: oyuzuri._id,
       };
 
-      await this.messageContainerSerivce.create(messageContainerCreater);
+      const messageContainer = await this.messageContainerSerivce.create(
+        messageContainerCreater,
+      );
+
+      // おゆずりスキーマをアップデート
+      await this.oyuzuriModel.updateOne(
+        { _id: oyuzuriOwnerId },
+        {
+          status: 'messaging',
+          messageContainerId: messageContainer._id,
+        },
+      );
     } catch (e) {
       console.error(e);
       return false;

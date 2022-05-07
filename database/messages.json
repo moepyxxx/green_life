@@ -1,1 +1,13 @@
-[]
+[
+  {
+    "_id": { "$oid": "6276538e16e9d6decba94223" },
+    "deletedAt": null,
+    "updatedAt": null,
+    "createdAt": { "$date": "2021-11-07T10:00:00.884Z" },
+    "messageType": "request",
+    "message": "おゆずりリクエスト",
+    "toUserId": { "$oid": "622db03d32f676618f2a1d30" },
+    "fromUserId": { "$oid": "6216ddcd9e6c2a966a623696" },
+    "oyuzuriId": { "$oid": "622db03d32f676618f2a1d30" }
+  }
+]

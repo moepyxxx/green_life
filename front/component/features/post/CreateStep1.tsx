@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import IconButton from "../../atoms/IconButton";
 import Modal from "../../atoms/Modal";
 import Shadow from "../../atoms/Shadow";
 import Typography from "../../atoms/Typography";
@@ -9,6 +8,7 @@ import { IPost } from "../../../pages/posts/interfaces/post";
 import File from "../../atoms/form/File";
 import { Flex } from "../../../styles/components/Flex";
 import { Spacing } from "../../../styles/components/Spacing";
+import QuestionButton from "../../molecules/QuestionButton";
 
 type Props = {
   post: IPost;
@@ -32,11 +32,7 @@ const CreateStep1: React.FC<Props> = ({ post, setPost, setImageFile }) => {
       <Typography color="disable" size="small" margin="8px 0 16px">
         ドラッグ＆ドロップもしくはクリックで選択
       </Typography>
-      <IconButton click={() => setIsModalActive(true)}>
-        <Typography color="white" weight="bold">
-          ?
-        </Typography>
-      </IconButton>
+      <QuestionButton click={() => setIsModalActive(true)} />
 
       <Shadow isActive={isModalActive} />
 

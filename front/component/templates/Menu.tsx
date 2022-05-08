@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Link from "next/link";
 
@@ -7,50 +7,28 @@ import LogoHome from "../../img/icon/home.svg";
 import LogoBell from "../../img/icon/bell.svg";
 import LogoEmail from "../../img/icon/email.svg";
 import LogoGreen from "../../img/icon/green.svg";
-import useFetch from "../../utility/customhooks/useFetch";
 import useIsLogin from "../../utility/customhooks/useIsLogin";
 import getColor from "../../utility/getColor";
+import useFetch from "../../utility/customhooks/useFetch";
 
 type TThumbnail = {
   thumbnailUrl: string;
 };
 
 const Menu = () => {
-  const apiFetch = useFetch();
   const isLogin = useIsLogin();
-  const [statusNode, setStatusNode] = useState<ReactNode>();
+  const apiFetch = useFetch();
+
   const [thumbnail, setThumbnail] = useState<string>(
     "https://storage.googleapis.com/greenlife-midori.appspot.com/users/green-chan.png"
   );
 
   useEffect(() => {
+    getThumbnail();
+  }, [isLogin]);
+
+  const getThumbnail = async () => {
     if (!isLogin) return;
-    initializeThumbnail();
-  }, []);
-
-  useEffect(() => {
-    if (isLogin) {
-      setStatusNode(
-        <LogginedBudge>
-          <Image
-            unoptimized
-            src={thumbnail}
-            alt="ユーザーアイコン"
-            layout="fill"
-            objectFit="cover"
-          />
-        </LogginedBudge>
-      );
-    } else {
-      setStatusNode(
-        <Link href="/signin" passHref>
-          <LogoutBudge>Login</LogoutBudge>
-        </Link>
-      );
-    }
-  }, [thumbnail]);
-
-  const initializeThumbnail = async () => {
     const result = await apiFetch<TThumbnail>(`users/thumbnail`, true);
     if (!result) return;
     setThumbnail(result.thumbnailUrl);
@@ -70,7 +48,21 @@ const Menu = () => {
       <Link href="/" passHref>
         <Image src={LogoEmail} alt="ロゴ" />
       </Link>
-      {statusNode}
+      {isLogin ? (
+        <LogginedBudge>
+          <Image
+            unoptimized
+            src={thumbnail}
+            alt="ユーザーアイコン"
+            layout="fill"
+            objectFit="cover"
+          />
+        </LogginedBudge>
+      ) : (
+        <Link href="/signin" passHref>
+          <LogoutBudge>Login</LogoutBudge>
+        </Link>
+      )}
     </MenuWrapper>
   );
 };

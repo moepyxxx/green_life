@@ -14,7 +14,7 @@ import { IApiPostDetail } from "./interfaces/apiPostDetail";
 import dayjs from "dayjs";
 import useFetch from "../../utility/customhooks/useFetch";
 import { useRouter } from "next/router";
-import Oyuzuri from "../../component/features/post/Oyuzuri";
+import Oyuzuri from "../../component/features/oyuzuri/Oyuzuri";
 import { TextAlign } from "../../styles/components/TextAlign";
 import { Spacing } from "../../styles/components/Spacing";
 import { Flex } from "../../styles/components/Flex";

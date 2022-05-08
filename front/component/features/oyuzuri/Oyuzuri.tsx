@@ -1,7 +1,7 @@
 import React from "react";
 import { IApiOyuzuri } from "../../../pages/posts/interfaces/apiOyuzuri";
-import OyuzuriMyselfPanel from "./OyuzuriMyselfPanel";
-import OyuzuriOtherPanel from "./OyuzuriOtherPanel";
+import OyuzuriMyselfPanel from "./myself/OyuzuriMyselfPanel";
+import OyuzuriOtherPanel from "./other/OyuzuriOtherPanel";
 import OyuzuriParagraph from "./OyuzuriParagraph";
 
 type Props = {

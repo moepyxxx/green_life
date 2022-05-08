@@ -1,26 +1,26 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { IApiOyuzuri } from "../../../pages/posts/interfaces/apiOyuzuri";
-import { IApiOyuzuriRequestUser } from "../../../pages/posts/interfaces/apiPostDetail";
-import { Flex } from "../../../styles/components/Flex";
-import { Spacing } from "../../../styles/components/Spacing";
-import { TextAlign } from "../../../styles/components/TextAlign";
-import usePost from "../../../utility/customhooks/usePost";
-import TextArea from "../../atoms/form/TextArea";
-import Modal from "../../atoms/Modal";
-import Shadow from "../../atoms/Shadow";
-import SimpleBox from "../../atoms/SimpleBox";
-import Typography from "../../atoms/Typography";
-import ProfileCard from "../../molecules/ProfileCard";
-import RadiusButton from "../../molecules/RadiusButton";
-import UnderLineTextButton from "../../molecules/UnderLineTextButton";
-import Caution from "../../pattern/Caution";
+import { IApiOyuzuri } from "../../../../pages/posts/interfaces/apiOyuzuri";
+import { IApiOyuzuriRequestUser } from "../../../../pages/posts/interfaces/apiPostDetail";
+import { Flex } from "../../../../styles/components/Flex";
+import { Spacing } from "../../../../styles/components/Spacing";
+import { TextAlign } from "../../../../styles/components/TextAlign";
+import usePost from "../../../../utility/customhooks/usePost";
+import TextArea from "../../../atoms/form/TextArea";
+import Modal from "../../../atoms/Modal";
+import Shadow from "../../../atoms/Shadow";
+import SimpleBox from "../../../atoms/SimpleBox";
+import Typography from "../../../atoms/Typography";
+import ProfileCard from "../../../molecules/ProfileCard";
+import RadiusButton from "../../../molecules/RadiusButton";
+import UnderLineTextButton from "../../../molecules/UnderLineTextButton";
+import Caution from "../../../pattern/Caution";
 
 type Props = {
   oyuzuri: IApiOyuzuri;
 };
-const OyuzuriMyselfPanel: React.FC<Props> = ({ oyuzuri }) => {
+const WantedlyPanel: React.FC<Props> = ({ oyuzuri }) => {
   const apiPost = usePost();
 
   const [isModalActive, setIsModalActive] = useState<boolean>(false);
@@ -226,4 +226,4 @@ const UserButton = styled.button`
   text-align: center;
 `;
 
-export default OyuzuriMyselfPanel;
+export default WantedlyPanel;

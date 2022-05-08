@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { IApiOyuzuri } from "../../../pages/posts/interfaces/apiOyuzuri";
-import { TextAlign } from "../../../styles/components/TextAlign";
-import isUseLogin from "../../../utility/customhooks/isUseLogin";
-import usePost from "../../../utility/customhooks/usePost";
-import TextArea from "../../atoms/form/TextArea";
-import Modal from "../../atoms/Modal";
-import Shadow from "../../atoms/Shadow";
-import Typography from "../../atoms/Typography";
-import RadiusButton from "../../molecules/RadiusButton";
-import SquareButton from "../../molecules/SquareButton";
+import { IApiOyuzuri } from "../../../../pages/posts/interfaces/apiOyuzuri";
+import { TextAlign } from "../../../../styles/components/TextAlign";
+import isUseLogin from "../../../../utility/customhooks/isUseLogin";
+import usePost from "../../../../utility/customhooks/usePost";
+import TextArea from "../../../atoms/form/TextArea";
+import Modal from "../../../atoms/Modal";
+import Shadow from "../../../atoms/Shadow";
+import Typography from "../../../atoms/Typography";
+import RadiusButton from "../../../molecules/RadiusButton";
+import SquareButton from "../../../molecules/SquareButton";
 
 type Props = {
   oyuzuri: IApiOyuzuri;
 };
-const OyuzuriOtherPanel: React.FC<Props> = ({ oyuzuri }) => {
+const WantedlyPanel: React.FC<Props> = ({ oyuzuri }) => {
   const apiPost = usePost();
   const isLogin = isUseLogin();
 
@@ -156,4 +156,4 @@ const Request = styled.div`
   margin-top: 32px;
 `;
 
-export default OyuzuriOtherPanel;
+export default WantedlyPanel;

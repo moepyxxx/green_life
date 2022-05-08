@@ -67,7 +67,7 @@ const SwitchingGreenImage: React.FC<Props> = ({
           closeAction={() => setModalIsActive(false)}
           position="absolute"
         >
-          <TextAlign align0="center">
+          <TextAlign align="center">
             <Image
               src={`/${modalText.green.imagePath}`}
               width="72"

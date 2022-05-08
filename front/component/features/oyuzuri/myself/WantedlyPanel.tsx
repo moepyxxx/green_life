@@ -108,7 +108,7 @@ const WantedlyPanel: React.FC<Props> = ({ oyuzuri }) => {
                       </Typography>
                     </SimpleBox>
                   </Spacing>
-                  <TextAlign align0="center">
+                  <TextAlign align="center">
                     <RadiusButton
                       click={() => console.log("link to user profile")}
                       margin="0 0 8px 0"
@@ -224,6 +224,7 @@ const UserButton = styled.button`
   border: none;
   padding: 0 8px 4px;
   text-align: center;
+  background: none;
 `;
 
 export default WantedlyPanel;

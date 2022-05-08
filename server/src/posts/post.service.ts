@@ -61,7 +61,7 @@ export class PostService {
     };
   }
 
-  async findOne(id: string, authToken: string | false): Promise<IPostDetail> {
+  async findOne(id: string): Promise<IPostDetail> {
     const post: Post = await this.postModel.findById(id).exec();
 
     const greenpins: IGreenPin[] = await Promise.all(

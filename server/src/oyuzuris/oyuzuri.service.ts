@@ -40,6 +40,7 @@ export class OyuzuriService {
     );
 
     const isPostMyself = owner.firebaseUid === requestUId;
+    console.log('isPostMyself', isPostMyself);
     return isPostMyself
       ? this.formatMyselfOne(oyuzuri)
       : this.formatOtherOne(oyuzuri, requestUId);

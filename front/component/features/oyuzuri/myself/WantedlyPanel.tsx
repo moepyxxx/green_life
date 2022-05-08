@@ -76,6 +76,7 @@ const WantedlyPanel: React.FC<Props> = ({ oyuzuri }) => {
                       src={oyuzuriUser.thumbnailUrl}
                       width="400"
                       height="400"
+                      alt="ユーザー画像"
                       objectFit="cover"
                     />
                     <Typography size="small" color="primary" family="Bitter">

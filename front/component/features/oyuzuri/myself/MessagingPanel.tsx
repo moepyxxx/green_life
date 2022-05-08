@@ -30,6 +30,7 @@ const MessagingPanel: React.FC<Props> = ({ oyuzuri }) => {
             <Image
               unoptimized
               src={oyuzuri.oyuzuriTargetUser.thumbnailUrl}
+              alt="ユーザー画像"
               width="400"
               height="400"
               objectFit="cover"

@@ -4,6 +4,7 @@ import { Spacing } from "../../styles/components/Spacing";
 import getColor from "../../utility/getColor";
 
 import Logo from "../atoms/Logo";
+import UnderLineTextLink from "../molecules/UnderLineTextLink";
 import Wave from "../pattern/Wave";
 
 const Footer = () => {
@@ -14,6 +15,16 @@ const Footer = () => {
         <FooterLogo>
           <Logo color="white" />
         </FooterLogo>
+        <Spacing pa="20px 8px 0">
+          <UnderLineTextLink linkPath="/signup" color="white" size="medium">
+            サインアップ
+          </UnderLineTextLink>
+        </Spacing>
+        <Spacing pa="0 8px 20px">
+          <UnderLineTextLink linkPath="/signin" color="white" size="medium">
+            サインイン
+          </UnderLineTextLink>
+        </Spacing>
         <FooterCatch>もっと、暮らしを、□ □ □ 。</FooterCatch>
         <FooterCopy>@ copyright Moeko.I All right Reserved.</FooterCopy>
       </FooterText>

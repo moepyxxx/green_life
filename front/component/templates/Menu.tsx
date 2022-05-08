@@ -1,125 +1,113 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import styled from "styled-components";
+import Link from "next/link";
+
+import LogoHome from "../../img/icon/home.svg";
+import LogoBell from "../../img/icon/bell.svg";
+import LogoEmail from "../../img/icon/email.svg";
+import LogoGreen from "../../img/icon/green.svg";
+import useFetch from "../../utility/customhooks/useFetch";
+import isUseLogin from "../../utility/customhooks/isUseLogin";
 import getColor from "../../utility/getColor";
 
-import AttentionVerticalImg from "../../img/icon/attention_vertical.svg";
-import LikeImg from "../../img/icon/heart.svg";
-import SearchImg from "../../img/icon/search.svg";
-
-import Pattern1 from "../pattern/Pattern1";
-import IconButton from "../atoms/IconButton";
-import PostButton from "../features/post/PostButton";
-import { Spacing } from "../../styles/components/Spacing";
+type TThumbnail = {
+  thumbnailUrl: string;
+};
 
 const Menu = () => {
-  const [isActive, setIsActive] = useState<boolean>(false);
+  const apiFetch = useFetch();
+  const isLogin = isUseLogin();
+  const [statusNode, setStatusNode] = useState<ReactNode>();
+  const [thumbnail, setThumbnail] = useState<string>(
+    "https://storage.googleapis.com/greenlife-midori.appspot.com/users/green-chan.png"
+  );
 
-  if (isActive) {
-    return (
-      <MenuInner>
-        <Spacing mb={2}>
-          <IconButton
-            fill="secondary"
-            click={() => console.log("link to like page")}
-          >
-            <Image src={LikeImg} alt="お気に入りページへのリンク" />
-          </IconButton>
-        </Spacing>
-        <Spacing mb={2}>
-          <IconButton
-            fill="secondary"
-            click={() => console.log("link to search page")}
-          >
-            <Image src={SearchImg} alt="検索ページへのリンク" />
-          </IconButton>
-        </Spacing>
-        <Spacing mb={2}>
-          <PostButton />
-        </Spacing>
-        <IconButton fill="secondary" click={() => setIsActive(false)}>
-          <Close />
-        </IconButton>
-      </MenuInner>
-    );
-  } else {
-    return (
-      <MenuOpenBtn onClick={() => setIsActive(true)}>
-        <WrapPattern>
-          <Pattern1 fill="secondary" />
-        </WrapPattern>
-        <WrapImg>
-          <Image src={AttentionVerticalImg} alt="メニューを開くボタン" />
-        </WrapImg>
-      </MenuOpenBtn>
-    );
-  }
+  useEffect(() => {
+    if (!isLogin()) return;
+    initializeThumbnail();
+  }, []);
+
+  useEffect(() => {
+    if (isLogin()) {
+      setStatusNode(
+        <LogginedBudge>
+          <Image
+            unoptimized
+            src={thumbnail}
+            alt="ユーザーアイコン"
+            layout="fill"
+            objectFit="cover"
+          />
+        </LogginedBudge>
+      );
+    } else {
+      setStatusNode(
+        <Link href="/signin" passHref>
+          <LogoutBudge>Login</LogoutBudge>
+        </Link>
+      );
+    }
+  }, [thumbnail]);
+
+  const initializeThumbnail = async () => {
+    const result = await apiFetch<TThumbnail>(`users/thumbnail`, true);
+    if (!result) return;
+    setThumbnail(result.thumbnailUrl);
+  };
+
+  return (
+    <MenuWrapper>
+      <Link href="/" passHref>
+        <Image src={LogoHome} alt="ロゴ" />
+      </Link>
+      <Link href="/" passHref>
+        <Image src={LogoBell} alt="ロゴ" />
+      </Link>
+      <Link href="/posts/create" passHref>
+        <Image src={LogoGreen} alt="ロゴ" />
+      </Link>
+      <Link href="/" passHref>
+        <Image src={LogoEmail} alt="ロゴ" />
+      </Link>
+      {statusNode}
+    </MenuWrapper>
+  );
 };
 export default Menu;
 
-const MenuOpenBtn = styled.button`
+const MenuWrapper = styled.div`
   position: fixed;
+  background: #fff;
   z-index: 3;
-  bottom: 20px;
-  right: 32px;
-  width: 52px;
-  height: 52px;
-  background: transparent;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  padding: 16px 28px;
   border: none;
-`;
-const WrapPattern = styled.span`
-  display: block;
-  width: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
-const WrapImg = styled.span`
-  display: block;
-  width: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  img {
-    width: 80%;
-    margin-top: 2px;
-  }
-`;
-const MenuInner = styled.div`
-  position: fixed;
-  z-index: 3;
-  bottom: 20px;
-  right: 0;
   display: flex;
-  flex-flow: column;
-  align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 `;
-const Close = styled.span`
+
+const LogginedBudge = styled.div`
   width: 40px;
   height: 40px;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  display: block;
-  &:after,
-  &:before {
-    content: "";
-    position: absolute;
-    display: block;
-    top: 50%;
-    left: 50%;
-    width: 2px;
-    height: 20px;
-    background-color: ${getColor("primary")};
-  }
-  &:after {
-    transform: translate(-50%, -50%) rotate(45deg);
-  }
-  &:before {
-    transform: translate(-50%, -50%) rotate(-45deg);
-  }
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+`;
+
+const LogoutBudge = styled.a`
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  background-color: ${getColor("secondary")};
+  border-radius: 50%;
+  overflow: hidden;
+  color: #fff;
+  font-family 'Bitter', sans-serif;
+  font-size: 1.2rem;
+  line-height: 40px;
+  padding: 0 0 0 4px;
 `;

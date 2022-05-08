@@ -10,7 +10,7 @@ const OyuzuriMyselfPanel: React.FC<Props> = ({ oyuzuri }) => {
     case "wantedly":
       return <WantedlyPanel oyuzuri={oyuzuri} />;
     case "confirm":
-      return <p>いま確認！</p>;
+      return <p>確認中だよ</p>;
   }
 };
 

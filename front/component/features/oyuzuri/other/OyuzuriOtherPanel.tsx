@@ -1,5 +1,6 @@
 import React from "react";
 import { IApiOyuzuri } from "../../../../pages/posts/interfaces/apiOyuzuri";
+import ConfirmPanel from "./ConfirmPanel";
 
 import WantedlyPanel from "./WantedlyPanel";
 
@@ -11,7 +12,7 @@ const OyuzuriOtherPanel: React.FC<Props> = ({ oyuzuri }) => {
     case "wantedly":
       return <WantedlyPanel oyuzuri={oyuzuri} />;
     case "confirm":
-      return <p>いま確認！</p>;
+      return <ConfirmPanel oyuzuri={oyuzuri} />;
   }
 };
 

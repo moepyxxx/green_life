@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { IApiOyuzuri } from "../../../../pages/posts/interfaces/apiOyuzuri";
 import { TextAlign } from "../../../../styles/components/TextAlign";
-import isUseLogin from "../../../../utility/customhooks/isUseLogin";
+import useIsLogin from "../../../../utility/customhooks/useIsLogin";
 import usePost from "../../../../utility/customhooks/usePost";
 import TextArea from "../../../atoms/form/TextArea";
 import Modal from "../../../atoms/Modal";
@@ -16,7 +16,7 @@ type Props = {
 };
 const WantedlyPanel: React.FC<Props> = ({ oyuzuri }) => {
   const apiPost = usePost();
-  const isLogin = isUseLogin();
+  const isLogin = useIsLogin();
 
   const [isRequestModalActive, setIsRequestModalActive] =
     useState<boolean>(false);
@@ -65,9 +65,7 @@ const WantedlyPanel: React.FC<Props> = ({ oyuzuri }) => {
 
   return (
     <>
-      <Request
-        display={oyuzuri.isPostMyself || !isLogin() ? "none" : "display"}
-      >
+      <Request display={oyuzuri.isPostMyself || !isLogin ? "none" : "display"}>
         <SquareButton
           click={
             oyuzuri.isRequest === true

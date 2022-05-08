@@ -10,6 +10,7 @@ import Modal from "../../atoms/Modal";
 import Shadow from "../../atoms/Shadow";
 import TextBudge from "../../atoms/TextBudge";
 import Typography from "../../atoms/Typography";
+import QuestionButton from "../../molecules/QuestionButton";
 
 type Props = {
   oyuzuri: IApiOyuzuri;
@@ -25,11 +26,7 @@ const OyuzuriParagraph: React.FC<Props> = ({ oyuzuri }) => {
             <Typography size="medium" weight="bold">
               おゆずりします！
             </Typography>
-            <IconButton click={() => setIsModalActive(true)}>
-              <Typography color="white" weight="bold">
-                ?
-              </Typography>
-            </IconButton>
+            <QuestionButton click={() => setIsModalActive(true)} />
           </Flex>
           <Typography size="regular" margin="8px 0 0">
             {oyuzuri.oyuzuriComment}

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import styled from "styled-components";
-import IconButton from "../../atoms/IconButton";
 import Modal from "../../atoms/Modal";
 import Shadow from "../../atoms/Shadow";
 import Typography from "../../atoms/Typography";
@@ -15,6 +14,7 @@ import { IApiGreen } from "../../../pages/posts/interfaces/apiGreen";
 import useFetch from "../../../utility/customhooks/useFetch";
 import { Spacing } from "../../../styles/components/Spacing";
 import { Flex } from "../../../styles/components/Flex";
+import QuestionButton from "../../molecules/QuestionButton";
 
 type Props = {
   post: IPost;
@@ -111,11 +111,7 @@ const CreateStep2: React.FC<Props> = ({ post, setPost }) => {
 
   return (
     <>
-      <IconButton click={() => setIsModalActive(true)}>
-        <Typography color="white" weight="bold">
-          ?
-        </Typography>
-      </IconButton>
+      <QuestionButton click={() => setIsModalActive(true)} />
 
       <GreenImage>
         <Image

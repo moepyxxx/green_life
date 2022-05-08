@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { IPost } from "../../../pages/posts/interfaces/post";
 import Image from "next/image";
-import IconButton from "../../atoms/IconButton";
 import TextBudge from "../../atoms/TextBudge";
 import Typography from "../../atoms/Typography";
 import RadiusButton from "../../molecules/RadiusButton";
@@ -15,6 +14,7 @@ import TColor from "../../types/color";
 import { Spacing } from "../../../styles/components/Spacing";
 import { Flex } from "../../../styles/components/Flex";
 import { TextAlign } from "../../../styles/components/TextAlign";
+import QuestionButton from "../../molecules/QuestionButton";
 
 type Props = {
   post: IPost;
@@ -71,9 +71,7 @@ const CreateStep5: React.FC<Props> = ({ post, setPost, executePost }) => {
 
       <TextAlign align="center">
         <Spacing mt={8} mb={5}>
-          <Typography color="white" weight="bold">
-            ?
-          </Typography>
+          <QuestionButton click={() => setIsModalActive(true)} />
         </Spacing>
       </TextAlign>
 

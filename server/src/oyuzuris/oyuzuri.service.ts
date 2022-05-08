@@ -40,7 +40,6 @@ export class OyuzuriService {
     );
 
     const isPostMyself = owner.firebaseUid === requestUId;
-    console.log('isPostMyself', isPostMyself);
     return isPostMyself
       ? this.formatMyselfOne(oyuzuri)
       : this.formatOtherOne(oyuzuri, requestUId);
@@ -296,8 +295,8 @@ export class OyuzuriService {
       // おゆずり元ユーザーをユーザーを識別してメッセージを投稿する
       await this.messageSerivce.create(
         messageCreate,
-        targetUser._id,
         oyuzuri.oyuzuriUserId,
+        targetUser._id,
         oyuzuriOwnerId,
       );
 

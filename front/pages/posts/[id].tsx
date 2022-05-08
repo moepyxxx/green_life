@@ -14,22 +14,23 @@ import { IApiPostDetail } from "./interfaces/apiPostDetail";
 import dayjs from "dayjs";
 import useFetch from "../../utility/customhooks/useFetch";
 import { useRouter } from "next/router";
-import OyuzuriParagraph, {
-  TOyuzuriParagraph,
-} from "../../component/features/post/OyuzuriParagraph";
+import Oyuzuri from "../../component/features/oyuzuri/Oyuzuri";
 import { TextAlign } from "../../styles/components/TextAlign";
 import { Spacing } from "../../styles/components/Spacing";
 import { Flex } from "../../styles/components/Flex";
+import isUseLogin from "../../utility/customhooks/isUseLogin";
+import { IApiOyuzuri } from "./interfaces/apiOyuzuri";
 
 const PostDetail = () => {
   const apiFetch = useFetch();
+  const isLogin = isUseLogin();
   const router = useRouter();
 
   const [post, setPost] = useState<IApiPostDetail>(null);
+  const [oyuzuri, setOyuzuri] = useState<IApiOyuzuri>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [postParagraph, setPostParagraph] = useState<TPostParagraph>();
   const [greenPins, setGreenPins] = useState<TGreenPin[]>([]);
-  const [oyuzuriParagraph, setOyuzuriParagraph] = useState<TOyuzuriParagraph>();
 
   const [isPlantVisualActive, setIsPlantVisualActive] =
     useState<boolean>(false);
@@ -68,27 +69,21 @@ const PostDetail = () => {
         };
       })
     );
-
-    setOyuzuriParagraph({
-      oyuzuriFlag: post.oyuzuriFlag,
-      comment: post.oyuzuriComment,
-      isPostMyself: post.isPostMyself,
-      oyuzuriRequestUsers: post.oyuzuriRequestUsers,
-      oyuzuriRequest: post.oyuzuriRequest,
-      oyuzuriId: post.oyuzuriId,
-    });
   }, [post]);
 
   useEffect(() => {
-    if (!postParagraph || !greenPins || !oyuzuriParagraph) return;
+    if (!postParagraph || !greenPins) return;
     setLoading(false);
-  }, [postParagraph, greenPins, oyuzuriParagraph]);
+  }, [postParagraph, greenPins]);
 
   const initialize = async () => {
-    const apiPost = await apiFetch<IApiPostDetail>(
-      `posts/${router.query.id}`,
-      true
-    );
+    const apiPost = await apiFetch<IApiPostDetail>(`posts/${router.query.id}`);
+    const apiOyuzuri: IApiOyuzuri | null =
+      isLogin() && !!apiPost.oyuzuriId
+        ? await apiFetch<IApiOyuzuri>(`oyuzuris/${apiPost.oyuzuriId}`, true)
+        : null;
+
+    setOyuzuri(apiOyuzuri);
     setPost(apiPost);
   };
 
@@ -123,10 +118,11 @@ const PostDetail = () => {
 
           <PostParagraph paragraph={postParagraph} />
 
-          <OyuzuriParagraph
-            oyuzuriId={post.oyuzuriId}
-            paragraph={oyuzuriParagraph}
-          />
+          {post.oyuzuriFlag && isLogin() ? (
+            <Oyuzuri oyuzuri={oyuzuri} />
+          ) : (
+            <></>
+          )}
         </>
       </DefaultTemplate>
     );

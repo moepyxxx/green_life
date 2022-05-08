@@ -31,6 +31,13 @@ export class Oyuzuri {
   @Prop({ type: String, default: null })
   cancelMessage: null | string;
 
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'MessageContainer',
+    default: null,
+  })
+  messageContainerId: mongoose.Schema.Types.ObjectId | null;
+
   @Prop({ default: new Date() })
   createdAt: Date;
 

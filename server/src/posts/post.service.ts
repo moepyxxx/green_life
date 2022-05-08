@@ -1,4 +1,4 @@
-import { Model, ObjectId, Types } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Post, PostDocument } from './post.schema';
@@ -61,7 +61,7 @@ export class PostService {
     };
   }
 
-  async findOne(id: string, authToken: string | false): Promise<IPostDetail> {
+  async findOne(id: string): Promise<IPostDetail> {
     const post: Post = await this.postModel.findById(id).exec();
 
     const greenpins: IGreenPin[] = await Promise.all(
@@ -85,42 +85,7 @@ export class PostService {
 
     const oyuzuri: Oyuzuri = await this.oyuzuriService.findByPostId(post._id);
 
-    let accessUser: User | null = null;
-    let oyuzuriRequestUsers: IOyuzuriRequestUser[] | null = [];
-    if (oyuzuri && authToken) {
-      accessUser = await this.userService.fetchUserFromFirebaseUId(authToken);
-      oyuzuriRequestUsers = await Promise.all(
-        oyuzuri.requestUsers.map(async (userId) => {
-          const requestUser = await this.userService.fetchUserFromObjectId(
-            userId.toString(),
-          );
-          const userMessage = await this.messageService.searchMessageByType(
-            requestUser._id,
-            oyuzuri._id,
-            'request',
-          );
-          return {
-            userId: requestUser._id,
-            displayName: requestUser.displayName,
-            thumbnailUrl: requestUser.thumbnailUrl,
-            userName: requestUser.userName,
-            message: userMessage.message,
-            createdAt: userMessage.createdAt,
-          };
-        }),
-      );
-    }
-
-    return new PostDetailMaker(
-      post,
-      tags,
-      user,
-      greenpins,
-      oyuzuri,
-      accessUser,
-      oyuzuriRequestUsers,
-      authToken,
-    );
+    return new PostDetailMaker(post, tags, user, greenpins, oyuzuri);
   }
 
   async create(post: ICreate, uId: string): Promise<TResult> {

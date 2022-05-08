@@ -1,23 +1,26 @@
 [
   {
-    "_id": {"$oid":"622db03d32f676618f2a1d30"},
-    "oyuzuriUserId": {"$oid":"6216ddcd9e6c2a966a623695"},
-    "postId" : {"$oid":"6216ddcd9e6c2a966a623691"}, 
+    "_id": { "$oid": "622db03d32f676618f2a1d30" },
+    "oyuzuriUserId": { "$oid": "6216ddcd9e6c2a966a623695" },
+    "postId": { "$oid": "6216ddcd9e6c2a966a623691" },
     "oyuzuriComment": "ここにおゆずりコメントがはいります！",
-    "requestUsers": [],
+    "requestUsers": [{ "$oid": "6216ddcd9e6c2a966a623696" }],
     "oyuzuriTargetUserId": null,
-    "status" : "wantedly",
-    "createdAt": {"$date":"2021-11-07T10:00:00.884Z"},
+    "status": "wantedly",
+    "messageContainerId": null,
+    "createdAt": { "$date": "2021-11-07T10:00:00.884Z" },
     "endedAt": null
-  }, {
-    "_id": {"$oid":"622db03d32f676618f2a1d31"},
-    "oyuzuriUserId": {"$oid":"6216ddcd9e6c2a966a623696"},
-    "postId" : {"$oid":"6216ddcd9e6c2a966a623692"}, 
+  },
+  {
+    "_id": { "$oid": "622db03d32f676618f2a1d31" },
+    "oyuzuriUserId": { "$oid": "6216ddcd9e6c2a966a623696" },
+    "postId": { "$oid": "6216ddcd9e6c2a966a623692" },
     "oyuzuriComment": "ここにおゆずりコメントがはいります！",
     "requestUsers": [],
     "oyuzuriTargetUserId": null,
-    "status" : "wantedly",
-    "createdAt": {"$date":"2021-11-07T10:00:00.884Z"},
+    "status": "wantedly",
+    "messageContainerId": null,
+    "createdAt": { "$date": "2021-11-07T10:00:00.884Z" },
     "endedAt": null
   }
 ]

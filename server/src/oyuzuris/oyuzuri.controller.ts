@@ -2,10 +2,10 @@ import {
   Controller,
   Param,
   Post,
+  Get,
   Headers,
   HttpException,
   HttpStatus,
-  Get,
   Body,
 } from '@nestjs/common';
 import { UserService } from 'src/users/user.service';
@@ -17,6 +17,27 @@ export class OyuzuriController {
     private readonly oyuzuriService: OyuzuriService,
     private readonly userService: UserService,
   ) {}
+
+  @Get(':id')
+  async findOne(
+    @Headers('Authorization') authorization: string,
+    @Param('id') id: string,
+  ): Promise<any> {
+    try {
+      // なんかないのかな…あると思うけど…
+      const isAuthed: string | false = await this.userService.verifyIdToken(
+        authorization.replace('Bearer ', ''),
+      );
+      if (isAuthed) {
+        return await this.oyuzuriService.findOne(id, isAuthed);
+      }
+    } catch (e) {
+      throw new HttpException(
+        'this accoun is not authed',
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+  }
 
   @Post(':id/request')
   async request(
@@ -50,6 +71,7 @@ export class OyuzuriController {
     @Body()
     request: {
       message: string;
+      targetUserId: string;
     },
   ): Promise<boolean> {
     try {
@@ -59,6 +81,27 @@ export class OyuzuriController {
       );
       if (isAuthed) {
         return await this.oyuzuriService.confirm(id, isAuthed, request);
+      }
+    } catch (e) {
+      throw new HttpException(
+        'this accoun is not authed',
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+  }
+
+  @Post(':id/approve')
+  async approve(
+    @Headers('Authorization') authorization: string,
+    @Param('id') id: string,
+  ): Promise<boolean> {
+    try {
+      // なんかないのかな…あると思うけど…
+      const isAuthed: string | false = await this.userService.verifyIdToken(
+        authorization.replace('Bearer ', ''),
+      );
+      if (isAuthed) {
+        return await this.oyuzuriService.approve(id, isAuthed);
       }
     } catch (e) {
       throw new HttpException(

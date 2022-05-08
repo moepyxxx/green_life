@@ -14,6 +14,11 @@ import { Oyuzuri, OyuzuriSchema } from 'src/oyuzuris/oyuzuri.schema';
 import { OyuzuriService } from 'src/oyuzuris/oyuzuri.service';
 import { Message, MessageSchema } from 'src/messages/message.schema';
 import { MessageService } from 'src/messages/message.service';
+import { MessageContainerService } from 'src/messageContainers/messageContainer.service';
+import {
+  MessageContainer,
+  MessageContainerSchema,
+} from 'src/messageContainers/messageContainer.schema';
 
 @Module({
   imports: [
@@ -24,6 +29,7 @@ import { MessageService } from 'src/messages/message.service';
       { name: Green.name, schema: GreenSchema },
       { name: Oyuzuri.name, schema: OyuzuriSchema },
       { name: Message.name, schema: MessageSchema },
+      { name: MessageContainer.name, schema: MessageContainerSchema },
     ]),
     HttpModule,
   ],
@@ -36,6 +42,7 @@ import { MessageService } from 'src/messages/message.service';
     UserService,
     OyuzuriService,
     MessageService,
+    MessageContainerService,
   ],
 })
 export class PostModule {}

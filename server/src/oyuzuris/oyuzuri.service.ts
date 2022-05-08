@@ -346,7 +346,7 @@ export class OyuzuriService {
       const confirmMessage = await this.messageSerivce.searchMessageByType(
         oyuzuri.oyuzuriUserId,
         oyuzuri._id,
-        'request',
+        'confirm',
       );
 
       // おゆずりコンテナを作成してこれまでのメッセージを格納

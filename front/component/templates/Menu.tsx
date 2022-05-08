@@ -8,7 +8,7 @@ import LogoBell from "../../img/icon/bell.svg";
 import LogoEmail from "../../img/icon/email.svg";
 import LogoGreen from "../../img/icon/green.svg";
 import useFetch from "../../utility/customhooks/useFetch";
-import isUseLogin from "../../utility/customhooks/isUseLogin";
+import useIsLogin from "../../utility/customhooks/useIsLogin";
 import getColor from "../../utility/getColor";
 
 type TThumbnail = {
@@ -17,19 +17,19 @@ type TThumbnail = {
 
 const Menu = () => {
   const apiFetch = useFetch();
-  const isLogin = isUseLogin();
+  const isLogin = useIsLogin();
   const [statusNode, setStatusNode] = useState<ReactNode>();
   const [thumbnail, setThumbnail] = useState<string>(
     "https://storage.googleapis.com/greenlife-midori.appspot.com/users/green-chan.png"
   );
 
   useEffect(() => {
-    if (!isLogin()) return;
+    if (!isLogin) return;
     initializeThumbnail();
   }, []);
 
   useEffect(() => {
-    if (isLogin()) {
+    if (isLogin) {
       setStatusNode(
         <LogginedBudge>
           <Image

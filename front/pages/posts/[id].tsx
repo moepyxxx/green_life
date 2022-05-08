@@ -18,12 +18,12 @@ import Oyuzuri from "../../component/features/oyuzuri/Oyuzuri";
 import { TextAlign } from "../../styles/components/TextAlign";
 import { Spacing } from "../../styles/components/Spacing";
 import { Flex } from "../../styles/components/Flex";
-import isUseLogin from "../../utility/customhooks/isUseLogin";
+import useIsLogin from "../../utility/customhooks/useIsLogin";
 import { IApiOyuzuri } from "./interfaces/apiOyuzuri";
 
 const PostDetail = () => {
   const apiFetch = useFetch();
-  const isLogin = isUseLogin();
+  const isLogin = useIsLogin();
   const router = useRouter();
 
   const [post, setPost] = useState<IApiPostDetail>(null);
@@ -79,7 +79,7 @@ const PostDetail = () => {
   const initialize = async () => {
     const apiPost = await apiFetch<IApiPostDetail>(`posts/${router.query.id}`);
     const apiOyuzuri: IApiOyuzuri | null =
-      isLogin() && !!apiPost.oyuzuriId
+      isLogin && !!apiPost.oyuzuriId
         ? await apiFetch<IApiOyuzuri>(`oyuzuris/${apiPost.oyuzuriId}`, true)
         : null;
 
@@ -118,11 +118,7 @@ const PostDetail = () => {
 
           <PostParagraph paragraph={postParagraph} />
 
-          {post.oyuzuriFlag && isLogin() ? (
-            <Oyuzuri oyuzuri={oyuzuri} />
-          ) : (
-            <></>
-          )}
+          {post.oyuzuriFlag && isLogin ? <Oyuzuri oyuzuri={oyuzuri} /> : <></>}
         </>
       </DefaultTemplate>
     );

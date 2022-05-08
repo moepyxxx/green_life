@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import getColor from "../../../utility/getColor";
 import Typography from "../../atoms/Typography";
 import Shadow from "../../atoms/Shadow";
 import Modal from "../../atoms/Modal";
@@ -67,7 +66,7 @@ const SwitchingGreenImage: React.FC<Props> = ({
           closeAction={() => setModalIsActive(false)}
           position="absolute"
         >
-          <TextAlign align0="center">
+          <TextAlign align="center">
             <Image
               src={`/${modalText.green.imagePath}`}
               width="72"

@@ -30,4 +30,5 @@ export default UnderLineTextButton;
 const Button = styled.button`
   border: none;
   display: inline;
+  background: none;
 `;

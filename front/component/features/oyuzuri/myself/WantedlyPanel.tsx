@@ -76,6 +76,7 @@ const WantedlyPanel: React.FC<Props> = ({ oyuzuri }) => {
                       src={oyuzuriUser.thumbnailUrl}
                       width="400"
                       height="400"
+                      alt="ユーザー画像"
                       objectFit="cover"
                     />
                     <Typography size="small" color="primary" family="Bitter">
@@ -108,8 +109,8 @@ const WantedlyPanel: React.FC<Props> = ({ oyuzuri }) => {
                       </Typography>
                     </SimpleBox>
                   </Spacing>
-                  <TextAlign align0="center">
-                    <RadiusButton
+                  <TextAlign align="center">
+                    {/* <RadiusButton
                       click={() => console.log("link to user profile")}
                       margin="0 0 8px 0"
                       bgColor="white"
@@ -117,7 +118,7 @@ const WantedlyPanel: React.FC<Props> = ({ oyuzuri }) => {
                       borderColor="primary"
                     >
                       プロフィールを見る
-                    </RadiusButton>
+                    </RadiusButton> */}
                     <RadiusButton
                       click={() => setIsOyuzuriTargetModalActive(true)}
                       bgColor="primary"
@@ -224,6 +225,7 @@ const UserButton = styled.button`
   border: none;
   padding: 0 8px 4px;
   text-align: center;
+  background: none;
 `;
 
 export default WantedlyPanel;

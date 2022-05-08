@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { IApiOyuzuri } from "../../../pages/posts/interfaces/apiOyuzuri";
 import { IApiOyuzuriRequestUser } from "../../../pages/posts/interfaces/apiPostDetail";
 import { Flex } from "../../../styles/components/Flex";
 import { Spacing } from "../../../styles/components/Spacing";
@@ -21,24 +22,16 @@ import SquareButton from "../../molecules/SquareButton";
 import UnderLineTextButton from "../../molecules/UnderLineTextButton";
 import Caution from "../../pattern/Caution";
 
-export type TOyuzuriParagraph = {
-  oyuzuriFlag: boolean;
-  comment: string;
-  isPostMyself: boolean;
-  oyuzuriRequestUsers: IApiOyuzuriRequestUser[] | null;
-  oyuzuriRequest: boolean | null;
-  oyuzuriId: string | null;
-};
-
 type Props = {
-  paragraph: TOyuzuriParagraph;
-  oyuzuriId: string;
+  oyuzuri: IApiOyuzuri;
+  oyuzuriFlag: boolean;
 };
-const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
+const OyuzuriParagraph: React.FC<Props> = ({ oyuzuri, oyuzuriFlag }) => {
   const apiPost = usePost();
   const isLogin = isUseLogin();
 
   const [isModalActive, setIsModalActive] = useState<boolean>(false);
+
   const [isDescriptionModalActive, setIsDescriptionModalActive] =
     useState<boolean>(false);
   const [isRequestModalActive, setIsRequestModalActive] =
@@ -74,9 +67,11 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
   };
 
   const oyuzuriRequestUsersComment = () => {
+    if (!oyuzuri.isPostMyself) return;
+
     const noUser =
-      paragraph.oyuzuriRequestUsers === null ||
-      paragraph.oyuzuriRequestUsers.length === 0;
+      oyuzuri.oyuzuriRequestUsers === null ||
+      oyuzuri.oyuzuriRequestUsers.length === 0;
 
     if (noUser) {
       return (
@@ -89,7 +84,7 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
         <>
           <Spacing mt={5}>
             <Flex alignItems="flex-start" justifyContent="left">
-              {paragraph.oyuzuriRequestUsers.map((oyuzuriUser) => {
+              {oyuzuri.oyuzuriRequestUsers.map((oyuzuriUser) => {
                 return (
                   <UserButton
                     key={oyuzuriUser.userId}
@@ -165,7 +160,7 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
       },
       boolean
     >(
-      `oyuzuris/${oyuzuriId}/request`,
+      `oyuzuris/${oyuzuri._id}/request`,
       {
         message: requestMessage,
       },
@@ -186,7 +181,7 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
       },
       boolean
     >(
-      `oyuzuris/${oyuzuriId}/confirm`,
+      `oyuzuris/${oyuzuri._id}/confirm`,
       {
         message: confirmMessage,
         targetUserId: currentRequestUser.userId,
@@ -202,7 +197,7 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
 
   const oyuzuriCancel = async () => {
     const result = await apiPost<{}, boolean>(
-      `oyuzuris/${oyuzuriId}/cancel`,
+      `oyuzuris/${oyuzuri._id}/cancel`,
       {},
       true
     );
@@ -213,7 +208,7 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
     }
   };
 
-  if (!paragraph.oyuzuriFlag) {
+  if (!oyuzuriFlag || !isLogin()) {
     return <></>;
   }
 
@@ -232,10 +227,10 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
             </IconButton>
           </Flex>
           <Typography size="regular" margin="8px 0 0">
-            {paragraph.comment}
+            {oyuzuri.oyuzuriComment}
           </Typography>
 
-          <OyuzuriOwner display={paragraph.isPostMyself ? "display" : "none"}>
+          <OyuzuriOwner display={oyuzuri.isPostMyself ? "display" : "none"}>
             <Typography size="medium" weight="bold">
               育てたいを押してくれたユーザーさん
             </Typography>
@@ -256,23 +251,19 @@ const OyuzuriParagraph: React.FC<Props> = ({ paragraph, oyuzuriId }) => {
       </Gray>
 
       <Request
-        display={paragraph.isPostMyself || !isLogin() ? "none" : "display"}
+        display={oyuzuri.isPostMyself || !isLogin() ? "none" : "display"}
       >
         <SquareButton
           click={
-            paragraph.oyuzuriRequest === true
+            oyuzuri.isRequest === true
               ? () => setIsCancelModalActive(true)
               : () => setIsRequestModalActive(true)
           }
-          bgColor={paragraph.oyuzuriRequest === true ? "white" : "secondary"}
-          color={paragraph.oyuzuriRequest === true ? "secondary" : "white"}
-          borderColor={
-            paragraph.oyuzuriRequest === true ? "secondary" : "secondary"
-          }
+          bgColor={oyuzuri.isRequest === true ? "white" : "secondary"}
+          color={oyuzuri.isRequest === true ? "secondary" : "white"}
+          borderColor={oyuzuri.isRequest === true ? "secondary" : "secondary"}
         >
-          {paragraph.oyuzuriRequest === true
-            ? "キャンセル"
-            : "おゆずりリクエスト"}
+          {oyuzuri.isRequest === true ? "キャンセル" : "おゆずりリクエスト"}
         </SquareButton>
         <Typography size="small" margin="8px 0 0">
           OKが出たら、やりとりすることができます

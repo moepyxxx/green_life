@@ -19,7 +19,7 @@ const usePostImage = () => {
           return res.data.imageUrl;
         });
     } catch (_) {
-      logout();
+      // logout();
     }
   };
 };

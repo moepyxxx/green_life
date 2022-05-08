@@ -110,7 +110,7 @@ const WantedlyPanel: React.FC<Props> = ({ oyuzuri }) => {
                     </SimpleBox>
                   </Spacing>
                   <TextAlign align="center">
-                    <RadiusButton
+                    {/* <RadiusButton
                       click={() => console.log("link to user profile")}
                       margin="0 0 8px 0"
                       bgColor="white"
@@ -118,7 +118,7 @@ const WantedlyPanel: React.FC<Props> = ({ oyuzuri }) => {
                       borderColor="primary"
                     >
                       プロフィールを見る
-                    </RadiusButton>
+                    </RadiusButton> */}
                     <RadiusButton
                       click={() => setIsOyuzuriTargetModalActive(true)}
                       bgColor="primary"

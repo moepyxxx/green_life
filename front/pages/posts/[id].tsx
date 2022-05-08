@@ -14,7 +14,7 @@ import { IApiPostDetail } from "./interfaces/apiPostDetail";
 import dayjs from "dayjs";
 import useFetch from "../../utility/customhooks/useFetch";
 import { useRouter } from "next/router";
-import OyuzuriParagraph from "../../component/features/post/OyuzuriParagraph";
+import Oyuzuri from "../../component/features/post/Oyuzuri";
 import { TextAlign } from "../../styles/components/TextAlign";
 import { Spacing } from "../../styles/components/Spacing";
 import { Flex } from "../../styles/components/Flex";
@@ -118,7 +118,11 @@ const PostDetail = () => {
 
           <PostParagraph paragraph={postParagraph} />
 
-          <OyuzuriParagraph oyuzuri={oyuzuri} oyuzuriFlag={post.oyuzuriFlag} />
+          {post.oyuzuriFlag && isLogin() ? (
+            <Oyuzuri oyuzuri={oyuzuri} />
+          ) : (
+            <></>
+          )}
         </>
       </DefaultTemplate>
     );

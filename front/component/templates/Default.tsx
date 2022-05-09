@@ -17,7 +17,7 @@ const Default: React.FC<Props> = ({ children }) => {
     <>
       <Header />
       <Toaster />
-      <Spacing mt={18} pl={4} pr={4}>
+      <Spacing mt={18} pl={4} pr={4} mb={isLogin ? 27 : 0}>
         {children}
       </Spacing>
       {isLogin ? <Menu /> : <Footer />}

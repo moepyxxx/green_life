@@ -3,5 +3,8 @@ import { ObjectId } from 'mongoose';
 export interface ICreate {
   messageIds: ObjectId[];
   oyuzuriId: ObjectId;
-  userIds: ObjectId[];
+  users: {
+    owner: ObjectId;
+    partner: ObjectId;
+  };
 }

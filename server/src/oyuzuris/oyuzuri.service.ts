@@ -353,7 +353,10 @@ export class OyuzuriService {
       const messageContainerCreater: IMessageCreate = {
         messageIds: [requestMessage._id, confirmMessage._id],
         oyuzuriId: oyuzuri._id,
-        userIds: [oyuzuri.oyuzuriTargetUserId, oyuzuri.oyuzuriUserId],
+        users: {
+          partner: oyuzuri.oyuzuriTargetUserId,
+          owner: oyuzuri.oyuzuriUserId,
+        },
       };
 
       const messageContainer = await this.messageContainerSerivce.create(

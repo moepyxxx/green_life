@@ -12,7 +12,7 @@ type Props = {
 };
 
 const Default: React.FC<Props> = ({ children }) => {
-  const isLogin = useIsLogin();
+  const [isLogin] = useIsLogin();
   return (
     <>
       <Header />

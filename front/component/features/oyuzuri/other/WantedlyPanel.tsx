@@ -16,7 +16,7 @@ type Props = {
 };
 const WantedlyPanel: React.FC<Props> = ({ oyuzuri }) => {
   const apiPost = usePost();
-  const isLogin = useIsLogin();
+  const [isLogin] = useIsLogin();
 
   const [isRequestModalActive, setIsRequestModalActive] =
     useState<boolean>(false);

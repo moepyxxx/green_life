@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 
 const useIsLogin = () => {
-  const [jwt, setJwt] = useState<string>(null);
+  const [isLogin, setIsLogin] = useState<boolean>(false);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const localJwt = localStorage.getItem("jwt");
-      setJwt(localJwt);
+    if (typeof window === "undefined") return;
+
+    const localJwt = localStorage.getItem("jwt");
+    if (localJwt) {
+      setIsLogin(true);
     }
   }, []);
 
-  return !!jwt;
+  return [isLogin];
 };
 export default useIsLogin;

@@ -12,12 +12,12 @@ type Props = {
 };
 
 const Default: React.FC<Props> = ({ children }) => {
-  const isLogin = useIsLogin();
+  const [isLogin] = useIsLogin();
   return (
     <>
       <Header />
       <Toaster />
-      <Spacing mt={18} pl={4} pr={4}>
+      <Spacing mt={18} pl={4} pr={4} mb={isLogin ? 27 : 0}>
         {children}
       </Spacing>
       {isLogin ? <Menu /> : <Footer />}

@@ -18,13 +18,13 @@ import Oyuzuri from "../../component/features/oyuzuri/Oyuzuri";
 import { TextAlign } from "../../styles/components/TextAlign";
 import { Spacing } from "../../styles/components/Spacing";
 import { Flex } from "../../styles/components/Flex";
-import useIsLogin from "../../utility/customhooks/useIsLogin";
 import { IApiOyuzuri } from "./interfaces/apiOyuzuri";
+import useIsLogin from "../../utility/customhooks/useIsLogin";
 
 const PostDetail = () => {
   const apiFetch = useFetch();
-  const isLogin = useIsLogin();
   const router = useRouter();
+  const [isLogin] = useIsLogin();
 
   const [post, setPost] = useState<IApiPostDetail>(null);
   const [oyuzuri, setOyuzuri] = useState<IApiOyuzuri>(null);
@@ -39,7 +39,7 @@ const PostDetail = () => {
   // initialize post greenPins/paragraph の順に確実の処理
   useEffect(() => {
     initialize();
-  }, []);
+  }, [isLogin]);
 
   useEffect(() => {
     if (!post) return;
@@ -72,9 +72,9 @@ const PostDetail = () => {
   }, [post]);
 
   useEffect(() => {
-    if (!postParagraph || !greenPins) return;
+    if (!postParagraph || !greenPins || !post || !oyuzuri) return;
     setLoading(false);
-  }, [postParagraph, greenPins]);
+  }, [postParagraph, greenPins, post, oyuzuri]);
 
   const initialize = async () => {
     const apiPost = await apiFetch<IApiPostDetail>(`posts/${router.query.id}`);

@@ -7,16 +7,16 @@ import LogoHome from "../../img/icon/home.svg";
 import LogoBell from "../../img/icon/bell.svg";
 import LogoEmail from "../../img/icon/email.svg";
 import LogoGreen from "../../img/icon/green.svg";
-import useIsLogin from "../../utility/customhooks/useIsLogin";
 import getColor from "../../utility/getColor";
 import useFetch from "../../utility/customhooks/useFetch";
+import useIsLogin from "../../utility/customhooks/useIsLogin";
 
 type TThumbnail = {
   thumbnailUrl: string;
 };
 
 const Menu = () => {
-  const isLogin = useIsLogin();
+  const [isLogin] = useIsLogin();
   const apiFetch = useFetch();
 
   const [thumbnail, setThumbnail] = useState<string>(
@@ -25,7 +25,7 @@ const Menu = () => {
 
   useEffect(() => {
     getThumbnail();
-  }, [isLogin]);
+  }, []);
 
   const getThumbnail = async () => {
     if (!isLogin) return;

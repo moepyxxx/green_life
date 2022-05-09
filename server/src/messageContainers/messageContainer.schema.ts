@@ -16,13 +16,29 @@ export class MessageContainer {
   })
   oyuzuriId: mongoose.Schema.Types.ObjectId;
 
+  @Prop({
+    required: true,
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'Oyuzuri',
+  })
+  @Prop({
+    type: {
+      owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+      partner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    },
+  })
+  users: {
+    owner: mongoose.Schema.Types.ObjectId;
+    partner: mongoose.Schema.Types.ObjectId;
+  };
+
   @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'Message' })
   messageIds: mongoose.Schema.Types.ObjectId[];
 
   @Prop({ default: new Date() })
   createdAt: Date;
 
-  @Prop({ default: null })
+  @Prop({ default: new Date() })
   updatedAt: Date | null;
 
   @Prop({ default: null })

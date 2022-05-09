@@ -9,7 +9,7 @@ import useIsLogin from "../../../utility/customhooks/useIsLogin";
 
 const PostButton: React.FC = () => {
   const router = useRouter();
-  const isLogin = useIsLogin();
+  const [isLogin] = useIsLogin();
 
   const link = () => {
     if (isLogin) {

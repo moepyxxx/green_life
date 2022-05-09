@@ -1,4 +1,7 @@
+import { ObjectId } from 'mongoose';
+
 export interface ICreate {
-  messageIds: string[];
-  oyuzuriId: string;
+  messageIds: ObjectId[];
+  oyuzuriId: ObjectId;
+  userIds: ObjectId[];
 }

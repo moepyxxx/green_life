@@ -10,6 +10,10 @@ export class MessageService {
     @InjectModel(Message.name) private messageModel: Model<MessageDocument>,
   ) {}
 
+  async findById(id: string | Schema.Types.ObjectId) {
+    return this.messageModel.findById(id).exec();
+  }
+
   async create(
     message: ICreate,
     fromUserId: Schema.Types.ObjectId,

@@ -11,6 +11,7 @@ import { TagModule } from './tags/tag.module';
 import { GreenModule } from './greens/green.module';
 import { UserModule } from './users/user.module';
 import { OyuzuriModule } from './oyuzuris/oyuzuri.module';
+import { MessageContainerModule } from './messageContainers/messageContainer.module';
 
 const url = `mongodb://root:example@mongo:27017/greenlife?authSource=admin`;
 
@@ -29,6 +30,7 @@ const url = `mongodb://root:example@mongo:27017/greenlife?authSource=admin`;
     GreenModule,
     UserModule,
     OyuzuriModule,
+    MessageContainerModule,
   ],
   controllers: [AppController],
   providers: [AppService],

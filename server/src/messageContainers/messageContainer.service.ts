@@ -4,6 +4,7 @@ import { Model, Types } from 'mongoose';
 import { MessageService } from 'src/messages/message.service';
 import { UserService } from 'src/users/user.service';
 import { ICreate } from './interfaces/create';
+import { IDetail, IMessageSummary, TMessageUser } from './interfaces/detail';
 import { ISummaryResult } from './interfaces/summaryResult';
 import {
   MessageContainer,
@@ -83,5 +84,57 @@ export class MessageContainerService {
         };
       }),
     );
+  }
+
+  /**
+   * メッセージコンテナ詳細を返す
+   * @param requestUId リクエストユーザーのuId
+   * @param id メッセージコンテナID
+   */
+  async findOne(requestUId: string, id: string): Promise<IDetail> {
+    const messageContainer = await this.messageContainerModel
+      .findById(id)
+      .exec();
+
+    // リクエストユーザーを特定する
+    const requestUser = await this.userService.fetchUserFromFirebaseUId(
+      requestUId,
+    );
+
+    // パートナーを特定する
+    const partnerId =
+      messageContainer.users.partner.toString() === requestUser._id.toString()
+        ? messageContainer.users.owner
+        : messageContainer.users.partner;
+
+    const partner = await this.userService.fetchUserFromObjectId(
+      partnerId.toString(),
+    );
+
+    const messages: IMessageSummary[] = await Promise.all(
+      messageContainer.messageIds.map(async (messageId) => {
+        const messageModel = await this.messageService.findById(messageId);
+        const messageUser: TMessageUser =
+          requestUser._id.toString() === messageModel.fromUserId.toString()
+            ? 'you'
+            : 'partner';
+        return {
+          id: messageModel._id,
+          user: messageUser,
+          message: messageModel.message,
+          createdAt: messageModel.createdAt,
+        };
+      }),
+    );
+
+    return {
+      _id: messageContainer._id,
+      partner: {
+        _id: partner._id,
+        imageUrl: partner.thumbnailUrl,
+        userName: partner.userName,
+      },
+      messages,
+    };
   }
 }

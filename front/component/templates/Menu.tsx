@@ -25,7 +25,7 @@ const Menu = () => {
 
   useEffect(() => {
     getThumbnail();
-  }, []);
+  }, [isLogin]);
 
   const getThumbnail = async () => {
     if (!isLogin) return;

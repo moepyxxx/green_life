@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 
 const useIsLogin = () => {
   const [isLogin, setIsLogin] = useState<boolean>(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (typeof window === "undefined") return;
 
     const localJwt = localStorage.getItem("jwt");

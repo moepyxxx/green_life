@@ -2,7 +2,6 @@ import { useEffect, useLayoutEffect, useState } from "react";
 
 const useIsLogin = () => {
   const [isLogin, setIsLogin] = useState<boolean>(false);
-
   useLayoutEffect(() => {
     if (typeof window === "undefined") return;
 

@@ -27,7 +27,7 @@ const PostDetail = () => {
   const [isLogin] = useIsLogin();
 
   const [post, setPost] = useState<IApiPostDetail>(null);
-  const [oyuzuri, setOyuzuri] = useState<IApiOyuzuri>(null);
+  const [oyuzuri, setOyuzuri] = useState<IApiOyuzuri | false>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [postParagraph, setPostParagraph] = useState<TPostParagraph>();
   const [greenPins, setGreenPins] = useState<TGreenPin[]>([]);
@@ -38,7 +38,7 @@ const PostDetail = () => {
   // [note]: setStateが非同期のため
   // initialize post greenPins/paragraph の順に確実の処理
   useEffect(() => {
-    initialize();
+    initializePost();
   }, [isLogin]);
 
   useEffect(() => {
@@ -69,22 +69,26 @@ const PostDetail = () => {
         };
       })
     );
+
+    initializeOyuzuri();
   }, [post]);
 
   useEffect(() => {
-    if (!postParagraph || !greenPins || !post || !oyuzuri) return;
+    if (!postParagraph || !greenPins || !post || oyuzuri === null) return;
     setLoading(false);
-  }, [postParagraph, greenPins, post, oyuzuri]);
+  }, [postParagraph]);
 
-  const initialize = async () => {
+  const initializePost = async () => {
     const apiPost = await apiFetch<IApiPostDetail>(`posts/${router.query.id}`);
-    const apiOyuzuri: IApiOyuzuri | null =
-      isLogin && !!apiPost.oyuzuriId
-        ? await apiFetch<IApiOyuzuri>(`oyuzuris/${apiPost.oyuzuriId}`, true)
-        : null;
-
-    setOyuzuri(apiOyuzuri);
     setPost(apiPost);
+  };
+
+  const initializeOyuzuri = async () => {
+    const apiOyuzuri: IApiOyuzuri | null =
+      isLogin && !!post.oyuzuriId
+        ? await apiFetch<IApiOyuzuri>(`oyuzuris/${post.oyuzuriId}`, true)
+        : null;
+    apiOyuzuri == null ? setOyuzuri(false) : setOyuzuri(apiOyuzuri);
   };
 
   const switchPlantVisual = (isActive: boolean) => {
@@ -118,7 +122,11 @@ const PostDetail = () => {
 
           <PostParagraph paragraph={postParagraph} />
 
-          {post.oyuzuriFlag && isLogin ? <Oyuzuri oyuzuri={oyuzuri} /> : <></>}
+          {post.oyuzuriFlag && isLogin && oyuzuri ? (
+            <Oyuzuri oyuzuri={oyuzuri} />
+          ) : (
+            <></>
+          )}
         </>
       </DefaultTemplate>
     );

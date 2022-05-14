@@ -1,27 +1,24 @@
 import React from "react";
-import styled from "styled-components";
-import Logo from "../component/atoms/Logo";
+
 import DefaultTemplate from "../component/templates/Default";
-import SigninPanel from "../component/features/auth/SigninPanel";
-import GreenLifeDescription from "../component/features/auth/GreenLifeDescription";
+import SigninContent from "../component/modules/auth/SigninContent";
+import ReadTitle from "../component/modules/common/ReadTitle";
+
+import { Spacing } from "../styles/components/Spacing";
 
 export default function Signin() {
   return (
     <DefaultTemplate>
       <>
-        <ItemLogo>
-          <Logo />
-        </ItemLogo>
+        <Spacing pt={6} pb={6}>
+          <ReadTitle
+            main="green Lifeへようこそ"
+            sub={`グリーンがちょっと気になる人同士集まって\n何気ない毎日をちょっと明るくしましょう`}
+          />
+        </Spacing>
 
-        <SigninPanel />
-
-        <GreenLifeDescription />
+        <SigninContent />
       </>
     </DefaultTemplate>
   );
 }
-
-const ItemLogo = styled.div`
-  margin: 100px auto 60px;
-  width: 200px;
-`;

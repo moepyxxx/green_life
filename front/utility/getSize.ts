@@ -9,7 +9,7 @@ const getSize = (color: TSize) => {
     case "medium":
       return "1.6";
     case "large":
-      return "1.8";
+      return "2";
     default:
       return "1.6";
   }

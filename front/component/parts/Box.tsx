@@ -1,6 +1,7 @@
 import React, { ReactChild } from "react";
 import styled from "styled-components";
 import getColor from "../../utility/getColor";
+import getShadow from "../../utility/getShadow";
 import TColor from "../types/color";
 
 type Props = {
@@ -53,5 +54,5 @@ const BoxContainer = styled.div`
   margin-top: ${(props) => props.marginH}px;
   margin-bottom: ${(props) => props.marginH}px;
   border-radius: ${(props) => props.radius}px;
-  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: ${getShadow()};
 `;

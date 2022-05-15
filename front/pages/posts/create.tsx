@@ -213,16 +213,18 @@ export default function PostCreate() {
                   explanationClick={stepper[currentStep - 1].explanationClick}
                 />
 
-                <Spacing mt={10} mb={10}>
+                <Spacing mt={10} mb={44}>
                   <TextAlign align="center">
                     {stepContentsComponent()}
                   </TextAlign>
                 </Spacing>
 
-                <StepPagination
-                  next={stepPagination.next}
-                  back={stepPagination.back}
-                />
+                <PaginationFixed>
+                  <StepPagination
+                    next={stepPagination.next}
+                    back={stepPagination.back}
+                  />
+                </PaginationFixed>
               </>
             </StepContent>
           );
@@ -443,6 +445,14 @@ export default function PostCreate() {
     </DefaultTemplate>
   );
 }
+
+const PaginationFixed = styled.div`
+  position: fixed;
+  transform: translateX(-50%);
+  left: 50%;
+  bottom: 100px;
+  width: calc(100% - 40px);
+`;
 
 const FlexWrap = styled.div`
   width: calc(50% - 8px);

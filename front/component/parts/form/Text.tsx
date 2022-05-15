@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import getColor from "../../../utility/getColor";
+import getShadow from "../../../utility/getShadow";
 import getSize from "../../../utility/getSize";
 
 type Props = {
@@ -34,6 +35,7 @@ const InputItem = styled.input`
   width: 100%;
   border: none;
   border-radius: 4px;
+  box-shdaow: ${getShadow()};
   ::placeholder {
     color: ${getColor("primary")};
     font-size: ${getSize("medium")}rem;

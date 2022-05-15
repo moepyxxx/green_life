@@ -1,29 +1,42 @@
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import styled from "styled-components";
 import { useRouter } from "next/router";
 
 import DefaultTemplate from "../../component/templates/Default";
-import StepCounter from "../../component/molecules/StepCounter";
-import StepContent from "../../component/molecules/StepContent";
-import ReadTitle from "../../component/molecules/ReadTitle";
+import Typography from "../../component/atoms/Typography";
+import StepCounter from "../../component/modules/common/step/Counter";
+import StepContent from "../../component/modules/common/step/Content";
+import ReadTitle, {
+  Props as ReadTitleProps,
+} from "../../component/modules/common/ReadTitle";
 import StepPagination, {
   TStepPagination,
-} from "../../component/molecules/StepPagination";
-import CreateStep1 from "../../component/features/post/CreateStep1";
-import CreateStep2 from "../../component/features/post/CreateStep2";
-import CreateStep3 from "../../component/features/post/CreateStep3";
-import CreateStep4 from "../../component/features/post/CreateStep4";
-import { IPost } from "./interfaces/post";
-import usePostImage from "../../utility/customhooks/usePostImage";
-import usePost from "../../utility/customhooks/usePost";
-import CreateStep5 from "../../component/features/post/CreateStep5";
+} from "../../component/modules/common/step/Pagination";
+import Modal from "../../component/parts/popup/Modal";
+import Shadow from "../../component/parts/popup/Shadow";
+import CreateStep1 from "../../component/modules/post/CreateStep1";
+import CreateStep2 from "../../component/modules/post/CreateStep2";
+import CreateStep3 from "../../component/modules/post/CreateStep3";
+import CreateStep4 from "../../component/modules/post/CreateStep4";
+import CreateStep5 from "../../component/modules/post/CreateStep5";
+
 import { Flex } from "../../styles/components/Flex";
 import { Spacing } from "../../styles/components/Spacing";
 import { TextAlign } from "../../styles/components/TextAlign";
+import { IPost } from "./interfaces/post";
+
+import usePostImage from "../../utility/customhooks/usePostImage";
+import usePost from "../../utility/customhooks/usePost";
+import useExplanationModalsReducer from "../../utility/customhooks/useExplanationModalsReducer";
+import TextBudge from "../../component/atoms/TextBudge";
 
 export default function PostCreate() {
   const router = useRouter();
   const apiPostImage = usePostImage();
   const apiPost = usePost();
+  const [explanationModals, explanationModalsDispatch] =
+    useExplanationModalsReducer();
 
   type TStepPagioations = {
     back: TStepPagination;
@@ -57,32 +70,49 @@ export default function PostCreate() {
     setPost({ ...post, imagePath: imageUrl });
   };
 
-  const stepTexts = [
+  const stepper: ReadTitleProps[] = [
     {
       main: "写真を選択",
-      sub: "こんにちは！あなたの大好きなグリーンをポストしてみましょう。",
+      sub: "こんにちは！あなたの大好きなグリーンを\nポストしてみましょう。",
+      isExplanation: true,
+      explanationClick: () =>
+        explanationModalsDispatch({
+          type: "setModal",
+          payload: { loadingImage: true },
+        }),
     },
     {
       main: "ピン情報の追加",
-      sub: "素敵な写真ですね！ピンをして写真に写っているグリーンのことを教えてください。",
+      sub: "素敵な写真ですね！ピンをして\n写真のグリーンについて教えてください。",
+      isExplanation: true,
+      explanationClick: () =>
+        explanationModalsDispatch({
+          type: "setModal",
+          payload: { useGreenPin: true },
+        }),
     },
     {
       main: "タグ情報を追加",
-      sub: "今日の気分や植物のことなど…自由にタグをつけましょう！オリジナルタグでもOKです",
+      sub: "今日の気分や植物のことなど…自由にタグを\nつけましょう！オリジナルタグでもOKです",
     },
     {
       main: "コメントの編集",
-      sub: "最後の仕上げです！グリーンへの愛を込めてあなたからのメッセージをどうぞ",
+      sub: "グリーンへの愛を込めて\nあなたからのメッセージをどうぞ",
     },
     {
       main: "おゆずり機能のオン",
-      sub: "もしあなたがお引越しなどの場合や自分のグリーンを誰かに大切に育てて欲しい場合はオンにします",
+      sub: "自分のグリーンを誰かに大切に\n育てて欲しい場合はオンにします",
+      explanationClick: () =>
+        explanationModalsDispatch({
+          type: "setModal",
+          payload: { useOyuzuri: true },
+        }),
     },
   ];
 
   const createStepPaginations = (): TStepPagioations => {
     const created: TStepPagioations = [];
-    stepTexts.reduce((accu, _, index) => {
+    stepper.reduce((accu, _, index) => {
       let back: TStepPagination;
       let next: TStepPagination;
 
@@ -92,17 +122,17 @@ export default function PostCreate() {
           })
         : (back = {
             isValid: true,
-            text: stepTexts[index - 1].main,
+            text: stepper[index - 1].main,
             click: () => setCurrentStep(index),
           });
 
-      index === stepTexts.length - 1
+      index === stepper.length - 1
         ? (next = {
             isValid: false,
           })
         : (next = {
             isValid: true,
-            text: stepTexts[index + 1].main,
+            text: stepper[index + 1].main,
             click: () => setCurrentStep(index + 2),
           });
 
@@ -169,7 +199,6 @@ export default function PostCreate() {
 
         {stepPaginations.map((stepPagination, index) => {
           if (stepPaginations.length === 0) return null;
-
           return (
             <StepContent
               stepCount={index + 1}
@@ -178,9 +207,10 @@ export default function PostCreate() {
             >
               <>
                 <ReadTitle
-                  isIcon={false}
-                  mainTitle={stepTexts[currentStep - 1].main}
-                  subTitle={stepTexts[currentStep - 1].sub}
+                  main={stepper[currentStep - 1].main}
+                  sub={stepper[currentStep - 1].sub}
+                  isExplanation={stepper[currentStep - 1].isExplanation}
+                  explanationClick={stepper[currentStep - 1].explanationClick}
                 />
 
                 <Spacing mt={10} mb={10}>
@@ -197,7 +227,224 @@ export default function PostCreate() {
             </StepContent>
           );
         })}
+
+        <Shadow
+          isActive={Object.keys(explanationModals).some(
+            (key) => explanationModals[key]
+          )}
+        />
+
+        <Modal
+          isActive={explanationModals.loadingImage}
+          closeAction={() =>
+            explanationModalsDispatch({
+              type: "setAllClose",
+            })
+          }
+        >
+          <>
+            <ReadTitle
+              align="left"
+              mainColor="secondary"
+              main="写真に関する注意点"
+              sub="greenLifeのチームがみんなで楽しく写真を見られるように、写真にはいくつかのご遠慮ルールが存在します。"
+            />
+            <Spacing mt={5}>
+              <Flex alignItems="flex-start" justifyContent="space-between">
+                <FlexWrap>
+                  <Typography margin="0 0 8px" size="regular">
+                    ぼやけたグリーンたちの写真
+                  </Typography>
+                  <Image
+                    src="/sample_1.jpg"
+                    alt="サンプル"
+                    width="300"
+                    height="300"
+                    objectFit="cover"
+                  />
+                </FlexWrap>
+                <FlexWrap>
+                  <Typography margin="0 0 8px" size="regular">
+                    ヒトがメインの写真
+                  </Typography>
+                  <Image
+                    src="/sample_1.jpg"
+                    alt="サンプル"
+                    width="300"
+                    height="300"
+                    objectFit="cover"
+                  />
+                </FlexWrap>
+                <FlexWrap>
+                  <Typography margin="0 0 8px" size="regular">
+                    グリーン以外の写真
+                  </Typography>
+                  <Image
+                    src="/sample_1.jpg"
+                    alt="サンプル"
+                    width="300"
+                    height="300"
+                    objectFit="cover"
+                  />
+                </FlexWrap>
+              </Flex>
+            </Spacing>
+          </>
+        </Modal>
+
+        <Modal
+          isActive={explanationModals.useGreenPin}
+          closeAction={() =>
+            explanationModalsDispatch({
+              type: "setAllClose",
+            })
+          }
+        >
+          <>
+            <ReadTitle
+              align="left"
+              mainColor="secondary"
+              main="グリーンピンの追加方法"
+              sub="グリーンピンを追加することで、画像の中にはどんなグリーンがあるのかを伝えることができます。"
+            />
+            <Spacing mt={5}>
+              <Flex alignItems="flex-start" justifyContent="space-between">
+                <FlexWrap>
+                  <TextBudge>step 1</TextBudge>
+                  <Typography margin="0 0 8px" size="regular">
+                    ピンを追加したいところをタップ
+                  </Typography>
+                  <Image
+                    src="/sample_1.jpg"
+                    alt="サンプル"
+                    width="300"
+                    height="300"
+                    objectFit="cover"
+                  />
+                </FlexWrap>
+                <FlexWrap>
+                  <TextBudge>step 2</TextBudge>
+                  <Typography margin="0 0 8px" size="regular">
+                    グリーン名を検索して登録
+                  </Typography>
+                  <Image
+                    src="/sample_1.jpg"
+                    alt="サンプル"
+                    width="300"
+                    height="300"
+                    objectFit="cover"
+                  />
+                </FlexWrap>
+                <FlexWrap>
+                  <TextBudge>step 3</TextBudge>
+                  <Typography margin="0 0 8px" size="regular">
+                    グリーン名を検索して登録
+                  </Typography>
+                  <Image
+                    src="/sample_1.jpg"
+                    alt="サンプル"
+                    width="300"
+                    height="300"
+                    objectFit="cover"
+                  />
+                </FlexWrap>
+                <FlexWrap>
+                  <TextBudge>step 4</TextBudge>
+                  <Typography margin="0 0 8px" size="regular">
+                    必要であれば複数のピンを指定
+                  </Typography>
+                  <Image
+                    src="/sample_1.jpg"
+                    alt="サンプル"
+                    width="300"
+                    height="300"
+                    objectFit="cover"
+                  />
+                </FlexWrap>
+              </Flex>
+            </Spacing>
+          </>
+        </Modal>
+
+        <Modal
+          isActive={explanationModals.useOyuzuri}
+          closeAction={() =>
+            explanationModalsDispatch({
+              type: "setAllClose",
+            })
+          }
+        >
+          <>
+            <ReadTitle
+              align="left"
+              mainColor="secondary"
+              main="おゆずり機能について"
+              sub="greenLifeのチームがみんなで楽しく写真を見られるように、写真にはいくつかのご遠慮ルールが存在します。"
+            />
+            <Spacing mt={5}>
+              <Flex alignItems="flex-start" justifyContent="space-between">
+                <FlexWrap>
+                  <TextBudge>step 1</TextBudge>
+                  <Typography margin="0 0 8px" size="regular">
+                    ほげほげほげ
+                  </Typography>
+                  <Image
+                    src="/sample_1.jpg"
+                    alt="サンプル"
+                    width="300"
+                    height="300"
+                    objectFit="cover"
+                  />
+                </FlexWrap>
+                <FlexWrap>
+                  <TextBudge>step 2</TextBudge>
+                  <Typography margin="0 0 8px" size="regular">
+                    ほげほげほげ
+                  </Typography>
+                  <Image
+                    src="/sample_1.jpg"
+                    alt="サンプル"
+                    width="300"
+                    height="300"
+                    objectFit="cover"
+                  />
+                </FlexWrap>
+                <FlexWrap>
+                  <TextBudge>step 3</TextBudge>
+                  <Typography margin="0 0 8px" size="regular">
+                    ほげほげほげ
+                  </Typography>
+                  <Image
+                    src="/sample_1.jpg"
+                    alt="サンプル"
+                    width="300"
+                    height="300"
+                    objectFit="cover"
+                  />
+                </FlexWrap>
+                <FlexWrap>
+                  <TextBudge>step 4</TextBudge>
+                  <Typography margin="0 0 8px" size="regular">
+                    ほげほげほげ
+                  </Typography>
+                  <Image
+                    src="/sample_1.jpg"
+                    alt="サンプル"
+                    width="300"
+                    height="300"
+                    objectFit="cover"
+                  />
+                </FlexWrap>
+              </Flex>
+            </Spacing>
+          </>
+        </Modal>
       </>
     </DefaultTemplate>
   );
 }
+
+const FlexWrap = styled.div`
+  width: calc(50% - 8px);
+  margin-bottom: 16px;
+`;

@@ -42,6 +42,7 @@ const Box: React.FC<Props> = ({
 export default Box;
 
 const BoxContainer = styled.div`
+  width: 100%;
   display: inline-block;
   background-color: ${(props) => getColor(props.bgColor)};
   padding-left: ${(props) => props.paddingV}px;

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import getColor from "../../../utility/getColor";
+import getShadow from "../../../utility/getShadow";
 
 type Props = {
   change: (e?: React.ChangeEvent<HTMLInputElement>) => void;
@@ -22,7 +23,8 @@ const TextArea: React.FC<Props> = ({ change, text, placeHolder = "" }) => {
 export default TextArea;
 
 const TextAreaItem = styled.textarea`
-  background-color: ${getColor("disable")};
+  background-color: #fff;
+  box-shdaow: ${getShadow()};
   padding: 16px;
   width: 100%;
   border: none;

@@ -4,13 +4,11 @@ import { Spacing } from "../../styles/components/Spacing";
 import getColor from "../../utility/getColor";
 
 import Logo from "../atoms/Logo";
-import UnderLineTextLink from "../molecules/UnderLineTextLink";
-import Wave from "../pattern/Wave";
+import UnderLineTextLink from "../parts/UnderLineTextLink";
 
 const Footer = () => {
   return (
-    <Spacing mt={22}>
-      <Wave />
+    <Spacing mt={15}>
       <FooterText>
         <FooterLogo>
           <Logo color="white" />
@@ -25,7 +23,6 @@ const Footer = () => {
             サインイン
           </UnderLineTextLink>
         </Spacing>
-        <FooterCatch>もっと、暮らしを、□ □ □ 。</FooterCatch>
         <FooterCopy>@ copyright Moeko.I All right Reserved.</FooterCopy>
       </FooterText>
     </Spacing>
@@ -34,22 +31,18 @@ const Footer = () => {
 export default Footer;
 
 const FooterText = styled.div`
-  background-color: ${getColor("primary")};
+  background-color: ${getColor("secondary")};
   width: 100%;
-  padding: 80px 20px 20px;
+  padding: 52px 20px 20px;
   text-align: center;
 `;
 const FooterLogo = styled.div`
   width: 160px;
   margin: 0 auto;
 `;
-const FooterCatch = styled.p`
-  font-size: 1.4rem;
-  color: ${getColor("white")};
-  margin-top: 4px;
-`;
+
 const FooterCopy = styled.p`
-  margin-top: 60px;
+  margin-top: 16px;
   font-size: 1.2rem;
   color: ${getColor("white")};
   letter-spacing: 0.05rem;

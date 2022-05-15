@@ -62,6 +62,7 @@ const Text = styled.p`
   font-family: "${(prop) => prop.family}", sans-serif;
   margin: ${(prop) => prop.margin};
   font-weight: ${(prop) => prop.weight};
+  white-space: pre-wrap;
   ${(props) =>
     props.underline &&
     `

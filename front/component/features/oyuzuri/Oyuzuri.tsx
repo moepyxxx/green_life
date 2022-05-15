@@ -8,7 +8,6 @@ type Props = {
   oyuzuri: IApiOyuzuri;
 };
 const Oyuzuri: React.FC<Props> = ({ oyuzuri }) => {
-  console.log(oyuzuri);
   return (
     <>
       <OyuzuriParagraph oyuzuri={oyuzuri} />

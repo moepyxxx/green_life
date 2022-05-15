@@ -6,16 +6,19 @@ import AttentionImg from "../../../img/icon/attention.svg";
 import getColor from "../../../utility/getColor";
 import Pattern2 from "../../pattern/Pattern2";
 import useIsLogin from "../../../utility/customhooks/useIsLogin";
+import useToast from "../../../utility/customhooks/useToast";
 
 const PostButton: React.FC = () => {
   const router = useRouter();
   const [isLogin] = useIsLogin();
+  const toast = useToast();
 
   const link = () => {
     if (isLogin) {
-      router.push("/posts/create");
+      router.replace("/posts/create");
     } else {
-      router.push("/signin?type=needLogin");
+      router.replace("/signin");
+      toast({ text: "投稿にはログインが必要です。ログインしてください。" });
     }
   };
 

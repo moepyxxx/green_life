@@ -1,73 +1,58 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
-import styled from "styled-components";
-import Logo from "../component/atoms/Logo";
+import useFetch from "../utility/customhooks/useFetch";
 
+import ThumbnailLinkList from "../component/modules/post/ThumbnailLinkList";
+import TagList from "../component/modules/tag/TagList";
 import DefaultTemplate from "../component/templates/Default";
-import CatchCopy from "../component/molecules/CatchCopy";
-import PostThumbnailLink, {
-  TSummaryThumbnail,
-} from "../component/molecules/PostThumbnailLink";
 
-import { Flex } from "../styles/components/Flex";
+import { IApiTag } from "./posts/interfaces/apiTag";
+import { Spacing } from "../styles/components/Spacing";
+import useToast from "../utility/customhooks/useToast";
+
+export const PostContext = React.createContext(null);
 
 export default function Home({
   posts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const router = useRouter();
+  const query = router.query;
+
+  const apiFetch = useFetch();
+  const toast = useToast();
+  const [tags, setTags] = useState<IApiTag[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const apiTags: IApiTag[] = await apiFetch<IApiTag[]>("tags");
+      setTags(apiTags);
+    })();
+  }, []);
+
+  useEffect(() => {
+    if (!query) return;
+
+    if (query.type === "signin") {
+      toast({
+        text: "サインインしました。さっそくgreenをポストしてみましょう！",
+      });
+    }
+  }, [query]);
+
   return (
     <DefaultTemplate>
       <>
-        <Title>
-          <TitleLogo>
-            <Logo />
-          </TitleLogo>
-          <CatchCopy />
-        </Title>
-
-        <Contents alignItems="center" justifyContent="space-between">
-          {posts.map((post, index) => {
-            const summary: TSummaryThumbnail = {
-              imagePath: post.imagePath,
-              linkPath: "/posts/" + post._id,
-            };
-            return (
-              <ContentImg key={index}>
-                <PostThumbnailLink post={summary} />
-              </ContentImg>
-            );
-          })}
-        </Contents>
+        <Spacing mb={8}>
+          <TagList tags={tags} />
+        </Spacing>
+        <PostContext.Provider value={posts}>
+          <ThumbnailLinkList />
+        </PostContext.Provider>
       </>
     </DefaultTemplate>
   );
 }
-
-const Title = styled.div`
-  margin: 200px 0 60px;
-  text-align: center;
-
-  img {
-    width: 180px;
-  }
-`;
-
-const TitleLogo = styled.div`
-  width: 180px;
-  margin: 0 auto 20px;
-`;
-
-const Contents = styled(Flex)`
-  position: relative;
-  &:after {
-    content: "";
-    display: block;
-    width: calc(calc(100% - 32px) / 3);
-  }
-`;
-const ContentImg = styled.div`
-  width: calc(calc(100% - 32px) / 3);
-  margin-bottom: 16px;
-`;
 
 export const getStaticProps: GetStaticProps = async () => {
   const query = new URLSearchParams({ page: "1", count: "27" });

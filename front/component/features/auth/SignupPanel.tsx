@@ -10,10 +10,12 @@ import SquareButton from "../../molecules/SquareButton";
 import UnderLineTextLink from "../../molecules/UnderLineTextLink";
 import usePost from "../../../utility/customhooks/usePost";
 import { Spacing } from "../../../styles/components/Spacing";
+import useToast from "../../../utility/customhooks/useToast";
 
 const SignupPanel: React.FC = () => {
   const router = useRouter();
   const apiPost = usePost();
+  const toast = useToast();
 
   const [signupUser, setSignupUser] = useState<ISignup>({
     email: "",
@@ -61,7 +63,10 @@ const SignupPanel: React.FC = () => {
       });
       return;
     } else {
-      router.push(`/signin/?type=signup`);
+      toast({
+        text: "greenLifeへようこそ！サインインして早速利用してみましょう！",
+      });
+      router.replace(`/signin`);
     }
   };
 

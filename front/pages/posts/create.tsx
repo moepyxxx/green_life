@@ -43,7 +43,7 @@ export default function PostCreate() {
     next: TStepPagination;
   }[];
   const [stepPaginations, setStepPaginations] = useState<TStepPagioations>([]);
-  const [currentStep, setCurrentStep] = useState<number>(1);
+  const [currentStep, setCurrentStep] = useState<number>(2);
 
   const defaultPost: IPost = {
     imagePath: "",

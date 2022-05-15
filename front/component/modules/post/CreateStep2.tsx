@@ -12,6 +12,9 @@ import useFetch from "../../../utility/customhooks/useFetch";
 import { IGreenPin, IPost } from "../../../pages/posts/interfaces/post";
 import { ReactSelectOption } from "./CreateStep3";
 import { IApiGreen } from "../../../pages/posts/interfaces/apiGreen";
+import CheckPin from "../common/CheckPin";
+import { TextAlign } from "../../../styles/components/TextAlign";
+import Shadow from "../../parts/popup/Shadow";
 
 type Props = {
   post: IPost;
@@ -21,7 +24,7 @@ type Props = {
 const CreateStep2: React.FC<Props> = ({ post, setPost }) => {
   const apiFetch = useFetch();
 
-  const [isPinSelected, setIsPinSelected] = useState<boolean>(false);
+  const [isPinSelect, setIsPinSelect] = useState<boolean>(false);
   const [greenPins, setGreenPins] = useState<IGreenPin[]>(post.greenPins);
   const [currentSelectIndex, setCurrentSelectIndex] = useState<number>(0);
 
@@ -42,7 +45,7 @@ const CreateStep2: React.FC<Props> = ({ post, setPost }) => {
 
   useEffect(() => {
     setPost({ ...post, greenPins });
-    setIsPinSelected(true);
+    setCurrentSelectIndex(greenPins.length === 0 ? 0 : greenPins.length - 1);
   }, [greenPins]);
 
   const setSelectOption = async () => {
@@ -83,6 +86,14 @@ const CreateStep2: React.FC<Props> = ({ post, setPost }) => {
         greenId: "",
       },
     ]);
+    setIsPinSelect(true);
+  };
+
+  const cancelPin = () => {
+    const newGreenPins = [...greenPins];
+    newGreenPins.splice(currentSelectIndex, 1);
+    setGreenPins(newGreenPins);
+    setIsPinSelect(false);
   };
 
   const selectGreen = (e: { value: string; label: string }) => {
@@ -95,15 +106,7 @@ const CreateStep2: React.FC<Props> = ({ post, setPost }) => {
         };
       })
     );
-
-    const greenUnselectedIndex: number | false = greenPins.findIndex(
-      (greenPin: IGreenPin) => {
-        if (greenPin.greenId === "") return true;
-      }
-    );
-
-    if (!greenUnselectedIndex) return;
-    setCurrentSelectIndex(greenUnselectedIndex);
+    setIsPinSelect(false);
   };
 
   return (
@@ -125,20 +128,42 @@ const CreateStep2: React.FC<Props> = ({ post, setPost }) => {
           })}
         </TransParentGrid>
         {greenPins.map((greenpin: IGreenPin, index: number) => {
-          return (
-            <GreenPin
-              key={index}
-              left={greenpin.position.left}
-              top={greenpin.position.top}
-              click={() => setCurrentSelectIndex(index)}
-              isActive={index === currentSelectIndex}
-            />
-          );
+          if (!greenpin.greenId) {
+            return (
+              <GreenPin
+                key={index}
+                left={greenpin.position.left}
+                top={greenpin.position.top}
+                click={() => setCurrentSelectIndex(index)}
+              />
+            );
+          } else {
+            return (
+              <CheckPin
+                key={index}
+                left={greenpin.position.left}
+                top={greenpin.position.top}
+                click={null}
+              />
+            );
+          }
         })}
       </GreenImage>
 
-      <GreenSelect display={isPinSelected ? "block" : "none"}>
-        <Typography size="regular">植物の名前を教えてね</Typography>
+      <Shadow isActive={isPinSelect} />
+
+      <GreenSelect
+        display={isPinSelect ? "block" : "none"}
+        top={
+          greenPins.length >= 1 && greenPins[currentSelectIndex].position
+            ? greenPins[currentSelectIndex].position.top
+            : 0
+        }
+      >
+        <CloseIcon onClick={cancelPin} />
+        <TextAlign align="center">
+          <Typography size="medium">植物の名前を教えてね</Typography>
+        </TextAlign>
         <Select options={selectOptions} onChange={selectGreen} />
       </GreenSelect>
     </>
@@ -155,6 +180,12 @@ const GreenImage = styled.div`
 
 const GreenSelect = styled.div`
   display: ${(prop) => prop.display};
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 172px;
+  z-index: 5;
+  width: 240px;
   text-align: left;
   margin-top: 12px;
   padding: 12px;
@@ -176,6 +207,26 @@ const Grid = styled.span`
   width: calc(100% / 6);
   height: calc(100% / 6);
   background-color: rgba(31, 71, 45, 0.36);
+`;
+
+const CloseIcon = styled.div`
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: ${getColor("secondary")};
+  border: 1px solid #fff;
+
+  &:after {
+    content: "×";
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 `;
 
 export default CreateStep2;

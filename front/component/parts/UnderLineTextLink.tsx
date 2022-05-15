@@ -1,7 +1,7 @@
 import React, { ReactChild } from "react";
 import Link from "next/link";
 import styled from "styled-components";
-import Typography from "../atoms/Typography";
+import Typography from "../parts/Typography";
 import TSize from "../types/size";
 import TColor from "../types/color";
 
@@ -13,7 +13,7 @@ type Props = {
 };
 const UnderLineTextLink: React.FC<Props> = ({
   size = "regular",
-  color = "secondary",
+  color = "primary",
   linkPath,
   children,
 }) => {

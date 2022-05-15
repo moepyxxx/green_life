@@ -39,14 +39,14 @@ const Number = styled.span`
   margin: 0 8px;
   box-shadow: ${getShadow()};
   background: ${(prop) =>
-    prop.current ? getColor("secondary") : getColor("white")};
+    prop.current ? getColor("primary") : getColor("white")};
   border: none;
   position: relative;
   &:after {
     content: "${(prop) => prop.index}";
     font-weight: ${(prop) => (prop.current ? "bold" : "normal")};
     color: ${(prop) =>
-      prop.current ? getColor("white") : getColor("secondary")};
+      prop.current ? getColor("white") : getColor("primary")};
     position: absolute;
     top: 50%;
     left: 50%;

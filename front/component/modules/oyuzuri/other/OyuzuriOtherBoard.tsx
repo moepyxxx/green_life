@@ -40,7 +40,7 @@ const OyuzuriOtherBoard: React.FC = () => {
 
   return (
     <>
-      <Box bgColor="secondary" paddingH={5} paddingV={5} radius={2}>
+      <Box bgColor="primary" paddingH={5} paddingV={5} radius={2}>
         <>
           <Flex alignItems="center" justifyContent="space-between">
             <Flex alignItems="center" justifyContent="space-between">
@@ -95,7 +95,6 @@ const OyuzuriOtherBoard: React.FC = () => {
             align="left"
             main="おゆずり機能について"
             sub="ダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミー"
-            mainColor="secondary"
           />
           <Spacing mt={5}>
             <Flex alignItems="flex-start" justifyContent="space-between">

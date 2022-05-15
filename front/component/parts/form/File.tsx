@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
-import SquareButton from "../../molecules/SquareButton";
+import Button from "../Button";
 
 type Props = {
   setSelectFlag: () => void;
@@ -28,7 +28,7 @@ const File: React.FC<Props> = ({ setSelectFlag, setImageFile }) => {
         placeholder="このグリーン、とっても素敵でしょう！"
         accept="image/jpeg, image/png"
       />
-      <SquareButton click={click}>ここへ選択してね</SquareButton>
+      <Button click={click}>ここへ選択してね</Button>
     </>
   );
 };

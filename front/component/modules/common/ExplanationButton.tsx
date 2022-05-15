@@ -37,7 +37,7 @@ const Icon = styled.span`
   box-shadow: ${getShadow()};
   &:after {
     content: "?";
-    color: ${getColor("secondary")};
+    color: ${getColor("primary")};
     position: absolute;
     top: 50%;
     left: 50%;

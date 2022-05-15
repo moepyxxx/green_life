@@ -37,7 +37,7 @@ const InputItem = styled.input`
   border-radius: 4px;
   box-shdaow: ${getShadow()};
   ::placeholder {
-    color: ${getColor("primary")};
+    color: ${getColor("thin")};
     font-size: ${getSize("medium")}rem;
     font-family: "Noto Sans JP", sans-serif;
   }

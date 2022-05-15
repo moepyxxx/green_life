@@ -94,7 +94,7 @@ const LogoutBudge = styled.a`
   width: 40px;
   height: 40px;
   display: inline-block;
-  background-color: ${getColor("secondary")};
+  background-color: ${getColor("primary")};
   border-radius: 50%;
   overflow: hidden;
   color: #fff;

@@ -20,7 +20,7 @@ const ReadTitle: React.FC<Props> = ({
   main,
   sub,
   align = "center",
-  mainColor = "base",
+  mainColor = "primary",
   isExplanation,
   explanationClick,
 }) => {

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 
 import DefaultTemplate from "../../component/templates/Default";
-import Typography from "../../component/atoms/Typography";
+import Typography from "../../component/parts/Typography";
 import StepCounter from "../../component/modules/common/step/Counter";
 import StepContent from "../../component/modules/common/step/Content";
 import ReadTitle, {
@@ -29,7 +29,7 @@ import { IPost } from "./interfaces/post";
 import usePostImage from "../../utility/customhooks/usePostImage";
 import usePost from "../../utility/customhooks/usePost";
 import useExplanationModalsReducer from "../../utility/customhooks/useExplanationModalsReducer";
-import TextBudge from "../../component/atoms/TextBudge";
+import TextBudge from "../../component/parts/TextBudge";
 
 export default function PostCreate() {
   const router = useRouter();
@@ -43,7 +43,7 @@ export default function PostCreate() {
     next: TStepPagination;
   }[];
   const [stepPaginations, setStepPaginations] = useState<TStepPagioations>([]);
-  const [currentStep, setCurrentStep] = useState<number>(2);
+  const [currentStep, setCurrentStep] = useState<number>(1);
 
   const defaultPost: IPost = {
     imagePath: "",
@@ -100,7 +100,7 @@ export default function PostCreate() {
       sub: "グリーンへの愛を込めて\nあなたからのメッセージをどうぞ",
     },
     {
-      main: "おゆずり機能のオン",
+      main: "おゆずりの設定",
       sub: "自分のグリーンを誰かに大切に\n育てて欲しい場合はオンにします",
       explanationClick: () =>
         explanationModalsDispatch({
@@ -247,7 +247,6 @@ export default function PostCreate() {
           <>
             <ReadTitle
               align="left"
-              mainColor="secondary"
               main="写真に関する注意点"
               sub="greenLifeのチームがみんなで楽しく写真を見られるように、写真にはいくつかのご遠慮ルールが存在します。"
             />
@@ -305,7 +304,6 @@ export default function PostCreate() {
           <>
             <ReadTitle
               align="left"
-              mainColor="secondary"
               main="グリーンピンの追加方法"
               sub="グリーンピンを追加することで、画像の中にはどんなグリーンがあるのかを伝えることができます。"
             />
@@ -379,7 +377,6 @@ export default function PostCreate() {
           <>
             <ReadTitle
               align="left"
-              mainColor="secondary"
               main="おゆずり機能について"
               sub="greenLifeのチームがみんなで楽しく写真を見られるように、写真にはいくつかのご遠慮ルールが存在します。"
             />

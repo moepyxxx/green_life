@@ -70,7 +70,7 @@ const ConfirmField = () => {
             </Spacing>
           </Flex>
           <Spacing mt={6} mb={8}>
-            <Box bgColor="disable" paddingH={3} paddingV={3}>
+            <Box bgColor="thin" paddingH={3} paddingV={3}>
               <Typography size="medium">
                 {oyuzuri.oyuzuriTargetUser.message}
               </Typography>

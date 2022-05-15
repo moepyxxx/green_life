@@ -17,7 +17,7 @@ type Props = {
 };
 
 const Typography: React.FC<Props> = ({
-  color = "base",
+  color = "primary",
   size = "medium",
   family = "Noto Sans JP",
   margin = "0",

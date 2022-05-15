@@ -3,23 +3,19 @@ import TColor from "../component/types/color";
 const getColor = (color: TColor) => {
   switch (color) {
     case "base":
-      return "#0C0C0C";
+      return "#F0F0F0";
     case "white":
       return "#fff";
     case "primary":
-      return "#93B69C";
+      return "#3E5656";
     case "secondary":
-      return "#47885E";
-    case "gray":
-      return "#D8E0DA";
-    case "disable":
-      return "#F0F0F0";
-    case "danger":
-      return "#C53F14";
+      return "#C2DAD0";
+    case "thin":
+      return "#C2DAD0";
     case "accent":
       return "#C2972D";
     default:
-      return "#0C0C0C";
+      return "#3E5656";
   }
 };
 

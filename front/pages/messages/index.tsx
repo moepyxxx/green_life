@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import Typography from "../../component/atoms/Typography";
+import Typography from "../../component/parts/Typography";
 import DefaultTemplate from "../../component/templates/Default";
-import { Spacing } from "../../styles/components/Spacing";
 import { TextAlign } from "../../styles/components/TextAlign";
 import useFetch from "../../utility/customhooks/useFetch";
 import { IApiMessageContainer } from "./interfaces/apiMessage";

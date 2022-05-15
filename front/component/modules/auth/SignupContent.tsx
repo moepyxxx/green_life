@@ -100,7 +100,7 @@ const SignupContent: React.FC = () => {
 
       <FormSubmit>
         <AuthFailed display={isFailure ? "block" : "none"}>
-          <Typography color="danger" size="regular">
+          <Typography color="accent" size="regular">
             ログインIDまたはパスワードが無効です
           </Typography>
         </AuthFailed>

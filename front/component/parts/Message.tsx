@@ -2,11 +2,9 @@ import React, { ReactChild } from "react";
 import styled from "styled-components";
 
 import getColor from "../../utility/getColor";
-import getShadow from "../../utility/getShadow";
 
 import TColor from "../types/color";
-import Typography from "../atoms/Typography";
-import TSize from "../types/size";
+import Typography from "../parts/Typography";
 
 type Props = {
   children: ReactChild;
@@ -14,8 +12,8 @@ type Props = {
   bgColor?: TColor;
 };
 const Message: React.FC<Props> = ({
-  bgColor = "primary",
-  color = "secondary",
+  bgColor = "secondary",
+  color = "primary",
   children,
 }) => {
   return (
@@ -36,7 +34,7 @@ const MessageItem = styled.div`
   position: relative;
   &:after {
     content: "";
-    border-bottom: 12px solid ${getColor("primary")};
+    border-bottom: 12px solid ${getColor("secondary")};
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
     position: absolute;

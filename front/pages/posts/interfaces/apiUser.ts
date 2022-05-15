@@ -4,4 +4,5 @@ export interface IApiUser {
   userName: string;
   createdAt: string;
   updatedAt: string;
+  thumbnailUrl: string;
 }

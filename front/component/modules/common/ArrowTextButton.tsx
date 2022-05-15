@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import getColor from "../../../utility/getColor";
 import Typography from "../../parts/Typography";
 
 type Props = {
@@ -12,7 +11,7 @@ const ArrowTextButton: React.FC<Props> = ({ click, text, arrow }) => {
   return (
     <Button arrow={arrow} onClick={click}>
       <Icon arrow={arrow} />
-      <Typography size="regular">{text}</Typography>
+      <Typography size="medium">{text}</Typography>
     </Button>
   );
 };
@@ -27,12 +26,12 @@ const Button = styled.button`
   ${(props) =>
     props.arrow === "right" &&
     `
-    padding: 0 16px 0 0;
+    padding: 0 20px 0 0;
   `}
   ${(props) =>
     props.arrow === "left" &&
     `
-    padding: 0 0 0 24px;
+    padding: 0 0 0 20px;
   `}
 `;
 
@@ -52,40 +51,25 @@ const Icon = styled.span`
     `
     left: 0;
   `}
-  &:after, &:before {
+  &:after {
+    ${(props) =>
+      props.arrow === "left" &&
+      `
+      right: 0px;
+      background-image: url('data:image/svg+xml;charset=utf8,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M14%207L10%2012L14%2017%22%20stroke%3D%22%233E5656%22%2F%3E%3C%2Fsvg%3E');
+    `}
+    ${(props) =>
+      props.arrow === "right" &&
+      `
+      left: 0px;
+      background-image: url('data:image/svg+xml;charset=utf8,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M10%207L14%2012L10%2017%22%20stroke%3D%22%233E5656%22%2F%3E%3C%2Fsvg%3E');
+    `}
+    background-size: cover;
     content: "";
     position: absolute;
-    width: 8px;
-    height: 8px;
+    width: 20px;
+    height: 20px;
     top: 50%;
-    transform: rotate(45deg) translateY(-50%);
-  }
-
-  &:before {
-    background: ${getColor("secondary")};
-    ${(props) =>
-      props.arrow === "left" &&
-      `
-      left: 5px;
-    `}
-    ${(props) =>
-      props.arrow === "right" &&
-      `
-      right: 5px;
-    `}
-  }
-
-  &:after {
-    background: #fff;
-    ${(props) =>
-      props.arrow === "left" &&
-      `
-      left: 6px;
-    `}
-    ${(props) =>
-      props.arrow === "right" &&
-      `
-      right: 6px;
-    `}
+    transform: translateY(-50%);
   }
 `;

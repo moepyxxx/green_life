@@ -24,10 +24,10 @@ export default TextArea;
 
 const TextAreaItem = styled.textarea`
   background-color: #fff;
+  border: ${getColor("gray")} 1px solid;
   box-shdaow: ${getShadow()};
   padding: 16px;
   width: 100%;
-  border: none;
   border-radius: 4px;
   ::placeholder {
     color: ${getColor("primary")};

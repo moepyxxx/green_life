@@ -10,7 +10,7 @@ const TagList: React.FC<Props> = ({ tags }) => {
   return (
     <Contents>
       {tags.map((tag, index) => {
-        return <Tag key={index} tag={tag} />;
+        return <Tag key={index} label={tag.label} />;
       })}
     </Contents>
   );

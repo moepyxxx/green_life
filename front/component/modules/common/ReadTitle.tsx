@@ -3,7 +3,7 @@ import React from "react";
 import { Spacing } from "../../../styles/components/Spacing";
 import { TextAlign } from "../../../styles/components/TextAlign";
 
-import Typography from "../../atoms/Typography";
+import Typography from "../../parts/Typography";
 import ExplanationButton from "./ExplanationButton";
 
 import TColor from "../../types/color";
@@ -33,7 +33,7 @@ const ReadTitle: React.FC<Props> = ({
   };
   return (
     <TextAlign align={align}>
-      <Spacing mt={5} mb={2}>
+      <Spacing mb={0}>
         <Typography size="large" weight="bold" color={mainColor}>
           {main}
           {explanation()}

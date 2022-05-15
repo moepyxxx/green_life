@@ -63,6 +63,7 @@ const Text = styled.p`
   margin: ${(prop) => prop.margin};
   font-weight: ${(prop) => prop.weight};
   white-space: pre-wrap;
+  line-height: ${(prop) => (prop.size === "larget" ? "1.5" : "2")};
   ${(props) =>
     props.underline &&
     `

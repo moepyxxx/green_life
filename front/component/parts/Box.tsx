@@ -13,6 +13,7 @@ type Props = {
   marginH?: number;
   marginV?: number;
   width?: "auto" | "max";
+  click?: () => void | null;
 };
 
 const Box: React.FC<Props> = ({
@@ -24,9 +25,25 @@ const Box: React.FC<Props> = ({
   children,
   bgColor = "white",
   width = "max",
+  click = null,
 }) => {
-  return (
-    <>
+  if (click) {
+    return (
+      <BoxContainer
+        onClick={click}
+        paddingV={paddingV * 4}
+        paddingH={paddingH * 4}
+        marginV={marginV * 4}
+        marginH={marginH * 4}
+        radius={radius * 4}
+        bgColor={bgColor}
+        width={width === "max" ? "100%" : "auto"}
+      >
+        {children}
+      </BoxContainer>
+    );
+  } else {
+    return (
       <BoxContainer
         paddingV={paddingV * 4}
         paddingH={paddingH * 4}
@@ -38,8 +55,8 @@ const Box: React.FC<Props> = ({
       >
         {children}
       </BoxContainer>
-    </>
-  );
+    );
+  }
 };
 
 export default Box;
@@ -52,7 +69,6 @@ const BoxContainer = styled.div`
   padding-right: ${(props) => props.paddingV}px;
   padding-top: ${(props) => props.paddingH}px;
   padding-bottom: ${(props) => props.paddingH}px;
-  border-radius: ${(props) => props.radius}px;
   margin-left: ${(props) => props.marginV}px;
   margin-right: ${(props) => props.marginV}px;
   margin-top: ${(props) => props.marginH}px;

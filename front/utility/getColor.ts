@@ -16,6 +16,8 @@ const getColor = (color: TColor) => {
       return "#F0F0F0";
     case "danger":
       return "#C53F14";
+    case "accent":
+      return "#C2972D";
     default:
       return "#0C0C0C";
   }

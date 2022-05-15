@@ -12,6 +12,7 @@ type Props = {
   children: ReactChild;
   marginH?: number;
   marginV?: number;
+  width?: "auto" | "max";
 };
 
 const Box: React.FC<Props> = ({
@@ -22,6 +23,7 @@ const Box: React.FC<Props> = ({
   radius = 1,
   children,
   bgColor = "white",
+  width = "max",
 }) => {
   return (
     <>
@@ -32,6 +34,7 @@ const Box: React.FC<Props> = ({
         marginH={marginH * 4}
         radius={radius * 4}
         bgColor={bgColor}
+        width={width === "max" ? "100%" : "auto"}
       >
         {children}
       </BoxContainer>
@@ -42,7 +45,7 @@ const Box: React.FC<Props> = ({
 export default Box;
 
 const BoxContainer = styled.div`
-  width: 100%;
+  width: ${(props) => props.width};
   display: inline-block;
   background-color: ${(props) => getColor(props.bgColor)};
   padding-left: ${(props) => props.paddingV}px;

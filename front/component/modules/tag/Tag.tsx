@@ -8,7 +8,7 @@ type Props = {
 };
 const Tag: React.FC<Props> = ({ tag }) => {
   return (
-    <Box marginH={1} marginV={1}>
+    <Box marginH={1} marginV={1} width="auto">
       <Typography size="medium">{tag.label}</Typography>
     </Box>
   );

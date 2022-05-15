@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import DefaultTemplate from "../../component/templates/Default";
@@ -20,7 +20,7 @@ import PostBoard from "../../component/modules/post/PostBoard";
 import OyuzuriBoard from "../../component/modules/oyuzuri/OyuzuriBoard";
 import { IApiUser } from "./interfaces/apiUser";
 
-export const PostContext = React.createContext<{
+export const PostContext = createContext<{
   post: IApiPostDetail;
   user: IApiUser;
   oyuzuri: IApiOyuzuri | false;

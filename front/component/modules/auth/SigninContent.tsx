@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import InputText from "../../parts/form/Text";
@@ -16,12 +16,31 @@ import usePost from "../../../utility/customhooks/usePost";
 import useIsLogin from "../../../utility/customhooks/useIsLogin";
 
 import { ISignin } from "../../../pages/interface/signin";
+import useToast from "../../../utility/customhooks/useToast";
 
 const SigninContent: React.FC = () => {
   const router = useRouter();
+  const query = router.query;
+
   const apiPost = usePost();
+  const toast = useToast();
   const login = useLogin();
   const [isLogin] = useIsLogin();
+
+  useEffect(() => {
+    console.log(query);
+    if (!query.type) return;
+
+    if (query.type === "register") {
+      toast({
+        text: "greenLifeへようこそ！サインインして早速利用してみましょう！",
+      });
+    }
+    if (query.type === "timeout") {
+      toast({ text: "タイムアウトしました、再度ログインをし直してください。" });
+    }
+  }, [query]);
+
   const [signinUser, setSigninUser] = useState<ISignin>({
     email: "",
     password: "",

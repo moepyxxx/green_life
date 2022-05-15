@@ -26,7 +26,7 @@ const usePost = () => {
         );
       }
     } catch (_) {
-      // logout();
+      logout();
     }
   };
 };

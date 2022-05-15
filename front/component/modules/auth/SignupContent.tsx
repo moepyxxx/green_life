@@ -12,6 +12,7 @@ import Button from "../../parts/Button";
 import { Spacing } from "../../../styles/components/Spacing";
 import usePost from "../../../utility/customhooks/usePost";
 import { ISignup } from "../../../pages/interface/signup";
+import useToast from "../../../utility/customhooks/useToast";
 
 const SignupContent: React.FC = () => {
   const router = useRouter();
@@ -63,7 +64,7 @@ const SignupContent: React.FC = () => {
       });
       return;
     } else {
-      router.push(`/signin/?type=signup`);
+      router.push(`/signin?type=register`);
     }
   };
 

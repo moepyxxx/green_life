@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import useFetch from "../utility/customhooks/useFetch";
 
@@ -8,14 +9,18 @@ import DefaultTemplate from "../component/templates/Default";
 
 import { IApiTag } from "./posts/interfaces/apiTag";
 import { Spacing } from "../styles/components/Spacing";
+import useToast from "../utility/customhooks/useToast";
 
 export const PostContext = React.createContext(null);
 
 export default function Home({
   posts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const [tags, setTags] = useState<IApiTag[]>([]);
+  const router = useRouter();
+
   const apiFetch = useFetch();
+  const toast = useToast();
+  const [tags, setTags] = useState<IApiTag[]>([]);
 
   useEffect(() => {
     (async () => {
@@ -23,6 +28,17 @@ export default function Home({
       setTags(apiTags);
     })();
   }, []);
+
+  useEffect(() => {
+    if (!router.query) return;
+
+    if (router.query.type === "signin") {
+      console.log("hoge");
+      toast({
+        text: "サインインしました。さっそくgreenをポストしてみましょう！",
+      });
+    }
+  }, [router.query]);
 
   return (
     <DefaultTemplate>

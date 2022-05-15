@@ -69,7 +69,7 @@ export default function MessagesIndex() {
                       size="small"
                       color="primary"
                       margin="-8px 0 0"
-                      family="Bitter"
+                      family="Inter"
                     >
                       {messageContainer.partner.userName.slice(0, 6) + "…"}
                     </Typography>

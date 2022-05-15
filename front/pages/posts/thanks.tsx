@@ -19,7 +19,7 @@ export default function PostThanks() {
             size="large"
             weight="bold"
             margin="0 0 28px"
-            family="Bitter"
+            family="Inter"
           >
             Thank you for your Post!
           </Typography>

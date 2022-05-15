@@ -12,7 +12,7 @@ type Props = {
   children: ReactNode;
   margin?: string;
   weight?: "bold" | "normal";
-  family?: "Noto Sans JP" | "Bitter";
+  family?: "Noto Sans JP" | "Inter";
   underline?: boolean;
 };
 

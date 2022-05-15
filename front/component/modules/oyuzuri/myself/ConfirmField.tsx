@@ -64,7 +64,7 @@ const ConfirmField = () => {
               <Typography size="medium">
                 {oyuzuri.oyuzuriTargetUser.displayName}
               </Typography>
-              <Typography size="regular" family="Bitter" margin="-4px 0 0">
+              <Typography size="regular" family="Inter" margin="-4px 0 0">
                 @{oyuzuri.oyuzuriTargetUser.userName}
               </Typography>
             </Spacing>

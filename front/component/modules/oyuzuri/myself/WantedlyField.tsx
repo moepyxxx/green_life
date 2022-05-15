@@ -183,7 +183,7 @@ const WantedlyField = () => {
                   <Typography size="medium">
                     {currentRequestUser.displayName}
                   </Typography>
-                  <Typography size="regular" family="Bitter" margin="-4px 0 0">
+                  <Typography size="regular" family="Inter" margin="-4px 0 0">
                     @{currentRequestUser.userName}
                   </Typography>
                 </Spacing>

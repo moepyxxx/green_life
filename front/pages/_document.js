@@ -20,7 +20,7 @@ export default class MyDocument extends Document {
         styles: (
           <>
             <link
-              href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;600&family=Noto+Sans+JP:wght@400;500&display=swap"
+              href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Noto+Sans+JP:wght@400;500&display=swap"
               rel="stylesheet"
             />
             {initialProps.styles}

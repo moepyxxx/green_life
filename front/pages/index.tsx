@@ -17,6 +17,7 @@ export default function Home({
   posts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter();
+  const query = router.query;
 
   const apiFetch = useFetch();
   const toast = useToast();
@@ -30,15 +31,14 @@ export default function Home({
   }, []);
 
   useEffect(() => {
-    if (!router.query) return;
+    if (!query) return;
 
-    if (router.query.type === "signin") {
-      console.log("hoge");
+    if (query.type === "signin") {
       toast({
         text: "サインインしました。さっそくgreenをポストしてみましょう！",
       });
     }
-  }, [router.query]);
+  }, [query]);
 
   return (
     <DefaultTemplate>

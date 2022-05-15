@@ -13,12 +13,12 @@ const ToastProvider: React.FC = ({ children }) => {
   const [toastText, setToastText] = useState<string>("");
 
   // なんかおかしい
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     // setShowable(false);
-  //   }, 5000);
-  //   return () => clearInterval(interval);
-  // }, [showable]);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShowable(false);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [showable]);
 
   const toast = ({ text }) => {
     setToastText(text);

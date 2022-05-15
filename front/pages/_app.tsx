@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import Head from "next/head";
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
+import ToastProvider from "../component/templates/ToastProvider";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -17,18 +18,11 @@ const GlobalStyle = createGlobalStyle`
 
 function MyApp({ Component, pageProps }) {
   return (
-    <>
-      <Head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;600&family=Noto+Sans+JP:wght@400;500&display=swap"
-          rel="stylesheet"
-        />
-      </Head>
+    <ToastProvider>
       <GlobalStyle />
       <Component {...pageProps} />
-    </>
+    </ToastProvider>
   );
 }
 
-MyApp.getInitialProps = async () => ({ pageProps: {} });
 export default MyApp;

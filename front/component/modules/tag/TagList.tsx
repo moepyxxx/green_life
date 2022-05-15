@@ -1,16 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import { IApiTag } from "../../../pages/posts/interfaces/apiTag";
-import useToast from "../../../utility/customhooks/useToast";
 import Tag from "./Tag";
 
 type Props = {
   tags: IApiTag[];
 };
 const TagList: React.FC<Props> = ({ tags }) => {
-  const toast = useToast();
   return (
-    <Contents onClick={() => toast({ text: "hoge" })}>
+    <Contents>
       {tags.map((tag, index) => {
         return <Tag key={index} label={tag.label} />;
       })}

@@ -5,5 +5,6 @@ type TColor =
   | "gray"
   | "white"
   | "disable"
+  | "accent"
   | "danger";
 export default TColor;

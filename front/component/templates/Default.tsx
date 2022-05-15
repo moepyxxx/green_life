@@ -1,7 +1,6 @@
 import React, { ReactChild } from "react";
 import { Spacing } from "../../styles/components/Spacing";
 import useIsLogin from "../../utility/customhooks/useIsLogin";
-import Toaster from "../features/Toaster";
 
 import Footer from "./Footer";
 import Header from "./Header";
@@ -16,7 +15,6 @@ const Default: React.FC<Props> = ({ children }) => {
   return (
     <>
       <Header />
-      <Toaster />
       <Spacing mt={18} pl={4} pr={4} mb={isLogin ? 27 : 0}>
         {children}
       </Spacing>

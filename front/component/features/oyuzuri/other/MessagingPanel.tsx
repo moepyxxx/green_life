@@ -10,7 +10,7 @@ type Props = {
 };
 const MessagingPanel: React.FC<Props> = ({ oyuzuri }) => {
   const linkToMessage = () => {
-    router.push(`/messages/${oyuzuri.messageContainerId}`);
+    router.replace(`/messages/${oyuzuri.messageContainerId}`);
   };
 
   if (!oyuzuri.isRequest) {

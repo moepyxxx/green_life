@@ -12,12 +12,15 @@ import SquareButton from "../../molecules/SquareButton";
 import UnderLineTextLink from "../../molecules/UnderLineTextLink";
 import { Spacing } from "../../../styles/components/Spacing";
 import useIsLogin from "../../../utility/customhooks/useIsLogin";
+import useToast from "../../../utility/customhooks/useToast";
 
 const SigninPanel: React.FC = () => {
   const router = useRouter();
   const apiPost = usePost();
   const login = useLogin();
   const [isLogin] = useIsLogin();
+  const toast = useToast();
+
   const [signinUser, setSigninUser] = useState<ISignin>({
     email: "",
     password: "",
@@ -57,7 +60,10 @@ const SigninPanel: React.FC = () => {
 
     login(result.data.idToken);
     if (isLogin) {
-      router.push(`/?type=signin`);
+      toast({
+        text: "サインインしました。さっそくgreenをポストしてみましょう！",
+      });
+      router.replace(`/`);
     }
   };
 

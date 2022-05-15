@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Logo from "../atoms/Logo";
+import Logo from "../parts/Logo";
 
 const Header = () => {
   return (
@@ -26,6 +26,6 @@ const HeaderWrap = styled.header`
 `;
 
 const LogoSpace = styled.div`
-  padding: 16px 16px 12px 16px;
+  padding: 24px 16px 12px 16px;
   width: 160px;
 `;

@@ -1,25 +1,30 @@
-import React, { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 import DefaultTemplate from "../../component/templates/Default";
-import ArrowTextLink from "../../component/molecules/ArrowTextLink";
-import Switch from "../../component/atoms/Switch";
-import SukiButton from "../../component/molecules/SukiButton";
+import ArrowTextButton from "../../component/modules/common/ArrowTextButton";
+import Switch from "../../component/parts/Switch";
 import SwitchingGreenImage, {
   TGreenPin,
-} from "../../component/features/post/SwitchingGreenImage";
-import PostParagraph, {
-  TPostParagraph,
-} from "../../component/features/post/PostParagraph";
-import { IApiPostDetail } from "./interfaces/apiPostDetail";
-import dayjs from "dayjs";
+} from "../../component/modules/post/SwitchingGreenImage";
+
 import useFetch from "../../utility/customhooks/useFetch";
-import { useRouter } from "next/router";
-import Oyuzuri from "../../component/features/oyuzuri/Oyuzuri";
-import { TextAlign } from "../../styles/components/TextAlign";
+import useIsLogin from "../../utility/customhooks/useIsLogin";
+
 import { Spacing } from "../../styles/components/Spacing";
 import { Flex } from "../../styles/components/Flex";
+
 import { IApiOyuzuri } from "./interfaces/apiOyuzuri";
-import useIsLogin from "../../utility/customhooks/useIsLogin";
+import { IApiPostDetail } from "./interfaces/apiPostDetail";
+import PostBoard from "../../component/modules/post/PostBoard";
+import OyuzuriBoard from "../../component/modules/oyuzuri/OyuzuriBoard";
+import { IApiUser } from "./interfaces/apiUser";
+
+export const PostContext = createContext<{
+  post: IApiPostDetail;
+  user: IApiUser;
+  oyuzuri: IApiOyuzuri | false;
+}>(null);
 
 const PostDetail = () => {
   const apiFetch = useFetch();
@@ -29,7 +34,6 @@ const PostDetail = () => {
   const [post, setPost] = useState<IApiPostDetail>(null);
   const [oyuzuri, setOyuzuri] = useState<IApiOyuzuri | false>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [postParagraph, setPostParagraph] = useState<TPostParagraph>();
   const [greenPins, setGreenPins] = useState<TGreenPin[]>([]);
 
   const [isPlantVisualActive, setIsPlantVisualActive] =
@@ -43,14 +47,6 @@ const PostDetail = () => {
 
   useEffect(() => {
     if (!post) return;
-
-    setPostParagraph({
-      date: dayjs(post.createdAt).format("YYYY-MM-DD HH:mm:ss ddd"),
-      name: post.user.displayName,
-      username: post.user.userName,
-      description: post.comment,
-      tags: post.tags.map((tag) => tag.label),
-    });
 
     setGreenPins(
       post.greenPins.map((pin) => {
@@ -74,9 +70,9 @@ const PostDetail = () => {
   }, [post]);
 
   useEffect(() => {
-    if (!postParagraph || !greenPins || !post || oyuzuri === null) return;
+    if (!greenPins || !post || oyuzuri === null) return;
     setLoading(false);
-  }, [postParagraph]);
+  }, [oyuzuri]);
 
   const initializePost = async () => {
     const apiPost = await apiFetch<IApiPostDetail>(`posts/${router.query.id}`);
@@ -95,6 +91,10 @@ const PostDetail = () => {
     isActive ? setIsPlantVisualActive(true) : setIsPlantVisualActive(false);
   };
 
+  const returnTop = () => {
+    router.push("/");
+  };
+
   if (loading) {
     // [memo]: なんとかしたいローディング（笑）
     return <></>;
@@ -102,31 +102,29 @@ const PostDetail = () => {
     return (
       <DefaultTemplate>
         <>
-          <Flex alignItems="center" justifyContent="space-between">
-            <ArrowTextLink linkPath="/" text="greenたちへ戻る" arrow="left" />
+          <PostContext.Provider value={{ post, oyuzuri, user: post.user }}>
+            <Flex alignItems="center" justifyContent="space-between">
+              <ArrowTextButton
+                click={returnTop}
+                text="greenたちへ戻る"
+                arrow="left"
+              />
 
-            <Switch checked={false} action={switchPlantVisual} />
-          </Flex>
+              <Switch checked={false} action={switchPlantVisual} />
+            </Flex>
 
-          <Spacing mt={4}>
-            <SwitchingGreenImage
-              isPlantVisualActive={isPlantVisualActive}
-              greenPins={greenPins}
-              imagePath={post.imagePath}
-            />
-          </Spacing>
+            <Spacing mt={4}>
+              <SwitchingGreenImage
+                isPlantVisualActive={isPlantVisualActive}
+                greenPins={greenPins}
+                imagePath={post.imagePath}
+              />
+            </Spacing>
 
-          <TextAlign align="right">
-            <SukiButton isActive={false} count={3000} />
-          </TextAlign>
+            <PostBoard />
 
-          <PostParagraph paragraph={postParagraph} />
-
-          {post.oyuzuriFlag && isLogin && oyuzuri ? (
-            <Oyuzuri oyuzuri={oyuzuri} />
-          ) : (
-            <></>
-          )}
+            {isLogin ? <OyuzuriBoard /> : <></>}
+          </PostContext.Provider>
         </>
       </DefaultTemplate>
     );

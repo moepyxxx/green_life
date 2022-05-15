@@ -5,9 +5,9 @@ import { PostContext } from "../../../../pages/posts/[id]";
 import useIsLogin from "../../../../utility/customhooks/useIsLogin";
 
 import usePost from "../../../../utility/customhooks/usePost";
-import TextArea from "../../../atoms/form/TextArea";
-import Modal from "../../../atoms/Modal";
-import Shadow from "../../../atoms/Shadow";
+import TextArea from "../../../parts/form/TextArea";
+import Modal from "../../../parts/popup/Modal";
+import Shadow from "../../../parts/popup/Shadow";
 import Button from "../../../parts/Button";
 import ReadTitle from "../../common/ReadTitle";
 
@@ -97,7 +97,6 @@ const WantedlyField: React.FC = () => {
           <ReadTitle
             main="おゆずりリクエストを送る"
             sub="おゆずりリクエストを送りましょう！"
-            mainColor="secondary"
           />
 
           <TextArea
@@ -109,9 +108,9 @@ const WantedlyField: React.FC = () => {
             <Button
               size="regular"
               margin="12px 4px 0"
-              borderColor="secondary"
+              borderColor="primary"
               bgColor="white"
-              color="secondary"
+              color="primary"
               click={() => setIsRequestModalActive(false)}
             >
               閉じる
@@ -132,16 +131,16 @@ const WantedlyField: React.FC = () => {
             main="リクエストをキャンセル"
             align="left"
             sub={`おゆずりリクエストをキャンセルしますがよろしいですか？\n相手へ送ったメッセージも取り消されます。`}
-            mainColor="secondary"
+            mainColor="primary"
           />
 
           <TextAlign align="center">
             <Button
               size="regular"
               margin="12px 4px 0"
-              borderColor="secondary"
+              borderColor="primary"
               bgColor="white"
-              color="secondary"
+              color="primary"
               click={() => setIsCancelModalActive(false)}
             >
               閉じる

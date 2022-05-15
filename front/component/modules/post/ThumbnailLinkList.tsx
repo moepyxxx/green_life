@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { Flex } from "../../../styles/components/Flex";
-import { TSummaryThumbnail } from "../../molecules/PostThumbnailLink";
+import { TSummaryThumbnail } from "./ThumbnailLink";
 import { PostContext } from "../../../pages";
 import ThumbnailLink from "./ThumbnailLink";
 

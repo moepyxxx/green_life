@@ -5,7 +5,7 @@ import getColor from "../../utility/getColor";
 import getShadow from "../../utility/getShadow";
 
 import TColor from "../types/color";
-import Typography from "../atoms/Typography";
+import Typography from "../parts/Typography";
 import TSize from "../types/size";
 
 type Props = {
@@ -19,9 +19,9 @@ type Props = {
 };
 const Button: React.FC<Props> = ({
   size = "medium",
-  bgColor = "secondary",
+  bgColor = "primary",
   color = "white",
-  borderColor = "white",
+  borderColor = "primary",
   margin = "0",
   children,
   click,

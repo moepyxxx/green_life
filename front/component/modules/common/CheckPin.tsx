@@ -34,7 +34,7 @@ const ButtonPin = styled.button`
   box-shadow: ${getShadow()};
   top: calc(${(props) => props.top}% - 52px);
   left: calc(${(props) => props.left}% - 52px);
-  background-color: ${getColor("secondary")};
+  background-color: ${getColor("primary")};
   border: none;
   padding: 8px;
 

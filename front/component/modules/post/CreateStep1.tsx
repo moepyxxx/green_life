@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import Typography from "../../atoms/Typography";
-import File from "../../atoms/form/File";
+import Typography from "../../parts/Typography";
+import File from "../../parts/form/File";
 
 import { IPost } from "../../../pages/posts/interfaces/post";
 
@@ -17,14 +17,14 @@ const CreateStep1: React.FC<Props> = ({ post, setPost, setImageFile }) => {
 
   return (
     <>
-      <Typography color="secondary" size="medium" weight="bold">
+      <Typography color="primary" size="medium" weight="bold">
         {isImageSelected ? "選択完了！" : "選択されていません"}
       </Typography>
       <File
         setImageFile={setImageFile}
         setSelectFlag={() => setIsImageSelected(true)}
       />
-      <Typography color="disable" size="small" margin="8px 0 16px">
+      <Typography color="secondary" size="small" margin="8px 0 16px">
         ドラッグ＆ドロップもしくはクリックで選択
       </Typography>
     </>

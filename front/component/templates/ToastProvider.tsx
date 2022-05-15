@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { ToastContext } from "../../utility/customhooks/useToast";
 import styled from "styled-components";
-import { Flex } from "../../styles/components/Flex";
 
 import IconInfo from "../../img/icon/information.svg";
 import Image from "next/image";
-import Typography from "../atoms/Typography";
+import Typography from "../parts/Typography";
 import Box from "../parts/Box";
+
+import { Flex } from "../../styles/components/Flex";
 
 const ToastProvider: React.FC = ({ children }) => {
   const [showable, setShowable] = useState<boolean>(false);
@@ -42,12 +43,13 @@ const ToastProvider: React.FC = ({ children }) => {
           </Flex>
         </Box>
       </Toast>
+
       {children}
     </ToastContext.Provider>
   );
 };
 
-const Toast = styled.div`
+const Toast = styled.span`
   display: ${(prop) => (prop.visible ? "block" : "none")};
   position: fixed;
   top: 32px;
@@ -57,7 +59,7 @@ const Toast = styled.div`
   width: calc(100% - 40px);
 `;
 
-const Text = styled.div`
+const Text = styled.span`
   width: calc(100% - 24px - 12px);
   padding-left: 12px;
 `;

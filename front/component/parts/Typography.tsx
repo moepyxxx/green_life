@@ -12,12 +12,12 @@ type Props = {
   children: ReactNode;
   margin?: string;
   weight?: "bold" | "normal";
-  family?: "Noto Sans JP" | "Bitter";
+  family?: "Noto Sans JP" | "Inter";
   underline?: boolean;
 };
 
 const Typography: React.FC<Props> = ({
-  color = "base",
+  color = "primary",
   size = "medium",
   family = "Noto Sans JP",
   margin = "0",

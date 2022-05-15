@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Spacing } from "../../styles/components/Spacing";
 import getColor from "../../utility/getColor";
 
-import Logo from "../atoms/Logo";
+import Logo from "../parts/Logo";
 import UnderLineTextLink from "../parts/UnderLineTextLink";
 
 const Footer = () => {
@@ -31,7 +31,7 @@ const Footer = () => {
 export default Footer;
 
 const FooterText = styled.div`
-  background-color: ${getColor("secondary")};
+  background-color: ${getColor("primary")};
   width: 100%;
   padding: 52px 20px 20px;
   text-align: center;

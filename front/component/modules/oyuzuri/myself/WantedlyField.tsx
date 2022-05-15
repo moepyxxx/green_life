@@ -130,7 +130,6 @@ const WantedlyField = () => {
         <>
           <ReadTitle
             align="left"
-            mainColor="secondary"
             main="おゆずり決定"
             sub={`おゆずりOKコメントを送りましょう！このコメントに対して${
               currentRequestUser?.displayName || ""
@@ -149,9 +148,9 @@ const WantedlyField = () => {
             <Button
               size="regular"
               margin="0 4px 8px"
-              borderColor="secondary"
+              borderColor="primary"
               bgColor="white"
-              color="secondary"
+              color="primary"
               click={() => setIsOyuzuriTargetModalActive(false)}
             >
               閉じる
@@ -184,13 +183,13 @@ const WantedlyField = () => {
                   <Typography size="medium">
                     {currentRequestUser.displayName}
                   </Typography>
-                  <Typography size="regular" family="Bitter" margin="-4px 0 0">
+                  <Typography size="regular" family="Inter" margin="-4px 0 0">
                     @{currentRequestUser.userName}
                   </Typography>
                 </Spacing>
               </Flex>
               <Spacing mt={6} mb={8}>
-                <Box bgColor="disable" paddingH={3} paddingV={3}>
+                <Box bgColor="thin" paddingH={3} paddingV={3}>
                   <Typography size="medium">
                     {currentRequestUser.message}
                   </Typography>

@@ -50,13 +50,13 @@ const SwitchWrap = styled.div`
     box-sizing: border-box;
     height: 28px;
     border-radius: 30px;
-    border: 2px solid ${getColor("secondary")};
+    border: 2px solid ${getColor("primary")};
     background-color: ${getColor("white")};
   }
 
   input:checked + label {
-    border-color: ${getColor("secondary")};
-    background-color: ${getColor("secondary")};
+    border-color: ${getColor("primary")};
+    background-color: ${getColor("primary")};
   }
 
   .switchimg {
@@ -67,7 +67,7 @@ const SwitchWrap = styled.div`
     left: 4px;
     border-radius: 50%;
     transition: 0.5s;
-    background: ${getColor("secondary")};
+    background: ${getColor("primary")};
   }
 
   input:checked ~ .switchimg {

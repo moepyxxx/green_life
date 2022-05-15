@@ -3,7 +3,7 @@ import Select from "react-select";
 import Image from "next/image";
 import styled from "styled-components";
 
-import Typography from "../../atoms/Typography";
+import Typography from "../../parts/Typography";
 import GreenPin from "../../modules/common/GreenPin";
 
 import getColor from "../../../utility/getColor";
@@ -162,7 +162,7 @@ const CreateStep2: React.FC<Props> = ({ post, setPost }) => {
       >
         <CloseIcon onClick={cancelPin} />
         <TextAlign align="center">
-          <Typography size="medium">植物の名前を教えてね</Typography>
+          <Typography size="medium">greenの名前を教えてね</Typography>
         </TextAlign>
         <Select options={selectOptions} onChange={selectGreen} />
       </GreenSelect>
@@ -189,7 +189,7 @@ const GreenSelect = styled.div`
   text-align: left;
   margin-top: 12px;
   padding: 12px;
-  background-color: ${getColor("gray")};
+  background-color: ${getColor("white")};
   border-radius: 4px;
 `;
 
@@ -216,7 +216,7 @@ const CloseIcon = styled.div`
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background-color: ${getColor("secondary")};
+  background-color: ${getColor("primary")};
   border: 1px solid #fff;
 
   &:after {

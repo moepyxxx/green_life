@@ -29,11 +29,11 @@ const CreateStep5: React.FC<Props> = ({ post, setPost, executePost }) => {
   ): TColor => {
     switch (type) {
       case "bgColor":
-        return activeOyuzuriFlag === post.oyuzuriFlag ? "primary" : "white";
+        return activeOyuzuriFlag === post.oyuzuriFlag ? "secondary" : "white";
       case "borderColor":
-        return activeOyuzuriFlag === post.oyuzuriFlag ? "primary" : "disable";
+        return "secondary";
       case "color":
-        return activeOyuzuriFlag === post.oyuzuriFlag ? "white" : "disable";
+        return activeOyuzuriFlag === post.oyuzuriFlag ? "white" : "secondary";
     }
   };
 

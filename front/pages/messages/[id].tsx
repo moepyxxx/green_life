@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import Typography from "../../component/atoms/Typography";
+import Typography from "../../component/parts/Typography";
 import DefaultTemplate from "../../component/templates/Default";
 import { Spacing } from "../../styles/components/Spacing";
 import { TextAlign } from "../../styles/components/TextAlign";
 import useFetch from "../../utility/customhooks/useFetch";
-import { IApiMessageContainer } from "./interfaces/apiMessage";
 import { Flex } from "../../styles/components/Flex";
 import { useRouter } from "next/router";
 import { IApiMessageContainerDetail } from "./interfaces/apiMessageDetail";
-import SimpleBox from "../../component/atoms/SimpleBox";
+import Box from "../../component/parts/Box";
 import getColor from "../../utility/getColor";
-import Modal from "../../component/atoms/Modal";
-import Shadow from "../../component/atoms/Shadow";
-import TextArea from "../../component/atoms/form/TextArea";
-import RadiusButton from "../../component/molecules/RadiusButton";
+import Modal from "../../component/parts/popup/Modal";
+import Shadow from "../../component/parts/popup/Shadow";
+import TextArea from "../../component/parts/form/TextArea";
+import Button from "../../component/parts/Button";
 
 export default function MessagesIndex() {
   const apiFetch = useFetch();
@@ -46,11 +45,11 @@ export default function MessagesIndex() {
           if (m.user === "partner") {
             return (
               <MessageLeft key={index}>
-                <SimpleBox color="primary">
+                <Box bgColor="primary">
                   <Typography size="regular" color="white">
                     {m.message}
                   </Typography>
-                </SimpleBox>
+                </Box>
               </MessageLeft>
             );
           } else {
@@ -70,15 +69,15 @@ export default function MessagesIndex() {
                       size="small"
                       color="primary"
                       margin="-8px 0 0"
-                      family="Bitter"
+                      family="Inter"
                     >
                       {messageContainer.partner.userName.slice(0, 6) + "…"}
                     </Typography>
                   </IconSpace>
                   <TextSpace>
-                    <SimpleBox>
+                    <Box>
                       <Typography size="regular">{m.message}</Typography>
-                    </SimpleBox>
+                    </Box>
                   </TextSpace>
                 </Flex>
               </MessageRight>
@@ -97,23 +96,23 @@ export default function MessagesIndex() {
           closeAction={() => setIsModalActive(false)}
         >
           <>
-            <Typography color="secondary" weight="bold">
-              メッセージを送信しましょう
-            </Typography>
+            <Typography weight="bold">メッセージを送信しましょう</Typography>
             <Spacing mt={5} mb={5}>
               <TextArea change={() => console.log("change")} text="" />
             </Spacing>
             <TextAlign align="center">
-              <RadiusButton
+              <Button
                 margin="0 0 8px"
-                borderColor="secondary"
+                borderColor="primary"
                 bgColor="white"
-                color="secondary"
+                color="primary"
                 click={() => setIsModalActive(false)}
               >
                 やっぱりやめる
-              </RadiusButton>
-              <RadiusButton click={sendMessage}>メッセージ送信</RadiusButton>
+              </Button>
+              <Button margin="0 0 8px" click={sendMessage}>
+                メッセージ送信
+              </Button>
             </TextAlign>
           </>
         </Modal>
@@ -127,7 +126,7 @@ const PostButton = styled.button`
   bottom: 72px;
   left: 0;
   width: 100%;
-  background-color: ${getColor("disable")};
+  background-color: ${getColor("thin")};
   border: none;
   padding: 16px;
   color: ${getColor("primary")};

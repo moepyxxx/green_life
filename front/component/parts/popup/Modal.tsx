@@ -50,7 +50,7 @@ const CloseIcon = styled.div`
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background-color: ${getColor("secondary")};
+  background-color: ${getColor("primary")};
   border: 1px solid #fff;
 
   &:after {

@@ -1,6 +1,6 @@
 import React from "react";
 import Box from "../../parts/Box";
-import Typography from "../../atoms/Typography";
+import Typography from "../../parts/Typography";
 
 type Props = {
   label: string;

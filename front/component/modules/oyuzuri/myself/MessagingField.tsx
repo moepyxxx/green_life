@@ -1,7 +1,7 @@
 import router from "next/router";
 import React, { useContext } from "react";
 
-import Typography from "../../../atoms/Typography";
+import Typography from "../../../parts/Typography";
 import Button from "../../../parts/Button";
 import RequestUserCard from "./RequestUserCard";
 

@@ -29,7 +29,7 @@ const Budge = styled.span`
   color: ${(props) => getColor(props.color)};
   background-color: ${(props) => getColor(props.bgColor)};
   font-size: 1.2rem;
-  font-family: "Bitter", sans-serif;
+  font-family: "Inter", sans-serif;
   line-height: 1;
   border-radius: 12px;
   padding: 4px 12px;

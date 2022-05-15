@@ -44,14 +44,14 @@ const PostBoard: React.FC = () => {
           </Typography>
           <Typography
             size="medium"
-            family="Bitter"
+            family="Inter"
           >{`@${post.user.userName}`}</Typography>
         </Flex>
 
         <Typography
           margin="8px 0 0"
           size="medium"
-          family="Bitter"
+          family="Inter"
           color="secondary"
         >
           <span suppressHydrationWarning>

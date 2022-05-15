@@ -64,13 +64,13 @@ const ConfirmField = () => {
               <Typography size="medium">
                 {oyuzuri.oyuzuriTargetUser.displayName}
               </Typography>
-              <Typography size="regular" family="Bitter" margin="-4px 0 0">
+              <Typography size="regular" family="Inter" margin="-4px 0 0">
                 @{oyuzuri.oyuzuriTargetUser.userName}
               </Typography>
             </Spacing>
           </Flex>
           <Spacing mt={6} mb={8}>
-            <Box bgColor="disable" paddingH={3} paddingV={3}>
+            <Box bgColor="thin" paddingH={3} paddingV={3}>
               <Typography size="medium">
                 {oyuzuri.oyuzuriTargetUser.message}
               </Typography>

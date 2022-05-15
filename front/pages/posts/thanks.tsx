@@ -1,11 +1,11 @@
 import React from "react";
 import { useRouter } from "next/router";
 
-import Typography from "../../component/atoms/Typography";
+import Typography from "../../component/parts/Typography";
 import DefaultTemplate from "../../component/templates/Default";
-import SquareButton from "../../component/molecules/SquareButton";
 import { Spacing } from "../../styles/components/Spacing";
 import { TextAlign } from "../../styles/components/TextAlign";
+import Button from "../../component/parts/Button";
 
 export default function PostThanks() {
   const router = useRouter();
@@ -17,10 +17,9 @@ export default function PostThanks() {
         <TextAlign align="center">
           <Typography
             size="large"
-            color="secondary"
             weight="bold"
             margin="0 0 28px"
-            family="Bitter"
+            family="Inter"
           >
             Thank you for your Post!
           </Typography>
@@ -28,9 +27,9 @@ export default function PostThanks() {
           <Typography size="regular" margin="0 0 28px">
             あなたのグリーンが投稿されました。
           </Typography>
-          <SquareButton click={() => router.push(`/posts/${_id}`)}>
+          <Button click={() => router.push(`/posts/${_id}`)}>
             投稿を見てみる
-          </SquareButton>
+          </Button>
         </TextAlign>
       </Spacing>
     </DefaultTemplate>

@@ -94,11 +94,11 @@ const LogoutBudge = styled.a`
   width: 40px;
   height: 40px;
   display: inline-block;
-  background-color: ${getColor("secondary")};
+  background-color: ${getColor("primary")};
   border-radius: 50%;
   overflow: hidden;
   color: #fff;
-  font-family 'Bitter', sans-serif;
+  font-family 'Inter', sans-serif;
   font-size: 1.2rem;
   line-height: 40px;
   padding: 0 0 0 4px;

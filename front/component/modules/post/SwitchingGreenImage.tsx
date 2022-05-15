@@ -76,9 +76,7 @@ const SwitchingGreenImage: React.FC<Props> = ({
               objectFit="cover"
               alt="グリーン画像"
             />
-            <Typography size="medium" color="secondary">
-              {modalText.green.name}
-            </Typography>
+            <Typography size="medium">{modalText.green.name}</Typography>
             <Typography size="small">{modalText.green.description}</Typography>
           </TextAlign>
         </Modal>

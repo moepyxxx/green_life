@@ -78,6 +78,7 @@ export class MessageContainerService {
           partner: {
             _id: partner._id,
             imageUrl: partner.thumbnailUrl,
+            displayName: partner.displayName,
             userName: partner.userName,
           },
           isNew: false,
@@ -133,6 +134,7 @@ export class MessageContainerService {
         _id: partner._id,
         imageUrl: partner.thumbnailUrl,
         userName: partner.userName,
+        displayName: partner.displayName,
       },
       messages,
     };

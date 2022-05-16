@@ -87,7 +87,7 @@ export default function MessagesIndex() {
                     createdAt: contents.createdAt,
                     user: {
                       thumbnailUrl: messageContainer.partner.imageUrl,
-                      displayName: "ユーザー名API含み忘れ",
+                      displayName: messageContainer.partner.displayName,
                       userName: messageContainer.partner.userName,
                     },
                   }}

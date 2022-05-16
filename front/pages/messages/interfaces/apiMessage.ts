@@ -9,5 +9,6 @@ export interface IApiMessageContainer {
     _id: string;
     imageUrl: string;
     userName: string;
+    displayName: string;
   };
 }

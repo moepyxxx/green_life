@@ -60,7 +60,7 @@ export default function MessagesIndex() {
                     height="32"
                   />
                   <Typography size="medium" margin="0 8px">
-                    ユーザー名API含み忘れ
+                    {messageContainer.partner.displayName}
                   </Typography>
                 </Flex>
                 <Typography size="medium" margin="8px 0">

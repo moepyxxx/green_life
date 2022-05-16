@@ -13,6 +13,7 @@ export interface IApiMessageContainerDetail {
     _id: string;
     imageUrl: string;
     userName: string;
+    displayName: string;
   };
   messages: IMessageSummary[];
 }

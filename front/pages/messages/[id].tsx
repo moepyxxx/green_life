@@ -20,6 +20,7 @@ import { TextAlign } from "../../styles/components/TextAlign";
 import { IApiMessageContainerDetail } from "./interfaces/apiMessageDetail";
 import { Flex } from "../../styles/components/Flex";
 import Box from "../../component/parts/Box";
+import getShadow from "../../utility/getShadow";
 
 export default function MessagesIndex() {
   const apiFetch = useFetch();
@@ -136,11 +137,14 @@ export default function MessagesIndex() {
 
 const PostButton = styled.button`
   position: fixed;
-  bottom: 72px;
-  left: 0;
-  width: 100%;
-  background-color: ${getColor("base")};
+  bottom: 88px;
+  left: 16px;
+  width: calc(100% - 32px);
+  background-color: ${getColor("white")};
+  display: inline-block;
   border: none;
+  border-radius: 16px;
+  box-shadow: ${getShadow()};
   padding: 16px;
   color: ${getColor("primary")};
   font-family: "Noto Sans JP", sans-serif;

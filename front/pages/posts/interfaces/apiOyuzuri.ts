@@ -28,6 +28,10 @@ export interface IApiOyuzuri {
     message?: string;
     createdAt?: Date;
   };
+  request?: {
+    comment: string;
+    createdAt: Date;
+  };
 
   messageContainerId?: string;
   isRequest?: boolean;

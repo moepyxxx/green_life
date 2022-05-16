@@ -7,12 +7,14 @@ import Typography from "../../parts/Typography";
 import ExplanationButton from "./ExplanationButton";
 
 import TColor from "../../types/color";
+import CloseButton from "../../parts/popup/CloseButton";
 
 export type Props = {
   main: string;
   sub?: string;
   align?: "center" | "left" | "right";
   mainColor?: TColor;
+  subColor?: TColor;
   isExplanation?: boolean;
   explanationClick?: () => void;
 };
@@ -21,6 +23,7 @@ const ReadTitle: React.FC<Props> = ({
   sub,
   align = "center",
   mainColor = "primary",
+  subColor = "primary",
   isExplanation,
   explanationClick,
 }) => {
@@ -31,6 +34,7 @@ const ReadTitle: React.FC<Props> = ({
       return <></>;
     }
   };
+
   return (
     <TextAlign align={align}>
       <Spacing mb={0}>
@@ -39,7 +43,13 @@ const ReadTitle: React.FC<Props> = ({
           {explanation()}
         </Typography>
       </Spacing>
-      {sub ? <Typography size="medium">{sub}</Typography> : <></>}
+      {sub ? (
+        <Typography color={subColor} size="medium">
+          {sub}
+        </Typography>
+      ) : (
+        <></>
+      )}
     </TextAlign>
   );
 };

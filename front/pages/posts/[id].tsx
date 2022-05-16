@@ -1,4 +1,10 @@
-import { createContext, useEffect, useState } from "react";
+import {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { useRouter } from "next/router";
 
 import DefaultTemplate from "../../component/templates/Default";
@@ -10,27 +16,31 @@ import SwitchingGreenImage, {
 
 import useFetch from "../../utility/customhooks/useFetch";
 import useIsLogin from "../../utility/customhooks/useIsLogin";
+import PostBoard from "../../component/modules/post/PostBoard";
+import OyuzuriBoard from "../../component/modules/oyuzuri/OyuzuriBoard";
 
 import { Spacing } from "../../styles/components/Spacing";
 import { Flex } from "../../styles/components/Flex";
 
 import { IApiOyuzuri } from "./interfaces/apiOyuzuri";
 import { IApiPostDetail } from "./interfaces/apiPostDetail";
-import PostBoard from "../../component/modules/post/PostBoard";
-import OyuzuriBoard from "../../component/modules/oyuzuri/OyuzuriBoard";
 import { IApiUser } from "./interfaces/apiUser";
 
-export const PostContext = createContext<{
+type setTypeObject = {
   post: IApiPostDetail;
   user: IApiUser;
   oyuzuri: IApiOyuzuri | false;
-}>(null);
+  setRefresh: Dispatch<SetStateAction<boolean>>;
+};
+
+export const PostContext = createContext<setTypeObject>({} as setTypeObject);
 
 const PostDetail = () => {
   const apiFetch = useFetch();
   const router = useRouter();
   const [isLogin] = useIsLogin();
 
+  const [refresh, setRefresh] = useState<boolean>(true);
   const [post, setPost] = useState<IApiPostDetail>(null);
   const [oyuzuri, setOyuzuri] = useState<IApiOyuzuri | false>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -42,8 +52,9 @@ const PostDetail = () => {
   // [note]: setStateが非同期のため
   // initialize post greenPins/paragraph の順に確実の処理
   useEffect(() => {
+    if (!refresh) return;
     initializePost();
-  }, [isLogin]);
+  }, [isLogin, refresh]);
 
   useEffect(() => {
     if (!post) return;
@@ -85,6 +96,8 @@ const PostDetail = () => {
         ? await apiFetch<IApiOyuzuri>(`oyuzuris/${post.oyuzuriId}`, true)
         : null;
     apiOyuzuri == null ? setOyuzuri(false) : setOyuzuri(apiOyuzuri);
+
+    setRefresh(false);
   };
 
   const switchPlantVisual = (isActive: boolean) => {
@@ -102,7 +115,9 @@ const PostDetail = () => {
     return (
       <DefaultTemplate>
         <>
-          <PostContext.Provider value={{ post, oyuzuri, user: post.user }}>
+          <PostContext.Provider
+            value={{ post, oyuzuri, user: post.user, setRefresh }}
+          >
             <Flex alignItems="center" justifyContent="space-between">
               <ArrowTextButton
                 click={returnTop}

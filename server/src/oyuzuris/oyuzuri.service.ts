@@ -177,10 +177,21 @@ export class OyuzuriService {
         'confirm',
       );
 
+      const requestMessage = await this.messageSerivce.searchMessageByType(
+        accessUser._id,
+        oyuzuri._id,
+        'request',
+      );
+
       return {
         ...init,
         isTargetUser,
         confirmMessage: confirmMessage.message,
+        updatedAt: confirmMessage.createdAt,
+        request: {
+          createdAt: requestMessage.createdAt,
+          comment: requestMessage.message,
+        },
       };
     }
 

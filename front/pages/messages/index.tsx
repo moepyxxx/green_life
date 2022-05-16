@@ -1,15 +1,22 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import styled from "styled-components";
+import { useRouter } from "next/router";
+
 import Typography from "../../component/parts/Typography";
 import DefaultTemplate from "../../component/templates/Default";
+import ReadTitle from "../../component/modules/common/ReadTitle";
+import Box from "../../component/parts/Box";
+
 import { TextAlign } from "../../styles/components/TextAlign";
-import useFetch from "../../utility/customhooks/useFetch";
-import { IApiMessageContainer } from "./interfaces/apiMessage";
 import { Flex } from "../../styles/components/Flex";
+import { Spacing } from "../../styles/components/Spacing";
+import useFetch from "../../utility/customhooks/useFetch";
+
+import { IApiMessageContainer } from "./interfaces/apiMessage";
 
 export default function MessagesIndex() {
   const apiFetch = useFetch();
+  const router = useRouter();
 
   const [messageContainers, setMessageContainer] = useState<
     IApiMessageContainer[]
@@ -29,65 +36,48 @@ export default function MessagesIndex() {
   return (
     <DefaultTemplate>
       <>
-        <TextAlign align="center">
-          <Typography size="large" weight="bold" margin="0 0 28px">
-            メッセージ
-          </Typography>
-        </TextAlign>
+        <Spacing mb={6}>
+          <ReadTitle main="メッセージ" />
+        </Spacing>
 
         {messageContainers.map((messageContainer, index) => {
           return (
-            <Message key={index} href={`/messages/${messageContainer._id}`}>
-              <Flex alignItems="center" justifyContent="space-between">
-                <IconSpace>
+            <Box
+              key={index}
+              click={() => router.push(`/messages/${messageContainer._id}`)}
+              paddingH={4}
+              paddingV={4}
+              marginH={4}
+              radius={3}
+            >
+              <>
+                <Flex alignItems="center" justifyContent="left">
                   <Image
                     unoptimized
                     src={messageContainer.partner.imageUrl}
-                    width="200"
-                    height="200"
                     alt="ユーザー画像"
-                    objectFit="cover"
+                    width="32"
+                    height="32"
                   />
-                  <Typography
-                    size="small"
-                    color="primary"
-                    margin="-8px 0 0"
-                    family="Inter"
-                  >
-                    {messageContainer.partner.userName.slice(0, 6) + "…"}
+                  <Typography size="medium" margin="0 8px">
+                    ユーザー名API含み忘れ
                   </Typography>
-                </IconSpace>
-                <TextSpace>
-                  <Typography size="regular" weight="bold" family="Inter">
+                </Flex>
+                <Typography size="medium" margin="8px 0">
+                  {messageContainer.message
+                    ? messageContainer.message.slice(0, 30) + "…"
+                    : "メッセージはありません"}
+                </Typography>
+                <TextAlign align="right">
+                  <Typography color="secondary" family="Inter" size="regular">
                     {messageContainer.lastUpdatedAt}
                   </Typography>
-                  <Typography size="medium">
-                    {messageContainer.message.slice(0, 15) + " …"}
-                  </Typography>
-                </TextSpace>
-              </Flex>
-            </Message>
+                </TextAlign>
+              </>
+            </Box>
           );
         })}
       </>
     </DefaultTemplate>
   );
 }
-
-const Message = styled.a`
-  width: 100%;
-  display: inline-block;
-  padding: 12px;
-  border-top: 1px solid #f0f0f0;
-  border-bottom: 1px solid #f0f0f0;
-`;
-
-const IconSpace = styled.div`
-  width: 64px;
-  padding-right: 16px;
-`;
-
-const TextSpace = styled.div`
-  width: calc(100% - 64px);
-  padding-right: 20px;
-`;

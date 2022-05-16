@@ -29,12 +29,13 @@ export default Message;
 
 const MessageItem = styled.div`
   padding: 12px;
+  width: 100%;
   background: ${(props) => getColor(props.bgColor)};
   border-radius: 8px;
   position: relative;
   &:after {
     content: "";
-    border-bottom: 12px solid ${getColor("secondary")};
+    border-bottom: 12px solid ${(props) => getColor(props.bgColor)};
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
     position: absolute;

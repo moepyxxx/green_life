@@ -5,7 +5,7 @@
     "updatedAt": null,
     "createdAt": { "$date": "2021-11-07T10:00:00.884Z" },
     "messageType": "request",
-    "message": "おゆずりリクエスト",
+    "message": "こんにちは。素敵なパキラですね！おゆずりリクエスト送ります、同じく東京住みです。",
     "toUserId": { "$oid": "6216ddcd9e6c2a966a623695" },
     "fromUserId": { "$oid": "6216ddcd9e6c2a966a623696" },
     "oyuzuriId": { "$oid": "622db03d32f676618f2a1d30" }

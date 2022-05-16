@@ -3,7 +3,7 @@
     "_id": { "$oid": "6216ddcd9e6c2a966a623690" },
     "userId": { "$oid": "6216ddcd9e6c2a966a623694" },
     "imagePath": "https://storage.googleapis.com/greenlife-midori.appspot.com/uploads/sample-1.png",
-    "comment": "ダミーコメント",
+    "comment": "「幸せを呼ぶ木」ガジュマルが、めちゃくちゃかわいい！",
     "tagIds": [
       { "$oid": "6216ddcd9e6c2a966a623701" },
       { "$oid": "6216ddcd9e6c2a966a623702" },
@@ -22,8 +22,11 @@
     "_id": { "$oid": "6216ddcd9e6c2a966a623691" },
     "userId": { "$oid": "6216ddcd9e6c2a966a623695" },
     "imagePath": "https://storage.googleapis.com/greenlife-midori.appspot.com/uploads/sample-2.png",
-    "comment": "ダミーコメント",
-    "tagIds": [{ "$oid": "6216ddcd9e6c2a966a623704" }],
+    "comment": "パキラは春〜秋にかけてよく育ち、冬になると生長がほぼとまります。 春〜夏は1日に1〜2回を目安に水やりをし、気温が下がってきたら徐々に水やりのペースを落として、冬は土が完全に乾いてから数日後に水やりをするといいでしょう。",
+    "tagIds": [
+      { "$oid": "6216ddcd9e6c2a966a623705" },
+      { "$oid": "6216ddcd9e6c2a966a623708" }
+    ],
     "greenPins": [
       {
         "position": { "top": "65", "left": "75" },
@@ -37,7 +40,7 @@
     "_id": { "$oid": "6216ddcd9e6c2a966a623692" },
     "userId": { "$oid": "6216ddcd9e6c2a966a623696" },
     "imagePath": "https://storage.googleapis.com/greenlife-midori.appspot.com/uploads/sample-3.png",
-    "comment": "ダミーコメント",
+    "comment": "今日は午後からホームセンターへ買い物にいき、新しいグリーンを購入しようと思います。",
     "tagIds": [
       { "$oid": "6216ddcd9e6c2a966a623705" },
       { "$oid": "6216ddcd9e6c2a966a623706" },
@@ -57,7 +60,7 @@
     "_id": { "$oid": "6216ddcd9e6c2a966a623693" },
     "userId": { "$oid": "6216ddcd9e6c2a966a623694" },
     "imagePath": "https://storage.googleapis.com/greenlife-midori.appspot.com/uploads/sample-4.png",
-    "comment": "ダミーコメント",
+    "comment": "グリーンインテリアをはじめてみました。天気の良い日は外に出して日光浴をさせると、歯のツヤがとってもよいです！",
     "tagIds": [{ "$oid": "6216ddcd9e6c2a966a623709" }],
     "greenPins": [
       {

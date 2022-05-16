@@ -9,6 +9,7 @@ import Message from "../../parts/Message";
 import { Flex } from "../../../styles/components/Flex";
 import { Spacing } from "../../../styles/components/Spacing";
 import { TextAlign } from "../../../styles/components/TextAlign";
+import TColor from "../../types/color";
 
 type Props = {
   contents: {
@@ -20,8 +21,9 @@ type Props = {
     createdAt: Date;
     message: string;
   };
+  bgColor?: TColor;
 };
-const PartnerMessage: React.FC<Props> = ({ contents }) => {
+const PartnerMessage: React.FC<Props> = ({ contents, bgColor = "white" }) => {
   return (
     <MessageRight>
       <Spacing ml={1} mb={4}>
@@ -37,7 +39,7 @@ const PartnerMessage: React.FC<Props> = ({ contents }) => {
           <Typography margin="0 8px">{contents.user.displayName}</Typography>
         </Flex>
       </Spacing>
-      <Message bgColor="white">
+      <Message bgColor={bgColor}>
         <Typography size="regular">{contents.message}</Typography>
       </Message>
       <TextAlign align="right">
@@ -52,7 +54,7 @@ export default PartnerMessage;
 
 const MessageRight = styled.div`
   width: 90%;
-  margin-bottom: 28px;
+  margin-bottom: 20px;
 `;
 
 const TextSpace = styled.div`

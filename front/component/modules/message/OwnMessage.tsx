@@ -36,5 +36,5 @@ const MessageLeft = styled.div`
   width: 82%;
   margin-left: auto;
   margin-right: 0;
-  margin-bottom: 28px;
+  margin-bottom: 20px;
 `;

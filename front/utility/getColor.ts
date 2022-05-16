@@ -10,8 +10,6 @@ const getColor = (color: TColor) => {
       return "#3E5656";
     case "secondary":
       return "#C2DAD0";
-    case "thin":
-      return "#C2DAD0";
     case "accent":
       return "#C2972D";
     default:

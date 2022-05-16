@@ -25,8 +25,14 @@ export interface IOyuzuri {
     createdAt?: Date;
   };
 
+  request?: {
+    comment: string;
+    createdAt: Date;
+  };
+
   messageContainerId?: ObjectId;
   isRequest?: boolean;
   isTargetUser?: boolean;
   confirmMessage?: string | null;
+  updatedAt?: Date;
 }

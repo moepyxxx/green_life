@@ -1,8 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
+import { useRouter } from "next/router";
 import { PostContext } from "../../../../pages/posts/[id]";
 
 import useIsLogin from "../../../../utility/customhooks/useIsLogin";
+import useToast from "../../../../utility/customhooks/useToast";
 
 import usePost from "../../../../utility/customhooks/usePost";
 import TextArea from "../../../parts/form/TextArea";
@@ -14,9 +16,10 @@ import ReadTitle from "../../common/ReadTitle";
 import { TextAlign } from "../../../../styles/components/TextAlign";
 
 const WantedlyField: React.FC = () => {
-  const { oyuzuri } = useContext(PostContext);
+  const { oyuzuri, setRefresh } = useContext(PostContext);
 
   const apiPost = usePost();
+  const toast = useToast();
   const [isLogin] = useIsLogin();
 
   const [isRequestModalActive, setIsRequestModalActive] =
@@ -33,7 +36,6 @@ const WantedlyField: React.FC = () => {
 
   const oyuzuriRequest = async () => {
     if (!oyuzuri) return;
-
     const result = await apiPost<
       {
         message: string;
@@ -49,7 +51,10 @@ const WantedlyField: React.FC = () => {
 
     if (result) {
       setIsRequestModalActive(false);
-      console.log("リクエスト送れました！");
+      setRefresh(true);
+      toast({
+        text: "おゆずりリクエストが完了しました。オーナーからの返信をお待ちください",
+      });
     }
   };
 
@@ -64,7 +69,8 @@ const WantedlyField: React.FC = () => {
 
     if (result) {
       setIsCancelModalActive(false);
-      console.log("リクエストをキャンセルしました！");
+      setRefresh(true);
+      toast({ text: "おゆずりリクエストのキャンセルを行いました。" });
     }
   };
 

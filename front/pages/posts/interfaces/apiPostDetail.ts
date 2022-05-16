@@ -15,8 +15,8 @@ export interface IApiPostDetail {
     green: IApiGreen;
   }[];
   tags: IApiTag[];
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
   oyuzuriFlag: boolean;
   oyuzuriId: string | null;
 }
@@ -27,5 +27,5 @@ export interface IApiOyuzuriRequestUser {
   userName: string;
   displayName: string;
   message?: string;
-  createdAt?: string;
+  createdAt?: Date;
 }

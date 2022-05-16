@@ -24,13 +24,13 @@ export default TextArea;
 
 const TextAreaItem = styled.textarea`
   background-color: #fff;
-  border: ${getColor("thin")} 1px solid;
+  border: ${getColor("base")} 1px solid;
   box-shdaow: ${getShadow()};
   padding: 16px;
   width: 100%;
   border-radius: 4px;
   ::placeholder {
-    color: ${getColor("thin")};
+    color: ${getColor("base")};
     font-size: 1.4rem;
     font-family: "Noto Sans JP", sans-serif;
   }

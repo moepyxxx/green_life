@@ -47,7 +47,7 @@ const ButtonItem = styled.button`
   border: 1px solid ${(prop) => getColor(prop.borderColor)};
   min-width: ${(prop) => (prop.size === "medium" ? "176px" : "112px")};
   border-radius: ${(prop) => (prop.size === "medium" ? "44px" : "28px")};
-  padding: ${(prop) => (prop.size === "medium" ? "12px" : "8px")};
+  padding: ${(prop) => (prop.size === "medium" ? "12px 24px" : "8px")};
   margin: ${(prop) => prop.margin};
   background-color: ${(prop) => getColor(prop.bgColor)};
   box-shadow: ${getShadow()};

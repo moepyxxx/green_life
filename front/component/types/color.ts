@@ -1,2 +1,2 @@
-type TColor = "primary" | "secondary" | "base" | "white" | "thin" | "accent";
+type TColor = "primary" | "secondary" | "base" | "white" | "accent";
 export default TColor;

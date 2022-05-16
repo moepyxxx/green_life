@@ -12,6 +12,8 @@ import Box from "../../../parts/Box";
 import { Spacing } from "../../../../styles/components/Spacing";
 import { TextAlign } from "../../../../styles/components/TextAlign";
 import { Flex } from "../../../../styles/components/Flex";
+import PartnerMessage from "../../message/PartnerMessage";
+import OwnMessage from "../../message/OwnMessage";
 
 const ConfirmField = () => {
   const { oyuzuri } = useContext(PostContext);
@@ -26,14 +28,11 @@ const ConfirmField = () => {
         <Typography size="large" color="white" weight="bold">
           おゆずり先ユーザー
         </Typography>
-        <RequestUserCard
-          click={() => setIsModalActive(true)}
-          user={oyuzuri.oyuzuriTargetUser}
-        />
+        <RequestUserCard click={() => null} user={oyuzuri.oyuzuriTargetUser} />
         <Spacing mt={5}>
           <TextAlign align="center">
             <Button
-              click={() => console.log("取り下げる")}
+              click={() => setIsModalActive(true)}
               bgColor="accent"
               size="medium"
               color="white"
@@ -52,30 +51,24 @@ const ConfirmField = () => {
         closeAction={() => setIsModalActive(false)}
       >
         <>
-          <Flex alignItems="center">
-            <Image
-              unoptimized
-              src={oyuzuri.oyuzuriTargetUser.thumbnailUrl}
-              width="40"
-              height="40"
-              alt="ユーザー画像"
-            />
-            <Spacing pl={2}>
-              <Typography size="medium">
-                {oyuzuri.oyuzuriTargetUser.displayName}
-              </Typography>
-              <Typography size="regular" family="Inter" margin="-4px 0 0">
-                @{oyuzuri.oyuzuriTargetUser.userName}
-              </Typography>
-            </Spacing>
-          </Flex>
-          <Spacing mt={6} mb={8}>
-            <Box bgColor="thin" paddingH={3} paddingV={3}>
-              <Typography size="medium">
-                {oyuzuri.oyuzuriTargetUser.message}
-              </Typography>
-            </Box>
-          </Spacing>
+          <PartnerMessage
+            bgColor="base"
+            contents={{
+              message: oyuzuri.oyuzuriTargetUser.message,
+              user: {
+                displayName: oyuzuri.oyuzuriTargetUser.displayName,
+                userName: oyuzuri.oyuzuriTargetUser.userName,
+                thumbnailUrl: oyuzuri.oyuzuriTargetUser.thumbnailUrl,
+              },
+              createdAt: oyuzuri.oyuzuriTargetUser.createdAt,
+            }}
+          />
+          <OwnMessage
+            contents={{
+              message: oyuzuri.confirmMessage,
+              createdAt: oyuzuri.updatedAt,
+            }}
+          />
           <TextAlign align="center">
             <Button
               size="medium"

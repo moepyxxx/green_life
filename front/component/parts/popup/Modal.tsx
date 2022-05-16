@@ -20,7 +20,7 @@ const Modal: React.FC<Props> = ({
     <>
       <InnerModal isActive={isActive} position={position}>
         <CloseButton click={closeAction} />
-        {children}
+        <Contents> {children}</Contents>
       </InnerModal>
     </>
   );
@@ -38,8 +38,13 @@ const InnerModal = styled.div`
   width: 80%;
   max-height: 80%;
   background-color: #fff;
-  padding: 32px;
+  padding: 24px;
   border-radius: 8px;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   text-align: left;
+`;
+
+const Contents = styled.div`
+  overflow: scroll;
+  max-height: calc(100vh - 240px);
 `;

@@ -27,7 +27,7 @@ const LikeField: React.FC<Props> = ({ isActive, count }) => {
         {count.toLocaleString()}
       </Typography>
       <AddButton>
-        <Box bgColor="thin" paddingV={2} marginH={0}>
+        <Box bgColor="base" paddingV={2} marginH={0}>
           <Image src={IconPlus} width="28" height="28" alt="追加アイコン" />
         </Box>
       </AddButton>

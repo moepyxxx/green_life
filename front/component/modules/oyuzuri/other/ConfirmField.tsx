@@ -13,10 +13,14 @@ import ReadTitle from "../../common/ReadTitle";
 
 import { PostContext } from "../../../../pages/posts/[id]";
 import usePost from "../../../../utility/customhooks/usePost";
+import OwnMessage from "../../message/OwnMessage";
+import PartnerMessage from "../../message/PartnerMessage";
+import useToast from "../../../../utility/customhooks/useToast";
 
 const ConfirmField = () => {
   const apiPost = usePost();
-  const { oyuzuri } = useContext(PostContext);
+  const toast = useToast();
+  const { oyuzuri, user, setRefresh } = useContext(PostContext);
 
   const [isModalActive, setIsModalActive] = useState<boolean>(false);
 
@@ -29,7 +33,10 @@ const ConfirmField = () => {
     );
 
     if (result) {
-      console.log("承認しました");
+      toast({
+        text: "おゆずりが成立しました！さっそくオーナーとメッセージをしましょう",
+      });
+      setRefresh(true);
     }
   };
 
@@ -67,11 +74,28 @@ const ConfirmField = () => {
             <ReadTitle
               align="left"
               main={`メッセージを確認して\nやりとりをしましょう！`}
-              sub="オーナーからおゆずりOKが届いています。最終確認メッセージにOKしてやりとりをはじめましょう。やりとりは7日以内に完了させてください。"
+              sub="オーナーからおゆずりOKが届いています。最終確認メッセージにOKしてやりとりをはじめましょう。"
             />
-            <Box bgColor="thin">
-              <Typography size="regular">{oyuzuri.confirmMessage}</Typography>
-            </Box>
+            <Spacing mt={6}>
+              <OwnMessage
+                contents={{
+                  message: oyuzuri.request.comment,
+                  createdAt: oyuzuri.request.createdAt,
+                }}
+              />
+              <PartnerMessage
+                contents={{
+                  user: {
+                    userName: user.userName,
+                    thumbnailUrl: user.thumbnailUrl,
+                    displayName: user.displayName,
+                  },
+                  message: oyuzuri.confirmMessage,
+                  createdAt: oyuzuri.updatedAt,
+                }}
+                bgColor="base"
+              />
+            </Spacing>
             <Spacing mt={6}>
               <TextAlign align="center">
                 <Button size="medium" click={oyuzuriApprove} bgColor="primary">

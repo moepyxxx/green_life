@@ -10,18 +10,20 @@ import Typography from "../../../parts/Typography";
 import Button from "../../../parts/Button";
 import ReadTitle from "../../common/ReadTitle";
 import RequestUserCard from "./RequestUserCard";
-import Box from "../../../parts/Box";
+import Message from "../../../parts/Message";
 
 import { Spacing } from "../../../../styles/components/Spacing";
 import { TextAlign } from "../../../../styles/components/TextAlign";
 import { Flex } from "../../../../styles/components/Flex";
 
 import { IApiOyuzuriRequestUser } from "../../../../pages/posts/interfaces/apiPostDetail";
+import useToast from "../../../../utility/customhooks/useToast";
 
 const WantedlyField = () => {
-  const { oyuzuri } = useContext(PostContext);
+  const { oyuzuri, setRefresh } = useContext(PostContext);
 
   const apiPost = usePost();
+  const toast = useToast();
 
   const [isModalActive, setIsModalActive] = useState<boolean>(false);
 
@@ -93,8 +95,13 @@ const WantedlyField = () => {
 
     if (result) {
       setIsOyuzuriTargetModalActive(false);
-      console.log("おゆずり確認メッセージが送れました！");
+      toast({ text: "おゆずり確認メッセージをユーザーへ送信しました。" });
+      setRefresh(true);
     }
+  };
+
+  const ownderCancel = () => {
+    toast({ text: "すみません。その機能はまだありません！" });
   };
 
   if (!oyuzuri) return;
@@ -109,7 +116,7 @@ const WantedlyField = () => {
         <Spacing mt={5}>
           <TextAlign align="center">
             <Button
-              click={() => console.log("取り下げる")}
+              click={ownderCancel}
               bgColor="accent"
               size="medium"
               color="white"
@@ -171,29 +178,25 @@ const WantedlyField = () => {
             <p>無効なリクエストです</p>
           ) : (
             <>
-              <Flex alignItems="center">
-                <Image
-                  unoptimized
-                  src={currentRequestUser.thumbnailUrl}
-                  width="40"
-                  height="40"
-                  alt="ユーザー画像"
-                />
-                <Spacing pl={2}>
-                  <Typography size="medium">
+              <Spacing ml={1}>
+                <Flex alignItems="center">
+                  <Image
+                    unoptimized
+                    src={currentRequestUser.thumbnailUrl}
+                    width="32"
+                    height="32"
+                    alt="ユーザー画像"
+                  />
+                  <Typography size="medium" margin="0 8px">
                     {currentRequestUser.displayName}
                   </Typography>
                   <Typography size="regular" family="Inter" margin="-4px 0 0">
                     @{currentRequestUser.userName}
                   </Typography>
-                </Spacing>
-              </Flex>
-              <Spacing mt={6} mb={8}>
-                <Box bgColor="thin" paddingH={3} paddingV={3}>
-                  <Typography size="medium">
-                    {currentRequestUser.message}
-                  </Typography>
-                </Box>
+                </Flex>
+              </Spacing>
+              <Spacing mt={4} mb={8}>
+                <Message>{currentRequestUser.message}</Message>
               </Spacing>
               <TextAlign align="center">
                 {/* <RadiusButton

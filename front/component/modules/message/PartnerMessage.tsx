@@ -54,7 +54,7 @@ export default PartnerMessage;
 
 const MessageRight = styled.div`
   width: 90%;
-  margin-bottom: 28px;
+  margin-bottom: 20px;
 `;
 
 const TextSpace = styled.div`

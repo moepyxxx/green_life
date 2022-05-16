@@ -29,4 +29,5 @@ export interface IOyuzuri {
   isRequest?: boolean;
   isTargetUser?: boolean;
   confirmMessage?: string | null;
+  updatedAt?: Date;
 }

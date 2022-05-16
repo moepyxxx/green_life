@@ -95,6 +95,12 @@ export class OyuzuriService {
           'confirm',
         );
 
+        const requestMessage = await this.messageSerivce.searchMessageByType(
+          requestUser._id,
+          oyuzuri._id,
+          'request',
+        );
+
         return {
           ...init,
           oyuzuriTargetUser: {
@@ -102,9 +108,11 @@ export class OyuzuriService {
             displayName: requestUser.displayName,
             thumbnailUrl: requestUser.thumbnailUrl,
             userName: requestUser.userName,
-            message: confirmMessage.message,
-            createdAt: confirmMessage.createdAt,
+            message: requestMessage.message,
+            createdAt: requestMessage.createdAt,
           },
+          confirmMessage: confirmMessage.message,
+          updatedAt: confirmMessage.createdAt,
         };
       } else if (oyuzuri.status === 'messaging') {
         return {

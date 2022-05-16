@@ -14,6 +14,7 @@ export interface IDetail {
   partner: {
     _id: ObjectId;
     imageUrl: string;
+    displayName: string;
     userName: string;
   };
   messages: IMessageSummary[];

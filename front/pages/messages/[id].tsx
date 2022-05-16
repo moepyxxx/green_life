@@ -139,7 +139,7 @@ const PostButton = styled.button`
   bottom: 72px;
   left: 0;
   width: 100%;
-  background-color: ${getColor("thin")};
+  background-color: ${getColor("base")};
   border: none;
   padding: 16px;
   color: ${getColor("primary")};

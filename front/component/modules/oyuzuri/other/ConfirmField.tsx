@@ -69,7 +69,7 @@ const ConfirmField = () => {
               main={`メッセージを確認して\nやりとりをしましょう！`}
               sub="オーナーからおゆずりOKが届いています。最終確認メッセージにOKしてやりとりをはじめましょう。やりとりは7日以内に完了させてください。"
             />
-            <Box bgColor="thin">
+            <Box bgColor="base">
               <Typography size="regular">{oyuzuri.confirmMessage}</Typography>
             </Box>
             <Spacing mt={6}>

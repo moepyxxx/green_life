@@ -17,7 +17,7 @@ export interface IApiOyuzuri {
     userName: string;
     displayName: string;
     message?: string;
-    createdAt?: string;
+    createdAt?: Date;
   }[];
   // statusが"confirm"の場合
   oyuzuriTargetUser?: {
@@ -26,11 +26,12 @@ export interface IApiOyuzuri {
     thumbnailUrl: string;
     userName: string;
     message?: string;
-    createdAt?: string;
+    createdAt?: Date;
   };
 
   messageContainerId?: string;
   isRequest?: boolean;
   isTargetUser?: boolean;
   confirmMessage?: string | null;
+  updatedAt?: Date;
 }

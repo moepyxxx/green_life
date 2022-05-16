@@ -15,6 +15,7 @@ import { IApiGreen } from "../../../pages/posts/interfaces/apiGreen";
 import CheckPin from "../common/CheckPin";
 import { TextAlign } from "../../../styles/components/TextAlign";
 import Shadow from "../../parts/popup/Shadow";
+import CloseButton from "../../parts/popup/CloseButton";
 
 type Props = {
   post: IPost;
@@ -160,7 +161,7 @@ const CreateStep2: React.FC<Props> = ({ post, setPost }) => {
             : 0
         }
       >
-        <CloseIcon onClick={cancelPin} />
+        <CloseButton click={cancelPin} />
         <TextAlign align="center">
           <Typography size="medium">greenの名前を教えてね</Typography>
         </TextAlign>
@@ -207,26 +208,6 @@ const Grid = styled.span`
   width: calc(100% / 6);
   height: calc(100% / 6);
   background-color: rgba(31, 71, 45, 0.36);
-`;
-
-const CloseIcon = styled.div`
-  position: absolute;
-  top: -16px;
-  right: -16px;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background-color: ${getColor("primary")};
-  border: 1px solid #fff;
-
-  &:after {
-    content: "×";
-    color: #fff;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
 `;
 
 export default CreateStep2;

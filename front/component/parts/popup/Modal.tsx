@@ -1,6 +1,7 @@
 import React, { ReactChild } from "react";
 import styled from "styled-components";
 import getColor from "../../../utility/getColor";
+import CloseButton from "./CloseButton";
 
 type Props = {
   isActive: boolean;
@@ -18,7 +19,7 @@ const Modal: React.FC<Props> = ({
   return (
     <>
       <InnerModal isActive={isActive} position={position}>
-        <CloseIcon onClick={closeAction} />
+        <CloseButton click={closeAction} />
         {children}
       </InnerModal>
     </>
@@ -41,24 +42,4 @@ const InnerModal = styled.div`
   border-radius: 8px;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   text-align: left;
-`;
-
-const CloseIcon = styled.div`
-  position: absolute;
-  top: -16px;
-  right: -16px;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background-color: ${getColor("primary")};
-  border: 1px solid #fff;
-
-  &:after {
-    content: "×";
-    color: #fff;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
 `;

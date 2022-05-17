@@ -45,7 +45,7 @@ const Menu = () => {
       <Link href="/posts/create" passHref>
         <Image src={LogoGreen} alt="ロゴ" />
       </Link>
-      <Link href="/" passHref>
+      <Link href="/messages" passHref>
         <Image src={LogoEmail} alt="ロゴ" />
       </Link>
       {isLogin ? (

@@ -124,8 +124,8 @@ export class MessageContainerService {
         const messageModel = await this.messageService.findById(messageId);
         const messageUser: TMessageUser =
           requestUser._id.toString() === messageModel.fromUserId.toString()
-            ? 'you'
-            : 'partner';
+            ? 'partner'
+            : 'you';
         return {
           id: messageModel._id,
           user: messageUser,

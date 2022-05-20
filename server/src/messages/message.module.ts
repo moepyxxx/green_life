@@ -11,17 +11,17 @@ import {
   MessageContainerSchema,
 } from 'src/messageContainers/messageContainer.schema';
 import { MessageController } from './message.controller';
-import { PostService } from 'src/posts/post.service';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: User.name, schema: UserSchema },
       { name: Message.name, schema: MessageSchema },
+      { name: MessageContainer.name, schema: MessageContainerSchema },
     ]),
     HttpModule,
   ],
   controllers: [MessageController],
-  providers: [UserService, MessageService],
+  providers: [UserService, MessageService, MessageContainerService],
 })
 export class MessageModule {}

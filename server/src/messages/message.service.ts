@@ -1,4 +1,10 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  forwardRef,
+  HttpException,
+  HttpStatus,
+  Inject,
+  Injectable,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Schema, Types } from 'mongoose';
 import { MessageContainerService } from 'src/messageContainers/messageContainer.service';
@@ -10,6 +16,7 @@ import { Message, MessageDocument, MessageType } from './message.schema';
 export class MessageService {
   constructor(
     @InjectModel(Message.name) private messageModel: Model<MessageDocument>,
+    @Inject(forwardRef(() => MessageContainerService))
     private readonly messageContainerService: MessageContainerService,
     private readonly userService: UserService,
   ) {}

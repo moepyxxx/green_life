@@ -19,8 +19,6 @@ import { ICreate } from './interfaces/create';
 import { ICreate as IOyuzuriCreate } from '../oyuzuris/interfaces/create';
 import { OyuzuriService } from 'src/oyuzuris/oyuzuri.service';
 import { Oyuzuri } from 'src/oyuzuris/oyuzuri.schema';
-import { IOyuzuriRequestUser } from './interfaces/oyuzuriRequestUser';
-import { MessageService } from 'src/messages/message.service';
 
 export interface IfindSummaryAllResult {
   page: number;
@@ -39,7 +37,6 @@ export class PostService {
     private readonly userService: UserService,
     private readonly greenService: GreenService,
     private readonly oyuzuriService: OyuzuriService,
-    private readonly messageService: MessageService,
   ) {}
 
   async findSummaryAll(

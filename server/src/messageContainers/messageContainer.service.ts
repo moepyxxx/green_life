@@ -1,6 +1,12 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  forwardRef,
+  HttpException,
+  HttpStatus,
+  Inject,
+  Injectable,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
+import { Model, Schema, Types } from 'mongoose';
 import { MessageService } from 'src/messages/message.service';
 import { UserService } from 'src/users/user.service';
 import { ICreate } from './interfaces/create';
@@ -17,6 +23,7 @@ export class MessageContainerService {
     @InjectModel(MessageContainer.name)
     private messageContainerModel: Model<MessageContainerDocument>,
     private readonly userService: UserService,
+    @Inject(forwardRef(() => MessageService))
     private readonly messageService: MessageService,
   ) {}
 
@@ -117,8 +124,8 @@ export class MessageContainerService {
         const messageModel = await this.messageService.findById(messageId);
         const messageUser: TMessageUser =
           requestUser._id.toString() === messageModel.fromUserId.toString()
-            ? 'you'
-            : 'partner';
+            ? 'partner'
+            : 'you';
         return {
           id: messageModel._id,
           user: messageUser,
@@ -138,5 +145,29 @@ export class MessageContainerService {
       },
       messages,
     };
+  }
+
+  /**
+   * メッセージを追加する
+   * @param messageContainerId
+   * @param messageId
+   */
+  async addMessage(
+    messageContainerId: Schema.Types.ObjectId | string,
+    messageId: Schema.Types.ObjectId,
+  ): Promise<MessageContainer> {
+    await this.messageContainerModel.updateOne(
+      { id: messageContainerId },
+      {
+        $push: {
+          messageIds: messageId,
+        },
+      },
+    );
+    return await this.messageContainerModel.findById(messageContainerId);
+  }
+
+  async findById(id: string): Promise<MessageContainer> {
+    return await this.messageContainerModel.findById(id);
   }
 }

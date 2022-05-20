@@ -21,15 +21,20 @@ import { IApiMessageContainerDetail } from "./interfaces/apiMessageDetail";
 import { Flex } from "../../styles/components/Flex";
 import Box from "../../component/parts/Box";
 import getShadow from "../../utility/getShadow";
+import usePost from "../../utility/customhooks/usePost";
+import useToast from "../../utility/customhooks/useToast";
 
 export default function MessagesIndex() {
   const apiFetch = useFetch();
+  const apiPost = usePost();
+  const toast = useToast();
   const router = useRouter();
 
   const [isCautionActive, setIsCautionActive] = useState<boolean>(true);
   const [isModalActive, setIsModalActive] = useState<boolean>(false);
   const [messageContainer, setMessageContainer] =
     useState<IApiMessageContainerDetail>();
+  const [editingMessage, setEditingMessage] = useState<string>("");
 
   useEffect(() => {
     initialize();
@@ -43,7 +48,34 @@ export default function MessagesIndex() {
     setMessageContainer(apiMessageContainer);
   };
 
-  const sendMessage = () => {};
+  const sendMessage = async () => {
+    setIsModalActive(false);
+    const result = await apiPost<
+      {
+        message: string;
+        messageContainerId: string;
+      },
+      boolean
+    >(
+      "messages",
+      {
+        message: editingMessage,
+        messageContainerId: messageContainer._id,
+      },
+      true
+    );
+
+    if (result) {
+      toast({ text: "メッセージを送信しました" });
+      initialize();
+    }
+    setEditingMessage("");
+  };
+
+  const onChangeEditingMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const message = e.target.value;
+    setEditingMessage(message);
+  };
 
   return (
     <DefaultTemplate>
@@ -111,7 +143,7 @@ export default function MessagesIndex() {
           <>
             <ReadTitle main="メッセージを送信" />
             <Spacing mt={5} mb={5}>
-              <TextArea change={() => console.log("change")} text="" />
+              <TextArea change={onChangeEditingMessage} text={editingMessage} />
             </Spacing>
             <TextAlign align="center">
               <Button

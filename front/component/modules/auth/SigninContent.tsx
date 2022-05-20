@@ -13,7 +13,6 @@ import { Spacing } from "../../../styles/components/Spacing";
 
 import useLogin from "../../../utility/customhooks/useLogin";
 import usePost from "../../../utility/customhooks/usePost";
-import useIsLogin from "../../../utility/customhooks/useIsLogin";
 
 import { ISignin } from "../../../pages/interface/signin";
 
@@ -22,7 +21,6 @@ const SigninContent: React.FC = () => {
 
   const apiPost = usePost();
   const login = useLogin();
-  const [isLogin] = useIsLogin();
 
   const [signinUser, setSigninUser] = useState<ISignin>({
     email: "",
@@ -62,9 +60,7 @@ const SigninContent: React.FC = () => {
     }
 
     login(result.data.idToken);
-    if (isLogin) {
-      router.push(`/?type=signin`);
-    }
+    router.push(`/?type=signin`);
   };
 
   return (

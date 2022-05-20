@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
+import { Model, Schema, Types } from 'mongoose';
 import { MessageService } from 'src/messages/message.service';
 import { UserService } from 'src/users/user.service';
 import { ICreate } from './interfaces/create';
@@ -138,5 +138,29 @@ export class MessageContainerService {
       },
       messages,
     };
+  }
+
+  /**
+   * メッセージを追加する
+   * @param messageContainerId
+   * @param messageId
+   */
+  async addMessage(
+    messageContainerId: Schema.Types.ObjectId | string,
+    messageId: Schema.Types.ObjectId,
+  ): Promise<MessageContainer> {
+    await this.messageContainerModel.updateOne(
+      { id: messageContainerId },
+      {
+        $push: {
+          messageIds: messageId,
+        },
+      },
+    );
+    return await this.messageContainerModel.findById(messageContainerId);
+  }
+
+  async findById(id: string): Promise<MessageContainer> {
+    return await this.messageContainerModel.findById(id);
   }
 }

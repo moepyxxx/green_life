@@ -12,7 +12,7 @@ type Props = {
   setImageFile: (file: File) => void;
 };
 
-const CreateStep1: React.FC<Props> = ({ post, setPost, setImageFile }) => {
+const CreateStep1: React.FC<Props> = ({ setImageFile }) => {
   const [isImageSelected, setIsImageSelected] = useState<boolean>(false);
 
   return (
@@ -30,10 +30,5 @@ const CreateStep1: React.FC<Props> = ({ post, setPost, setImageFile }) => {
     </>
   );
 };
-
-const FlexWrap = styled.div`
-  width: calc(50% - 8px);
-  margin-bottom: 16px;
-`;
 
 export default CreateStep1;

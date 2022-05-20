@@ -39,9 +39,10 @@ const CreateStep2: React.FC<Props> = ({ post, setPost }) => {
     if (!post.imagePath) return;
 
     // 時間が短すぎるとバケットが404を返してしまうため処理…
+    // これはセンスない…
     setTimeout(() => {
       setImageLoading(false);
-    }, 1000);
+    }, 3000);
   }, [post.imagePath]);
 
   useEffect(() => {
